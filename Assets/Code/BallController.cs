@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
     public float moveSpeed;
-    public float gravity = 0.02f;
+    public float gravity = 0.05f;
     float direction = 1;
     float momentum = 0;
     public GameObject debugDot;
@@ -26,33 +26,18 @@ public class BallController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col) {
         Vector2 contactP = col.GetContact(0).point;
-        Instantiate(debugDot, contactP, Quaternion.identity);
-
-        /*
-        if (col.GetContact(1).otherCollider.transform.position.x < contactP.x) {
-            direction = -1;
-            Debug.Log("hit right wall");
-            
-        } else if (col.GetContact(1).otherCollider.transform.position.x > contactP.x) {
-            direction = 1;
-            Debug.Log("hit left wall");
-        }
-        
-        if (col.GetContact(1).otherCollider.transform.position.y < contactP.y
-            || col.GetContact(1).otherCollider.transform.position.y > contactP.y) {
-            momentum = Mathf.Abs(momentum);
-            //momentum *= -1;
-            Debug.Log("hit floor or ceiling");
-            
-        }
-        */
 
         float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;
         float deltaY = col.GetContact(0).otherCollider.transform.position.y - contactP.y;
+        Debug.Log("deltaX:" + deltaX);
+        Debug.Log("deltaY:" + deltaY);
+
+
+        Instantiate(debugDot, contactP, Quaternion.identity);
 
         if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY)) {
-            momentum = Mathf.Abs(momentum);
-            //momentum *= -1;
+            //momentum = Mathf.Abs(momentum);
+            momentum *= -1;
             Debug.Log("hit floor or ceiling");
         } else if (Mathf.Abs(deltaX) > Mathf.Abs(deltaY)) {
             if (deltaX > 0) {
@@ -63,8 +48,6 @@ public class BallController : MonoBehaviour {
                 Debug.Log("hit right wall");
             }
         }
-        
 
-        //col.GetContact(0).point.x
     }
 }
