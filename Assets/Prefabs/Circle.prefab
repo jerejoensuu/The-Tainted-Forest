@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  gravity: 0.02
+  debugDot: {fileID: 9022102137030400920, guid: 322822163eceaa04183b413478e2e6a2, type: 3}
 --- !u!50 &-3708285950826091245
 Rigidbody2D:
   serializedVersion: 4
@@ -149,9 +151,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4032727282863226376}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
