@@ -18,7 +18,6 @@ public class BallController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         
-        //transform.Translate(new Vector3(direction, 0 , 0) * moveSpeed * Time.deltaTime);
         GetComponent<Rigidbody2D>().MovePosition(transform.position + new Vector3(direction, momentum , 0) * moveSpeed * Time.deltaTime);
     
         momentum -= gravity;
@@ -37,6 +36,7 @@ public class BallController : MonoBehaviour {
 
         if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY)) {
             //momentum = Mathf.Abs(momentum);
+            momentum += gravity;
             momentum *= -1;
             Debug.Log("hit floor or ceiling");
         } else if (Mathf.Abs(deltaX) > Mathf.Abs(deltaY)) {
