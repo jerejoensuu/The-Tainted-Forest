@@ -462,7 +462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657988138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.3, y: -2.56, z: 0}
+  m_LocalPosition: {x: 5.7, y: 7.65, z: 0}
   m_LocalScale: {x: 1.6759986, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -475,6 +475,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3925706416311541034, guid: b720190ff40c505408e0d359fc1c2397, type: 3}
+      propertyPath: gravity
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3925706416311541034, guid: b720190ff40c505408e0d359fc1c2397, type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4032727282863226376, guid: b720190ff40c505408e0d359fc1c2397, type: 3}
       propertyPath: m_Name
       value: Circle
@@ -497,7 +505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4032727282863226380, guid: b720190ff40c505408e0d359fc1c2397, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4032727282863226380, guid: b720190ff40c505408e0d359fc1c2397, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1051,7 +1059,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881384563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.67, y: -2.7, z: 0}
+  m_LocalPosition: {x: -3.39, y: 7.32, z: 0}
   m_LocalScale: {x: 1.6759986, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
