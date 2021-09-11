@@ -24,6 +24,10 @@ public class BallController : MonoBehaviour {
         GetComponent<Rigidbody2D>().MovePosition(transform.position + new Vector3(direction, momentum , 0) * moveSpeed * Time.deltaTime);
         momentum -= gravity;
 
+        if (transform.position.x > 10 || transform.position.x < -10) {
+            Destroy(gameObject);
+        }
+
     }
 
     void Update() {
@@ -70,7 +74,7 @@ public class BallController : MonoBehaviour {
             if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY)) {
                 momentum += gravity; //counter gravity's effect during the frame before colliding to stop the ball's momentum increasing
                 momentum *= -1;
-                Debug.Log("hit floor or ceiling");
+                //Debug.Log("hit floor or ceiling");
             } else if (Mathf.Abs(deltaX) > Mathf.Abs(deltaY)) {
                 if (deltaX > 0) {
                     direction = 1;
