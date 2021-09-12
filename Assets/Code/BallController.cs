@@ -39,28 +39,26 @@ public class BallController : MonoBehaviour {
             if(hit.collider.gameObject.transform.position == transform.position) {
                 SpawnBalls(-1, size * 0.25f);
                 SpawnBalls(1, size * 0.25f);
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
             
         }
             
     }
 
-    public GameObject SpawnBalls(float direction, float size) {
-        GameObject newBall = Instantiate( Circle, transform.position, Quaternion.identity) as GameObject;
+    void SpawnBalls(float direction, float size) {
+        GameObject newBall = Instantiate(Circle, transform.position, Quaternion.identity) as GameObject;
 
         newBall.GetComponent<BallController>().direction = direction;
         newBall.GetComponent<BallController>().momentum = 1.5f;
         newBall.GetComponent<BallController>().size  = size;
-
-        return newBall;
     }
 
     void OnCollisionEnter2D(Collision2D col) {
 
-        //Debug.Log("collider:" + col.collider.GetType());
-        //Debug.Log("otherCollider:" + col.otherCollider.GetType());
-        if (col.collider.GetType() != col.otherCollider.GetType()) {
+        Debug.Log("collider:" + col.collider.GetType());
+        Debug.Log("otherCollider:" + col.otherCollider.GetType());
+        if (col.collider.tag != "Ball") {
             Vector2 contactP = col.GetContact(0).point;
 
             float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;
