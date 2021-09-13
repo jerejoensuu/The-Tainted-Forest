@@ -21,11 +21,13 @@ public class BallController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         
-        GetComponent<Rigidbody2D>().MovePosition(transform.position + new Vector3(direction, momentum , 0) * moveSpeed * Time.deltaTime);
+        //GetComponent<Rigidbody2D>().MovePosition(transform.position + new Vector3(direction, momentum , 0) * moveSpeed * Time.deltaTime);
+        GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum , 0) * Time.deltaTime;
         momentum -= gravity;
 
-        if (transform.position.x > 10 || transform.position.x < -10) {
+        if (transform.position.x > 11 || transform.position.x < -11) {
             Destroy(gameObject);
+            Debug.Log("BALL OFF-SCREEN");
         }
 
     }
@@ -37,8 +39,8 @@ public class BallController : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
  
             if(hit.collider.gameObject.transform.position == transform.position) {
-                SpawnBalls(-1, size * 0.25f);
-                SpawnBalls(1, size * 0.25f);
+                SpawnBalls(-1, size * 0.45f);
+                SpawnBalls(1, size * 0.45f);
                 Destroy(gameObject);
             }
             
@@ -50,16 +52,18 @@ public class BallController : MonoBehaviour {
         GameObject newBall = Instantiate(Circle, transform.position, Quaternion.identity) as GameObject;
 
         newBall.GetComponent<BallController>().direction = direction;
-        newBall.GetComponent<BallController>().momentum = 1.5f;
+        newBall.GetComponent<BallController>().momentum = gravity * 33;
         newBall.GetComponent<BallController>().size  = size;
     }
 
     void OnCollisionEnter2D(Collision2D col) {
 
-        Debug.Log("collider:" + col.collider.GetType());
-        Debug.Log("otherCollider:" + col.otherCollider.GetType());
+        //Debug.Log("collider:" + col.collider.GetType());
+        //Debug.Log("otherCollider:" + col.otherCollider.GetType());
         if (col.collider.tag != "Ball") {
             Vector2 contactP = col.GetContact(0).point;
+
+            
 
             float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;
             float deltaY = col.GetContact(0).otherCollider.transform.position.y - contactP.y;
@@ -72,14 +76,14 @@ public class BallController : MonoBehaviour {
             if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY)) {
                 momentum += gravity; //counter gravity's effect during the frame before colliding to stop the ball's momentum increasing
                 momentum *= -1;
-                //Debug.Log("hit floor or ceiling");
+                // Debug.Log("hit floor or ceiling");
             } else if (Mathf.Abs(deltaX) > Mathf.Abs(deltaY)) {
                 if (deltaX > 0) {
                     direction = 1;
-                    //Debug.Log("hit left wall");
+                    // Debug.Log("hit left wall");
                 } else {
                     direction = -1;
-                    //Debug.Log("hit right wall");
+                    // Debug.Log("hit right wall");
                 }
             }
         }
