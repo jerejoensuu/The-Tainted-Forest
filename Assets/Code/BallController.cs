@@ -73,7 +73,7 @@ public class BallController : MonoBehaviour {
         }
 
         // Collision with player projectiles
-        else if (col.gameObject.tag == "Projectile") {
+        if (col.gameObject.tag == "Projectile") {
             Destroy(col.gameObject);
             DestroyBall();
         }

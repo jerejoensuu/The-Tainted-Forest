@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public float movementSpeed;
@@ -25,6 +26,10 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         if (Input.GetButtonDown("Fire1") && ammoCount > 0) {
             Attack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
