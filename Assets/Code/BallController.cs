@@ -8,7 +8,9 @@ public class BallController : MonoBehaviour {
     public float gravity = 0.05f;
     float direction = 1;
     public float size;
+    [Tooltip("Ball spawn size percentage.")]
     public float spawnSizeMultiplier = 0.5f;
+    [Tooltip("Spawn new balls only if current size >= this.")]
     public float minimumSize;
     float momentum = 0;
     public GameObject debugDot;

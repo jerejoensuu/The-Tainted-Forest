@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour {
     public float movementSpeed;
     // public float gravity;
     public int projectileType = 0;
+
+    [Tooltip("Adjust starting height of spawned projectiles.")]
     public float projectileOffset;
     Rigidbody2D rb;
 

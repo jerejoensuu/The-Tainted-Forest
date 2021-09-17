@@ -91,9 +91,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1670352870348039418}
+  - component: {fileID: 1670352870348039416}
   - component: {fileID: 1670352870348039417}
   - component: {fileID: 1670352870348039423}
-  - component: {fileID: 1670352870348039416}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -116,6 +116,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1670352870348039416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670352870348039422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41c7a2db8f7c6f45a6ea6439104193c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 8
+  projectileType: 0
+  projectileOffset: 0
+  grapplePrefab: {fileID: 6995751139742916582, guid: c979113742b4f2f41b4fcc0a33998985, type: 3}
 --- !u!50 &1670352870348039417
 Rigidbody2D:
   serializedVersion: 4
@@ -163,19 +179,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &1670352870348039416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670352870348039422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d41c7a2db8f7c6f45a6ea6439104193c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 8
-  projectileType: 0
-  projectileOffset: 0.5
-  grapplePrefab: {fileID: 6995751139742916582, guid: c979113742b4f2f41b4fcc0a33998985, type: 3}
