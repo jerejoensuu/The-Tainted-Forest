@@ -1,23 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour {
     public float movementSpeed;
     // public float gravity;
+
+    public int ammoCount = 10;
     public int projectileType = 0;
 
     [Tooltip("Adjust starting height of spawned projectiles.")]
     public float projectileOffset;
     Rigidbody2D rb;
-
+    TextMeshPro ammoText;
     public GameObject grapplePrefab;
+    
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        ammoText = GetComponentInChildren<TextMeshPro>();
+        ammoText.text = ammoCount.ToString();
     }
 
     void Update() {
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButtonDown("Fire1") && ammoCount > 0) {
             Attack();
         }
     }
@@ -33,12 +39,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Attack() {
+        ammoCount--;
+        ammoText.text = ammoCount.ToString();
         switch (projectileType) {
             case 0:
                 GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y + projectileOffset, 0f), Quaternion.identity) as GameObject;
                 break;
             default:
-                Debug.Log("No projectile type");
+                Debug.Log("Invalid projectile type");
                 break;
         }
     }

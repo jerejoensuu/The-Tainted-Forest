@@ -49,7 +49,7 @@ MonoBehaviour:
   moveSpeed: 350
   gravity: 15
   size: 2
-  spawnSizeMultiplier: 0.5
+  spawnSizeMultiplier: 0.45
   minimumSize: 0.5
   debugDot: {fileID: 9022102137030400920, guid: 322822163eceaa04183b413478e2e6a2, type: 3}
   circlePrefab: {fileID: 4032727282863226376}
