@@ -20,7 +20,6 @@ public class BallController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         transform.localScale = new Vector3(size, size, 1);
-        Debug.Log("Size: " + size);
     }
 
     // Update is called once per frame
@@ -51,7 +50,6 @@ public class BallController : MonoBehaviour {
 
     void DestroyBall() {
         if (size >= minimumSize) {
-            Debug.Log(size);
             SpawnBalls(-1, size * spawnSizeMultiplier);
             SpawnBalls(1, size * spawnSizeMultiplier);
         }
@@ -70,7 +68,7 @@ public class BallController : MonoBehaviour {
 
         // Collision with player
         if (col.gameObject.layer == LayerMask.NameToLayer("PlayerTrigger")) {
-            Debug.Log("Player is dead");
+            //Debug.Log("Player is dead");
             col.gameObject.transform.parent.GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
         }
 
