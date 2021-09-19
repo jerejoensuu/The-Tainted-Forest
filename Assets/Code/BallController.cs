@@ -13,6 +13,10 @@ public class BallController : MonoBehaviour {
     [Tooltip("Spawn new balls only if current size >= this.")]
     public float minimumSize;
     float momentum = 0;
+    float lastMomentum = 0;
+    float lastY = 0;
+    float maxY = 0;
+    int stationaryYCounter = 0;
     public GameObject debugDot;
     public GameObject circlePrefab;
 
@@ -25,10 +29,32 @@ public class BallController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         
-        //GetComponent<Rigidbody2D>().MovePosition(transform.position + new Vector3(direction, momentum , 0) * moveSpeed * Time.deltaTime);
         GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum , 0) * Time.deltaTime;
+        lastMomentum = momentum;
         momentum -= gravity;
+        
+        // Reset momentum if a ball is detected moving on a flat surface (ie. not bouncing)
+        if (lastY == gameObject.transform.localPosition.y) {
+            stationaryYCounter++;
+            if (stationaryYCounter > 3) {
+                momentum = 0;
+                stationaryYCounter = 0;
+                //Debug.Log("Flat surface detected");
+            }
+        } else {
+            stationaryYCounter = 0;
+        }
+        lastY = gameObject.transform.localPosition.y;
 
+        //debug:
+        /*
+        if (gameObject.transform.localPosition.y > maxY) {
+            maxY = gameObject.transform.localPosition.y;
+            Debug.Log("Highest Y achieved: " + maxY);
+        }
+        */
+
+        // Destroy off-screen balloons
         if (transform.position.x > 11 || transform.position.x < -11) {
             Destroy(gameObject);
             Debug.Log("BALL OFF-SCREEN");
@@ -90,14 +116,17 @@ public class BallController : MonoBehaviour {
             //Debug.Log("deltaX:" + deltaX);
             //Debug.Log("deltaY:" + deltaY);
 
-
-            Instantiate(debugDot, contactP, Quaternion.identity);
+            Instantiate(debugDot, contactP, Quaternion.identity); //place debugDot to show collision point
 
             if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY)) {
-                momentum += gravity; //counter gravity's effect during the frame before colliding to stop the ball's momentum increasing
-                momentum *= -1;
-                // Debug.Log("hit floor or ceiling");
-            } else if (Mathf.Abs(deltaX) > Mathf.Abs(deltaY)) {
+                if (deltaY > 0) {
+                    momentum = Mathf.Abs(lastMomentum + gravity);
+                    Debug.Log("hit floor");
+                } else {
+                    momentum = Mathf.Abs(lastMomentum + gravity) * -1;
+                    Debug.Log("hit ceiling");
+                }
+            } else  {
                 if (deltaX > 0) {
                     direction = 1;
                     // Debug.Log("hit left wall");
