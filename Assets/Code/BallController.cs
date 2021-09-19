@@ -8,14 +8,18 @@ public class BallController : MonoBehaviour {
     public float gravity = 0.05f;
     float direction = 1;
     public float size;
+    [Tooltip("Ball spawn size percentage.")]
+    public float spawnSizeMultiplier = 0.5f;
+    [Tooltip("Spawn new balls only if current size >= this.")]
+    public float minimumSize;
     float momentum = 0;
     public GameObject debugDot;
-    public GameObject Circle;
+    public GameObject circlePrefab;
 
 
     // Start is called before the first frame update
     void Start() {
-        transform.localScale = new Vector3(size,size,1);
+        transform.localScale = new Vector3(size, size, 1);
     }
 
     // Update is called once per frame
@@ -37,33 +41,49 @@ public class BallController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
 
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
- 
-            if(hit.collider.gameObject.transform.position == transform.position) {
-                SpawnBalls(-1, size * 0.45f);
-                SpawnBalls(1, size * 0.45f);
-                Destroy(gameObject);
+            
+            if (hit && hit.collider.gameObject.transform.position == transform.position) {
+                    DestroyBall();
             }
-            
-        }
-            
+        }   
     }
 
-    void SpawnBalls(float direction, float size) {
-        GameObject newBall = Instantiate(Circle, transform.position, Quaternion.identity) as GameObject;
+    void DestroyBall() {
+        if (size >= minimumSize) {
+            SpawnBalls(-1, size * spawnSizeMultiplier);
+            SpawnBalls(1, size * spawnSizeMultiplier);
+        }
+        Destroy(gameObject);
+    }
+
+    void SpawnBalls(float direction, float newSize) {
+        GameObject newBall = Instantiate(circlePrefab, transform.position, Quaternion.identity) as GameObject;
 
         newBall.GetComponent<BallController>().direction = direction;
         newBall.GetComponent<BallController>().momentum = gravity * 33;
-        newBall.GetComponent<BallController>().size  = size;
+        newBall.GetComponent<BallController>().size = newSize;
     }
 
+    void OnTriggerEnter2D(Collider2D col) {
+
+        // Collision with player
+        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerTrigger")) {
+            //Debug.Log("Player is dead");
+            col.gameObject.transform.parent.GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
+        }
+
+        // Collision with player projectiles
+        if (col.gameObject.tag == "Projectile") {
+            Destroy(col.gameObject);
+            DestroyBall();
+        }
+    }
     void OnCollisionEnter2D(Collision2D col) {
 
         //Debug.Log("collider:" + col.collider.GetType());
         //Debug.Log("otherCollider:" + col.otherCollider.GetType());
-        if (col.collider.tag != "Ball") {
+        if (col.collider.tag == "Wall") {
             Vector2 contactP = col.GetContact(0).point;
-
-            
 
             float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;
             float deltaY = col.GetContact(0).otherCollider.transform.position.y - contactP.y;
