@@ -19,5 +19,9 @@ public class Grapple : MonoBehaviour {
         if (col.gameObject.tag == "Wall") {
             Destroy(transform.parent.gameObject);
         }
+
+        if (col.gameObject.tag == "Ball") {
+            Destroy(transform.parent.gameObject);
+        }
     }
 }

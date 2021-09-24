@@ -12,6 +12,7 @@ public class BallController : MonoBehaviour {
     public float spawnSizeMultiplier = 0.5f;
     [Tooltip("Spawn new balls only if current size >= this.")]
     public float minimumSize;
+    bool isDestroyed = false;
     float momentum = 0;
     float lastMomentum = 0;
     float lastY = 0;
@@ -75,11 +76,14 @@ public class BallController : MonoBehaviour {
     }
 
     void DestroyBall() {
-        if (size >= minimumSize) {
-            SpawnBalls(-1, size * spawnSizeMultiplier);
-            SpawnBalls(1, size * spawnSizeMultiplier);
+        if (!isDestroyed) {
+            isDestroyed = true;
+            if (size >= minimumSize) {
+                SpawnBalls(-1, size * spawnSizeMultiplier);
+                SpawnBalls(1, size * spawnSizeMultiplier);
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 
     void SpawnBalls(float direction, float newSize) {
@@ -100,7 +104,6 @@ public class BallController : MonoBehaviour {
 
         // Collision with player projectiles
         if (col.gameObject.tag == "Projectile") {
-            Destroy(col.gameObject);
             DestroyBall();
         }
     }
