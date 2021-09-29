@@ -16,7 +16,6 @@ public class BallController : MonoBehaviour {
     float momentum = 0;
     float lastMomentum = 0;
     float lastY = 0;
-    float maxY = 0;
     int stationaryYCounter = 0;
     public GameObject debugDot;
     public GameObject circlePrefab;
@@ -40,20 +39,11 @@ public class BallController : MonoBehaviour {
             if (stationaryYCounter > 3) {
                 momentum = 0;
                 stationaryYCounter = 0;
-                //Debug.Log("Flat surface detected");
             }
         } else {
             stationaryYCounter = 0;
         }
         lastY = gameObject.transform.localPosition.y;
-
-        //debug:
-        /*
-        if (gameObject.transform.localPosition.y > maxY) {
-            maxY = gameObject.transform.localPosition.y;
-            Debug.Log("Highest Y achieved: " + maxY);
-        }
-        */
 
         // Destroy off-screen balloons
         if (transform.position.x > 11 || transform.position.x < -11) {
@@ -109,33 +99,25 @@ public class BallController : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D col) {
 
-        //Debug.Log("collider:" + col.collider.GetType());
-        //Debug.Log("otherCollider:" + col.otherCollider.GetType());
         if (col.collider.tag == "Wall") {
             Vector2 contactP = col.GetContact(0).point;
 
             float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;
             float deltaY = col.GetContact(0).otherCollider.transform.position.y - contactP.y;
-            //Debug.Log("deltaX:" + deltaX);
-            //Debug.Log("deltaY:" + deltaY);
 
             Instantiate(debugDot, contactP, Quaternion.identity); //place debugDot to show collision point
 
             if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY)) {
                 if (deltaY > 0) {
                     momentum = Mathf.Abs(lastMomentum + gravity);
-                    Debug.Log("hit floor");
                 } else {
                     momentum = Mathf.Abs(lastMomentum + gravity) * -1;
-                    Debug.Log("hit ceiling");
                 }
             } else  {
                 if (deltaX > 0) {
                     direction = 1;
-                    // Debug.Log("hit left wall");
                 } else {
                     direction = -1;
-                    // Debug.Log("hit right wall");
                 }
             }
         }
