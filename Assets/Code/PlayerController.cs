@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody2D rb;
     TextMeshPro ammoText;
     public GameObject grapplePrefab;
+    private int health = 3;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -54,5 +55,23 @@ public class PlayerController : MonoBehaviour {
                 Debug.Log("Invalid projectile type");
                 break;
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+
+        if (col.gameObject.tag == "Ball") {
+            Debug.Log("Player hit");
+            Debug.Log("Health: " + health);
+            health--;
+            if (health <= 0) {
+                Debug.Log("Player dead");
+                GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            }
+        }
+
+    }
+
+    void HitPlayer() {
+        
     }
 }

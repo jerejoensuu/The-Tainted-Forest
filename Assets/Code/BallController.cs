@@ -85,13 +85,6 @@ public class BallController : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-
-        // Collision with player
-        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerTrigger")) {
-            //Debug.Log("Player is dead");
-            col.gameObject.transform.parent.GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
-        }
-
         // Collision with player projectiles
         if (col.gameObject.tag == "Projectile") {
             DestroyBall();
