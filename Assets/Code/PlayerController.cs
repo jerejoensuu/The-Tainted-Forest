@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Movement(Input.GetAxis("Horizontal"));
+        Movement(Input.GetAxisRaw("Horizontal"));
     }
 
     void Movement(float movementDirection) {
