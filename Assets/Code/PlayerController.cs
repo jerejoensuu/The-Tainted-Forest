@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     TextMeshPro ammoText;
     public GameObject grapplePrefab;
     private int health = 3;
+    private bool playerHit = false;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -41,7 +42,8 @@ public class PlayerController : MonoBehaviour {
     void Movement(float movementDirection) {
         Vector3 movement = new Vector3(movementDirection * movementSpeed, 0, 0);
 
-        rb.MovePosition(transform.position + movement * Time.deltaTime);
+        //rb.MovePosition(transform.position + movement * Time.deltaTime);
+        rb.velocity = movement * Time.deltaTime;
     }
 
     void Attack() {
@@ -59,19 +61,25 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col) {
 
-        if (col.gameObject.tag == "Ball") {
-            Debug.Log("Player hit");
-            Debug.Log("Health: " + health);
-            health--;
-            if (health <= 0) {
-                Debug.Log("Player dead");
-                GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
-            }
+        if (col.gameObject.tag == "Ball" && !playerHit) {
+            HitPlayer();
         }
 
     }
 
     void HitPlayer() {
-        
+        Debug.Log("Player hit");
+        Debug.Log("Health: " + health);
+        health--;
+
+        playerHit = true;
+        rb.gravityScale = 1f;
+        rb.AddForce(new Vector2(50, 50));
+
+        // Player dead:
+        if (health <= 0) {
+            Debug.Log("Player dead");
+            GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
+        }
     }
 }
