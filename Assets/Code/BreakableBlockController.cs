@@ -5,9 +5,11 @@ using UnityEngine;
 public class BreakableBlockController : MonoBehaviour {
 
     private ParticleSystem particle;
+    private SpriteRenderer sr;
 
     void Awake() {
-        particle = GetComponentInChildren<ParticleSystem>();   
+        particle = GetComponentInChildren<ParticleSystem>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void OnTriggerEnter2D(Collider2D col) {
@@ -19,6 +21,7 @@ public class BreakableBlockController : MonoBehaviour {
 
     IEnumerator Break() {
         particle.Play();
+        sr.enabled = false;
 
         yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
         Destroy(gameObject);
