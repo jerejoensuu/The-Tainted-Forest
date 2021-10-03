@@ -98,7 +98,8 @@ public class BallController : MonoBehaviour {
             float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;
             float deltaY = col.GetContact(0).otherCollider.transform.position.y - contactP.y;
 
-            Instantiate(debugDot, contactP, Quaternion.identity); //place debugDot to show collision point
+            //place debugDot to show collision point
+            //Instantiate(debugDot, contactP, Quaternion.identity);
 
             if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY)) {
                 if (deltaY > 0) {
