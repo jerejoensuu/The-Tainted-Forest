@@ -41,31 +41,27 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Vector3 movement = new Vector3(0f, 0f, 0f);
+        Vector3 movement = Walk(Input.GetAxis("Horizontal"));
         if (canClimb && Input.GetAxis("Vertical") != 0) {
             climbing = true;
         }
         if (climbing) {
-            movement += Climbing();
+            movement += Climb(Input.GetAxis("Vertical"));
         }
         else {
             movement += new Vector3(0f, -gravity, 0f);
         }
 
-        movement += Movement();
         rb.MovePosition(transform.position + movement * Time.deltaTime);
     }
 
-    Vector3 Movement() {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal") * movementSpeed, 0f, 0f);
-
-        //rb.MovePosition(transform.position + movement * Time.deltaTime);
-
-        return move;
+    Vector3 Walk(float walkingDirection) {
+        Vector3 walk = new Vector3(walkingDirection * movementSpeed, 0f, 0f);
+        return walk;
     }
 
-    Vector3 Climbing() {
-        Vector3 climb = new Vector3(0, Input.GetAxis("Vertical") * climbingSpeed, 0);
+    Vector3 Climb(float climbingDirection) {
+        Vector3 climb = new Vector3(0, climbingDirection * climbingSpeed, 0);
 
         return climb;
     }
