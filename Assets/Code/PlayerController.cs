@@ -19,12 +19,9 @@ public class PlayerController : MonoBehaviour {
     Rigidbody2D rb;
     TextMeshPro ammoText;
     public GameObject grapplePrefab;
-
-    void Awake() {
-        SemisolidPlatform.playerObjects.Add(this.gameObject);
-    }
     
     void Start() {
+        SemisolidPlatform.playerObjects.Add(this.gameObject);
         rb = GetComponent<Rigidbody2D>();
         ammoText = GetComponentInChildren<TextMeshPro>();
         ammoText.text = ammoCount.ToString();
