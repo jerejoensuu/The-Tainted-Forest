@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour {
 
     Vector3 Climb(float climbingDirection) {
         Vector3 climb = new Vector3(0, climbingDirection * climbingSpeed, 0);
-
         return climb;
     }
 
