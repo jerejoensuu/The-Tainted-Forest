@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour {
     Rigidbody2D rb;
     TextMeshPro ammoText;
     public GameObject grapplePrefab;
+
+    void Awake() {
+        SemisolidPlatform.playerObjects.Add(this.gameObject);
+    }
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
