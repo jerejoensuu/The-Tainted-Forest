@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public float movementSpeed;
-    // public float gravity;
+    public float gravity;
+    public bool canClimb = false;
+    public bool climbing = false;
+    public float climbingSpeed;
 
     public int ammoCount = 10;
     public int projectileType = 0;
@@ -34,13 +37,33 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Movement(Input.GetAxis("Horizontal"));
+        Vector3 movement = new Vector3(0f, 0f, 0f);
+        if (canClimb && Input.GetAxis("Vertical") != 0) {
+            climbing = true;
+        }
+        if (climbing) {
+            movement += Climbing();
+        }
+        else {
+            movement += new Vector3(0f, -gravity, 0f);
+        }
+
+        movement += Movement();
+        rb.MovePosition(transform.position + movement * Time.deltaTime);
     }
 
-    void Movement(float movementDirection) {
-        Vector3 movement = new Vector3(movementDirection * movementSpeed, 0, 0);
+    Vector3 Movement() {
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal") * movementSpeed, 0f, 0f);
 
-        rb.MovePosition(transform.position + movement * Time.deltaTime);
+        //rb.MovePosition(transform.position + movement * Time.deltaTime);
+
+        return move;
+    }
+
+    Vector3 Climbing() {
+        Vector3 climb = new Vector3(0, Input.GetAxis("Vertical") * climbingSpeed, 0);
+
+        return climb;
     }
 
     void Attack() {
@@ -53,6 +76,19 @@ public class PlayerController : MonoBehaviour {
             default:
                 Debug.Log("Invalid projectile type");
                 break;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.tag == "Ladder") {
+            canClimb = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col) {
+        if (col.gameObject.tag == "Ladder") {
+            canClimb = false;
+            climbing = false;
         }
     }
 }
