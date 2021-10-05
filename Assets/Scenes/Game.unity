@@ -1019,7 +1019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1670352870348039416, guid: c9420fd8ebb98da4a892fc6f58e476b5, type: 3}
       propertyPath: projectileOffset
-      value: 0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1670352870348039417, guid: c9420fd8ebb98da4a892fc6f58e476b5, type: 3}
       propertyPath: m_BodyType
@@ -2005,7 +2005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1670352870348039416, guid: c9420fd8ebb98da4a892fc6f58e476b5, type: 3}
       propertyPath: projectileOffset
-      value: 0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1670352870348039417, guid: c9420fd8ebb98da4a892fc6f58e476b5, type: 3}
       propertyPath: m_BodyType
