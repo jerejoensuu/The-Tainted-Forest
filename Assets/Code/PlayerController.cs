@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour {
     public float movementSpeed;
     public float gravity;
     public bool canClimb = false;
-    public bool climbing = false;
     public float climbingSpeed;
 
     public int ammoCount = 10;
@@ -89,7 +88,6 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerExit2D(Collider2D col) {
         if (col.gameObject.tag == "Ladder") {
             canClimb = false;
-            climbing = false;
             rb.gravityScale = 1f;
         }
     }

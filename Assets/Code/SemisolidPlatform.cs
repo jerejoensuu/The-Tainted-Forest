@@ -12,7 +12,7 @@ public class SemisolidPlatform : MonoBehaviour {
     }
     void Update() {
         foreach (GameObject player in playerObjects) {
-            if (player.transform.position.y < transform.position.y + transform.localScale.y / 2 || player.GetComponent<PlayerController>().climbing) {
+            if (player.transform.position.y < transform.position.y + transform.localScale.y / 2) {
                 Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>(), true);
             }
             else {
