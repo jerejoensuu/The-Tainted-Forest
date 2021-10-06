@@ -40,28 +40,24 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Vector3 movement = Walk(Input.GetAxisRaw("Horizontal"));
-        if (canClimb && Input.GetAxisRaw("Vertical") != 0) {
-            climbing = true;
+        if (Input.GetAxisRaw("Horizontal") != 0) {
+            Walk();
         }
-        if (climbing) {
-            movement += Climb(Input.GetAxisRaw("Vertical"));
+        if (canClimb == true && Input.GetAxisRaw("Vertical") != 0) {
+            Climb();
         }
-        else {
-            movement += new Vector3(0f, -gravity, 0f);
-        }
-
-        rb.MovePosition(transform.position + movement * Time.deltaTime);
     }
 
-    Vector3 Walk(float walkingDirection) {
-        Vector3 walk = new Vector3(walkingDirection * movementSpeed, 0f, 0f);
-        return walk;
+    void Walk() {
+        float movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
+
+        //rb.MovePosition(transform.position + new Vector3(movementX, 0, 0) * Time.deltaTime);
+        transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
     }
 
-    Vector3 Climb(float climbingDirection) {
-        Vector3 climb = new Vector3(0, climbingDirection * climbingSpeed, 0);
-        return climb;
+    void Climb() {
+        float movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
+        transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
     }
 
     void Attack() {
@@ -85,6 +81,7 @@ public class PlayerController : MonoBehaviour {
         
         if (col.gameObject.tag == "Ladder") {
             canClimb = true;
+            rb.gravityScale = 0;
         }
 
     }
@@ -93,6 +90,7 @@ public class PlayerController : MonoBehaviour {
         if (col.gameObject.tag == "Ladder") {
             canClimb = false;
             climbing = false;
+            rb.gravityScale = 1f;
         }
     }
 
@@ -102,7 +100,6 @@ public class PlayerController : MonoBehaviour {
         health--;
 
         playerHit = true;
-        rb.gravityScale = 1f;
         rb.AddForce(new Vector2(50, 50));
 
         // Player dead:

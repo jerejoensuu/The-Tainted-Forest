@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22cc93b53e74e54f8dd8ccd5bae532d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 300
+  moveSpeed: 290
   gravity: 15
   size: 2
   spawnSizeMultiplier: 0.45
