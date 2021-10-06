@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public float movementSpeed;
-    // public float gravity;
+    public float gravity;
+    public bool canClimb = false;
+    public bool climbing = false;
+    public float climbingSpeed;
 
     public int ammoCount = 10;
     public int projectileType = 0;
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     private bool playerHit = false;
     
     void Start() {
+        SemisolidPlatform.playerObjects.Add(this.gameObject);
         rb = GetComponent<Rigidbody2D>();
         ammoText = GetComponentInChildren<TextMeshPro>();
         ammoText.text = ammoCount.ToString();
@@ -36,14 +40,28 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Movement(Input.GetAxisRaw("Horizontal"));
+        Vector3 movement = Walk(Input.GetAxisRaw("Horizontal"));
+        if (canClimb && Input.GetAxisRaw("Vertical") != 0) {
+            climbing = true;
+        }
+        if (climbing) {
+            movement += Climb(Input.GetAxisRaw("Vertical"));
+        }
+        else {
+            movement += new Vector3(0f, -gravity, 0f);
+        }
+
+        rb.MovePosition(transform.position + movement * Time.deltaTime);
     }
 
-    void Movement(float movementDirection) {
-        Vector3 movement = new Vector3(movementDirection * movementSpeed, 0, 0);
+    Vector3 Walk(float walkingDirection) {
+        Vector3 walk = new Vector3(walkingDirection * movementSpeed, 0f, 0f);
+        return walk;
+    }
 
-        //rb.MovePosition(transform.position + movement * Time.deltaTime);
-        rb.velocity = movement * Time.deltaTime;
+    Vector3 Climb(float climbingDirection) {
+        Vector3 climb = new Vector3(0, climbingDirection * climbingSpeed, 0);
+        return climb;
     }
 
     void Attack() {
@@ -64,7 +82,18 @@ public class PlayerController : MonoBehaviour {
         if (col.gameObject.tag == "Ball" && !playerHit) {
             HitPlayer();
         }
+        
+        if (col.gameObject.tag == "Ladder") {
+            canClimb = true;
+        }
 
+    }
+    
+    void OnTriggerExit2D(Collider2D col) {
+        if (col.gameObject.tag == "Ladder") {
+            canClimb = false;
+            climbing = false;
+        }
     }
 
     void HitPlayer() {
