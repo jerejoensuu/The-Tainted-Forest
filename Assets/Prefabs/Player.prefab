@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1670352870348039416}
   - component: {fileID: 1670352870348039417}
   - component: {fileID: 1670352870348039423}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -129,14 +129,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 4
-  gravity: 6
-  maxLadderOffset: 0.5
   canClimb: 0
-  climbing: 0
-  climbingSpeed: 6
-  ammoCount: 10
+  canClimbDown: 0
+  climbingSpeed: 4
+  ammoCount: 25
   projectileType: 0
   projectileOffset: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1032
   grapplePrefab: {fileID: 6995751139742916582, guid: c979113742b4f2f41b4fcc0a33998985, type: 3}
 --- !u!50 &1670352870348039417
 Rigidbody2D:
@@ -150,10 +151,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
