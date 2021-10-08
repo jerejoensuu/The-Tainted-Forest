@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
     TextMeshPro ammoText;
     public GameObject grapplePrefab;
     private int health = 3;
-    private bool playerHit = false;
+    [SerializeField] private bool playerHit = false;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -93,7 +93,8 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
 
         if (col.gameObject.tag == "Ball" && !playerHit) {
-            HitPlayer();
+            //HitPlayer();
+            Debug.Log("ASDF");
         }
         
         if (col.gameObject.tag == "Ladder") {
@@ -117,7 +118,7 @@ public class PlayerController : MonoBehaviour {
         health--;
 
         playerHit = true;
-        //rb.AddForce(new Vector2(50, 50));
+        //rb.AddForce(new Vector2(50, 50), ForceMode2D.Impulse);
 
         // Player dead:
         if (health <= 0) {
@@ -129,15 +130,20 @@ public class PlayerController : MonoBehaviour {
     bool IsGrounded() {
         float extraHeight = 0.1f;
         RaycastHit2D raycastHit = Physics2D.BoxCast(bc.bounds.center - bc.bounds.extents * 1.3f, bc.bounds.size * 0.05f, 0f, Vector2.down, extraHeight, layerMask);
+
+        /* DEBUG:
         Color rayColor;
         if (raycastHit.collider != null) {
             rayColor = Color.green;
         } else {
             rayColor = Color.red;
         }
+        
         Debug.DrawRay(bc.bounds.center + new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, bc.bounds.extents.y + extraHeight), Vector2.right * (bc.bounds.extents.x * 2), rayColor);
+        */
+
         return raycastHit.collider != null;
     }
 }
