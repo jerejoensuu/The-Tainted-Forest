@@ -7,19 +7,20 @@ TagManager:
   - Ball
   - Wall
   - Projectile
+  - Ladder
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Platform
   - Water
   - UI
   - Player
   - Enemy
   - PlayerTrigger
-  - 
-  - 
-  - 
+  - SemisolidPlayer
+  - Floor
+  - Ammo drop
   - 
   - 
   - 

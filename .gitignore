@@ -48,7 +48,6 @@ ExportedObj/
 *.VC.db
 .vscode
 .vsconfig
-omnisharp.json
 
 # Unity3D generated meta files
 *.pidb.meta
