@@ -22,7 +22,11 @@ public class PlayerController : MonoBehaviour {
     TextMeshPro ammoText;
     public GameObject grapplePrefab;
     private int health = 3;
-    [SerializeField] private bool playerHit = false;
+    [SerializeField] public bool playerHit {get; set;}
+    // prevent gravityScale from turning back too soon:
+    [SerializeField] private bool hitOffGroundOffset = false;
+    [SerializeField] private float invincibilityDurationSeconds;
+    [SerializeField] private float invincibilityDeltaTime = 0.15f;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -38,6 +42,11 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.R)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (playerHit) {
+            canClimb = false;
+            canClimbDown = false;
         }
     }
 
@@ -62,14 +71,16 @@ public class PlayerController : MonoBehaviour {
             rb.gravityScale = 0;
             Climb();
         // If the player is unable to climb anymore, turn it's gravityScale back on:
-        } else if (!canClimb) {
+        } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
             rb.gravityScale = 1;
         }
     }
 
     void Walk() {
-        float movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
-        transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
+        if (!playerHit || !hitOffGroundOffset) {
+            float movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
+            transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
+        }
     }
 
     void Climb() {
@@ -93,11 +104,10 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
 
         if (col.gameObject.tag == "Ball" && !playerHit) {
-            //HitPlayer();
-            Debug.Log("ASDF");
+            HitPlayer(col.gameObject.transform.localPosition.x);
         }
         
-        if (col.gameObject.tag == "Ladder") {
+        if (col.gameObject.tag == "Ladder" && !playerHit) {
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
             currentLadderY = col.gameObject.transform.localPosition.y;
@@ -112,19 +122,25 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void HitPlayer() {
-        Debug.Log("Player hit");
-        Debug.Log("Health: " + health);
+    public void HitPlayer(float enemyX) {
+        if (playerHit) {
+            return;
+        }
+        
         health--;
+        int dir = enemyX < transform.localPosition.x ? 1 : -1;
+        rb.gravityScale = 0.5f;
+        rb.velocity = Vector2.zero;
+        rb.AddForce(new Vector2(2.5f * dir, 3.25f), ForceMode2D.Impulse);
 
-        playerHit = true;
-        //rb.AddForce(new Vector2(50, 50), ForceMode2D.Impulse);
 
         // Player dead:
         if (health <= 0) {
             Debug.Log("Player dead");
             GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
         }
+
+        StartCoroutine(CreateIFrames());
     }
 
     bool IsGrounded() {
@@ -145,5 +161,23 @@ public class PlayerController : MonoBehaviour {
         */
 
         return raycastHit.collider != null;
+    }
+
+    private IEnumerator CreateIFrames() {
+        playerHit = true;
+        bool flash = false;
+        hitOffGroundOffset = true;
+
+        for (float i = 0; i < invincibilityDurationSeconds; i += invincibilityDeltaTime) {
+            GetComponentInChildren<SpriteRenderer>().enabled = flash;
+            flash = !flash;
+            yield return new WaitForSeconds(invincibilityDeltaTime);
+            if (IsGrounded()) {
+                hitOffGroundOffset = false;
+            }
+        }
+
+        GetComponentInChildren<SpriteRenderer>().enabled = true;
+        playerHit = false;
     }
 }
