@@ -113,6 +113,12 @@ public class PlayerController : MonoBehaviour {
             currentLadderY = col.gameObject.transform.localPosition.y;
         }
 
+        if (col.gameObject.tag == "AmmoDrop" && !playerHit) {
+            ammoCount += Random.Range(1, 4);
+            ammoText.text = ammoCount.ToString();
+            Destroy(col.gameObject);
+        }
+
     }
     
     void OnTriggerExit2D(Collider2D col) {

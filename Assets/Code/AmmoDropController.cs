@@ -6,7 +6,7 @@ public class AmmoDropController : MonoBehaviour {
     
     private ParticleSystem particle;
     private SpriteRenderer sr;
-    private Animation animation;
+    private Animation spawnAnimation;
     private BoxCollider2D boxCollider2D;
 
     void Start() {
@@ -14,9 +14,9 @@ public class AmmoDropController : MonoBehaviour {
         boxCollider2D.enabled = false;
         sr = GetComponent<SpriteRenderer>();
         sr.enabled = false;
-
         particle = GetComponentInChildren<ParticleSystem>();
-        animation = GetComponent<Animation>();
+        spawnAnimation = GetComponent<Animation>();
+
         StartCoroutine(Spawn());
     }
 
@@ -25,7 +25,7 @@ public class AmmoDropController : MonoBehaviour {
 
         yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
         sr.enabled = true;
-        animation.Play();
+        spawnAnimation.Play();
         boxCollider2D.enabled = true;
     }
 }
