@@ -6,23 +6,23 @@ public class AmmoDropSpawner : MonoBehaviour {
 
     public GameObject spawner;
     [SerializeField] private GameObject ammoDrop;
-    static List<GameObject> spawnerList = new List<GameObject>();
     int listSize;
     bool spawned = false;
 
-    void Start() {
+    void Awake() {
+        try {
+            transform.SetParent(GetComponentInParent<Transform>());
+            Debug.Log(GetComponentInParent<Transform>());
+        } catch (System.Exception e) {
+            throw new System.Exception("AmmoDropSpawner not set as child of AmmoDropSpawnerParent.", e);
+        }
+
         spawner = gameObject;
-        spawnerList.Add(spawner);
-        listSize = spawnerList.Count;
+        //GetComponentInParent<AmmoDropSpawnerController>()
     }
 
     void Update() {
         
-        if (!spawned) {
-            spawned = true;
-            Debug.Log(spawnerList[1]);
-            Instantiate(ammoDrop, spawnerList[Random.Range(0, listSize)].transform.position, Quaternion.identity);
-        }
 
     }
 }
