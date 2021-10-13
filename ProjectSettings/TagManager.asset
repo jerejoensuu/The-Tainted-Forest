@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Projectile
   - Ladder
+  - AmmoDrop
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - PlayerTrigger
   - SemisolidPlayer
   - Floor
-  - Ammo drop
-  - 
+  - AmmoDrop
+  - AmmoSpawn
   - 
   - 
   - 
