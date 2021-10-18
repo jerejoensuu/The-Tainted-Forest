@@ -6,7 +6,8 @@ public class BallController : MonoBehaviour {
 
     public float moveSpeed;
     public float gravity = 0.05f;
-    float direction = 1;
+    [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
+    [SerializeField] float direction;
     public float size;
     [Tooltip("Ball spawn size percentage.")]
     public float spawnSizeMultiplier = 0.5f;
@@ -24,6 +25,13 @@ public class BallController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         transform.localScale = new Vector3(size, size, 1);
+
+        if (direction == 0) {
+            direction = Mathf.Sign(Random.Range(-1, 1)); // random direction
+        } else {
+            direction = Mathf.Sign(direction); // correct for inputs <-1 and >1
+        }
+        
     }
 
     // Update is called once per frame
