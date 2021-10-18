@@ -1,15 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class UIController : MonoBehaviour {
-    // Start is called before the first frame update
+
+    public static bool paused = false;
+    public GameObject pauseMenu;
+    [Tooltip("Set selection to this button when game is paused")] public GameObject activeButton;
+
     void Start() {
-        
+        UnpauseGame();
     }
 
-    // Update is called once per frame
     void Update() {
-        
+        if (Input.GetButtonDown("Pause")) { // Esc or start button
+            TogglePause();
+        }
+    }
+
+    void TogglePause() {
+        if (!paused) { // Pause game
+            PauseGame();
+        }
+        else { // Unpause game
+            UnpauseGame();
+        }
+    }
+
+    void PauseGame() {
+        Debug.Log("Game paused");
+        paused = true;
+        pauseMenu.SetActive(true);
+        GetComponent<EventSystem>().SetSelectedGameObject(null);
+        GetComponent<EventSystem>().SetSelectedGameObject(activeButton);
+        Time.timeScale = 0;
+    }
+
+    void UnpauseGame() {
+        Debug.Log("Game unpaused");
+        paused = false;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void ResumeGame() {
+        TogglePause();
+    }
+
+    public void OpenSettings() {
+        Debug.Log("Add settings");
+    }
+
+    public void ReturnToMenu() {
+        SceneManager.LoadScene("MainMenu");
     }
 }

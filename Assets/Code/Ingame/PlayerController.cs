@@ -13,8 +13,7 @@ public class PlayerController : MonoBehaviour {
     public int ammoCount = 10;
     public int projectileType = 0;
 
-    [Tooltip("Adjust starting height of spawned projectiles.")]
-    public float projectileOffset;
+    [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
     BoxCollider2D bc;
     [SerializeField] private LayerMask layerMask;
@@ -35,39 +34,43 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0) {
-            Attack();
-        }
+        if (!UIController.paused) {
+            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0) {
+                Attack();
+            }
 
-        if (playerHit) {
-            canClimb = false;
-            canClimbDown = false;
+            if (playerHit) {
+                canClimb = false;
+                canClimbDown = false;
+            }
         }
     }
 
     void FixedUpdate() {
-        // Horizontal movement:
-        if (Input.GetAxisRaw("Horizontal") != 0) {
-            Walk();
-        }
-
-        // Can player climb and are they trying to climb:
-        if (canClimb && Input.GetAxisRaw("Vertical") != 0) {
-            // Can player climb down, is the ladder below them and are they attempting to climb down:
-            if (canClimbDown && currentLadderY < transform.localPosition.y && Input.GetAxisRaw("Vertical") < 0) {
-                // Turn player into a semisolid able to go through platforms:
-                gameObject.layer = LayerMask.NameToLayer("SemisolidPlayer");
-            // Is the player on the ground or is the ladder they're climbing above them:
-            } else if (IsGrounded() || currentLadderY > transform.localPosition.y) {
-                // Turn player back into a solid object and disable canClimbDown:
-                canClimbDown = false;
-                gameObject.layer = LayerMask.NameToLayer("Player");
+        if (!UIController.paused) {
+            // Horizontal movement:
+            if (Input.GetAxisRaw("Horizontal") != 0) {
+                Walk();
             }
-            rb.gravityScale = 0;
-            Climb();
-        // If the player is unable to climb anymore, turn it's gravityScale back on:
-        } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
-            rb.gravityScale = 1;
+
+            // Can player climb and are they trying to climb:
+            if (canClimb && Input.GetAxisRaw("Vertical") != 0) {
+                // Can player climb down, is the ladder below them and are they attempting to climb down:
+                if (canClimbDown && currentLadderY < transform.localPosition.y && Input.GetAxisRaw("Vertical") < 0) {
+                    // Turn player into a semisolid able to go through platforms:
+                    gameObject.layer = LayerMask.NameToLayer("SemisolidPlayer");
+                // Is the player on the ground or is the ladder they're climbing above them:
+                } else if (IsGrounded() || currentLadderY > transform.localPosition.y) {
+                    // Turn player back into a solid object and disable canClimbDown:
+                    canClimbDown = false;
+                    gameObject.layer = LayerMask.NameToLayer("Player");
+                }
+                rb.gravityScale = 0;
+                Climb();
+            // If the player is unable to climb anymore, turn it's gravityScale back on:
+            } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
+                rb.gravityScale = 1;
+            }
         }
     }
 

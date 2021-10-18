@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 363683484}
   - component: {fileID: 363683483}
   - component: {fileID: 363683482}
+  - component: {fileID: 363683485}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -457,6 +458,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &363683485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363683481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166b01729cc991448ad4512e5afcb344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &846418621
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +628,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1418633347}
+      - m_Target: {fileID: 363683485}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -811,7 +824,6 @@ GameObject:
   - component: {fileID: 1418633345}
   - component: {fileID: 1418633344}
   - component: {fileID: 1418633343}
-  - component: {fileID: 1418633347}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -902,18 +914,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1418633347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1418633342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 166b01729cc991448ad4512e5afcb344, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1502567102
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +997,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1418633347}
+      - m_Target: {fileID: 363683485}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
         m_MethodName: NewGame
         m_Mode: 1
@@ -1059,7 +1059,7 @@ GameObject:
   - component: {fileID: 1852090016}
   - component: {fileID: 1852090015}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: ButtonContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1344,9 +1344,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1418633347}
+      - m_Target: {fileID: 363683485}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: Settings
+        m_MethodName: OpenSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

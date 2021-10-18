@@ -7,7 +7,7 @@ public class AmmoDropSpawner : MonoBehaviour {
     public GameObject spawner;
     [SerializeField] private GameObject ammoDrop;
     int listSize;
-    bool spawned = false;
+    //bool spawned = false;
 
     void Awake() {
         try {

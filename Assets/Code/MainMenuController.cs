@@ -9,8 +9,8 @@ public class MainMenuController : MonoBehaviour {
         SceneManager.LoadScene("Cutscene");
     }
 
-    public void Settings() {
-
+    public void OpenSettings() {
+        Debug.Log("Add settings");
     }
 
     public void QuitGame() {
