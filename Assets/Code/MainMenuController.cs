@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour {
     // Start is called before the first frame update
     public void NewGame() {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Cutscene");
     }
 
     public void Settings() {
