@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class TimerController : MonoBehaviour {
+    
+    [SerializeField] public int seconds;
+    [SerializeField] public bool formatTime = true;
+    private TMP_Text m_TextComponent;
+    private System.DateTime dateTime;
+
+    void Awake() {
+        m_TextComponent = GetComponent<TMP_Text>();
+        SetTime();
+        StartCoroutine(RunTimer());
+    }
+
+    IEnumerator RunTimer() {
+        while (seconds > 0) {
+            yield return new WaitForSeconds(1);
+            seconds--;
+            SetTime();
+        }
+    }
+
+    void SetTime() {
+        dateTime = System.DateTime.Today.AddSeconds(seconds);
+        
+        if (formatTime) {
+            m_TextComponent.text = string.Format($"{dateTime.Minute:D2}:{dateTime.Second:D2}");
+        } else {
+            m_TextComponent.text = seconds.ToString();
+        }
+    }
+}
