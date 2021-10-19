@@ -21,10 +21,10 @@ public class UIController : MonoBehaviour {
     }
 
     void TogglePause() {
-        if (!paused) { // Pause game
+        if (!paused) {
             PauseGame();
         }
-        else { // Unpause game
+        else {
             UnpauseGame();
         }
     }
