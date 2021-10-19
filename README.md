@@ -1,18 +1,18 @@
 # Pang
 
-##Description
+## Description
 A recreation of the old arcade game, Pang.
 
-##Badges?
+## Badges?
 
-##Visuals
+## Visuals
 
-##Installation
+## Installation
 
-##Instructions
+## Instructions
 
-##Authors and acknowledgment
+## Authors and acknowledgment
 
-##License?
+## License?
 
-##Project status
+## Project status
