@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class Grapple : MonoBehaviour {
     public float speed = 8f;
-    void Start() {
 
+    public AudioSource audioSrc;
+    public AudioClip[] audioClips;
+    void Awake() {
+        PlaySound();
     }
+
+    void PlaySound() {
+        audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSrc.Play();
+    }
+
     void FixedUpdate() {
 
         Vector3 currentScale = new Vector3(0f, speed / 100, 0f);
@@ -15,6 +24,7 @@ public class Grapple : MonoBehaviour {
         transform.localScale += currentScale;
         transform.localPosition += currentPosition;
     }
+
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Wall") {
             Destroy(transform.parent.gameObject);

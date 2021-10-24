@@ -139,7 +139,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1032
   grapplePrefab: {fileID: 6995751139742916582, guid: c979113742b4f2f41b4fcc0a33998985, type: 3}
-  playerHit: 0
+  hitOffGroundOffset: 0
+  invincibilityDurationSeconds: 0
+  invincibilityDeltaTime: 0.15
 --- !u!50 &1670352870348039417
 Rigidbody2D:
   serializedVersion: 4

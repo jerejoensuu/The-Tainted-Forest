@@ -80,6 +80,7 @@ public class BallController : MonoBehaviour {
                 SpawnBalls(-1, size * spawnSizeMultiplier);
                 SpawnBalls(1, size * spawnSizeMultiplier);
             }
+            GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);
         }
     }
