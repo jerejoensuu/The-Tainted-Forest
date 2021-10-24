@@ -7,11 +7,11 @@ public class TimerController : MonoBehaviour {
     
     [SerializeField] public int seconds;
     [SerializeField] public bool formatTime = true;
-    private TMP_Text m_TextComponent;
+    private TextMeshProUGUI m_TextComponent;
     private System.DateTime dateTime;
 
     void Awake() {
-        m_TextComponent = GetComponent<TMP_Text>();
+        m_TextComponent = GetComponent<TextMeshProUGUI>();
         SetTime();
         StartCoroutine(RunTimer());
     }
