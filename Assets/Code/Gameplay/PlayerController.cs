@@ -11,13 +11,13 @@ public class PlayerController : MonoBehaviour {
     public float climbingSpeed;
 
     public int ammoCount = 10;
+    public int score = 0;
     public int projectileType = 0;
 
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
     BoxCollider2D bc;
     [SerializeField] private LayerMask layerMask;
-    TextMeshPro ammoText;
     public GameObject grapplePrefab;
     private int health = 3;
     [SerializeField] public bool playerHit {get; set;}
@@ -25,12 +25,14 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private bool hitOffGroundOffset = false;
     [SerializeField] private float invincibilityDurationSeconds;
     [SerializeField] private float invincibilityDeltaTime = 0.15f;
+
+    public GameObject hud;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
-        ammoText = GetComponentInChildren<TextMeshPro>();
-        ammoText.text = ammoCount.ToString();
+        ChangeAmmoCount(0);
+        ChangeAmmoCount(0);
     }
 
     void Update() {
@@ -87,8 +89,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Attack() {
-        ammoCount--;
-        ammoText.text = ammoCount.ToString();
+        ChangeAmmoCount(-1);
         switch (projectileType) {
             case 0:
                 GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y + projectileOffset, 0f), Quaternion.identity) as GameObject;
@@ -97,6 +98,16 @@ public class PlayerController : MonoBehaviour {
                 Debug.Log("Invalid projectile type");
                 break;
         }
+    }
+
+    void ChangeAmmoCount(int amount) {
+        ammoCount += amount;
+        hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
+    }
+
+    void ChangeScore(int amount) {
+        score += amount;
+        hud.GetComponent<PlayerUI>().SetScore(score);
     }
 
     void OnTriggerEnter2D(Collider2D col) {
@@ -112,8 +123,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (col.gameObject.tag == "AmmoDrop" && !playerHit) {
-            ammoCount += Random.Range(1, 4);
-            ammoText.text = ammoCount.ToString();
+            ChangeAmmoCount(Random.Range(1, 4));
             Destroy(col.gameObject);
         }
 

@@ -33,6 +33,7 @@ public class UIController : MonoBehaviour {
         Debug.Log("Game paused");
         paused = true;
         pauseMenu.SetActive(true);
+        GetComponent<AudioSource>().Pause();
         GetComponent<EventSystem>().SetSelectedGameObject(null);
         GetComponent<EventSystem>().SetSelectedGameObject(activeButton);
         Time.timeScale = 0;
@@ -42,6 +43,7 @@ public class UIController : MonoBehaviour {
         Debug.Log("Game unpaused");
         paused = false;
         pauseMenu.SetActive(false);
+        GetComponent<AudioSource>().UnPause();
         Time.timeScale = 1;
     }
 
