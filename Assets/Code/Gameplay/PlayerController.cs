@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
     BoxCollider2D bc;
+    SpriteRenderer sr;
     [SerializeField] private LayerMask layerMask;
     public GameObject grapplePrefab;
     private int health = 3;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
         ChangeAmmoCount(0);
         ChangeAmmoCount(0);
     }
@@ -74,12 +76,19 @@ public class PlayerController : MonoBehaviour {
                 rb.gravityScale = 1;
             }
         }
+
+        Flip();
     }
 
     void Walk() {
         if (!playerHit || !hitOffGroundOffset) {
             float movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
+            if (movementX > 0) {
+                sr.flipX = true;
+            } else {
+                sr.flipX = false;
+            }
         }
     }
 
@@ -193,5 +202,15 @@ public class PlayerController : MonoBehaviour {
 
         GetComponentInChildren<SpriteRenderer>().enabled = true;
         playerHit = false;
+    }
+
+    void Flip () {
+
+        // if (rb.velocity.x <= 0) {
+        //     transform.localScale.x = Mathf.Abs(transform.localScale.x);
+        //     transform.localScale.x *= -1;
+        // } else {
+        //     transform.localScale.x = Mathf.Abs(transform.localScale.x);
+        // }
     }
 }
