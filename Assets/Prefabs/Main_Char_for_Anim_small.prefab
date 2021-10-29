@@ -972,7 +972,7 @@ MonoBehaviour:
   ammoCount: 25
   score: 0
   projectileType: 0
-  projectileOffset: 0
+  projectileOffset: 0.05
   layerMask:
     serializedVersion: 2
     m_Bits: 1032

@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
         if (!UIController.paused) {
-            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0) {
+            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded()) {
                 Attack();
             }
 
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
         ChangeAmmoCount(-1);
         switch (projectileType) {
             case 0:
-                GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y + projectileOffset, 0f), Quaternion.identity) as GameObject;
+                GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.transform.localScale.y/2) + projectileOffset, 0f), Quaternion.identity) as GameObject;
                 break;
             default:
                 Debug.Log("Invalid projectile type");
@@ -209,14 +209,8 @@ public class PlayerController : MonoBehaviour {
 
     void Flip () {
         if (movementX < 0 || rb.velocity.x < 0) {
-            // foreach (SpriteRenderer child_sr in spriteRenderers) {
-            //     child_sr.flipX = false;
-            // }
             transform.localScale = new Vector2(1, 1);
         } else if (movementX > 0 || rb.velocity.x > 0) {
-            // foreach (SpriteRenderer child_sr in spriteRenderers) {
-            //     child_sr.flipX = true;
-            // }
             transform.localScale = new Vector2(-1, 1);
         }
     }
