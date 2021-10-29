@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
     BoxCollider2D bc;
-    SpriteRenderer sr;
+    SpriteRenderer[] spriteRenderers;
     [SerializeField] private LayerMask layerMask;
     public GameObject grapplePrefab;
     private int health = 3;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
-        sr = GetComponent<SpriteRenderer>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         ChangeAmmoCount(0);
         ChangeAmmoCount(0);
     }
@@ -84,11 +84,6 @@ public class PlayerController : MonoBehaviour {
         if (!playerHit || !hitOffGroundOffset) {
             float movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
-            if (movementX > 0) {
-                sr.flipX = true;
-            } else {
-                sr.flipX = false;
-            }
         }
     }
 
@@ -192,7 +187,7 @@ public class PlayerController : MonoBehaviour {
         hitOffGroundOffset = true;
 
         for (float i = 0; i < invincibilityDurationSeconds; i += invincibilityDeltaTime) {
-            GetComponentInChildren<SpriteRenderer>().enabled = flash;
+            TurnInvisible(flash);
             flash = !flash;
             yield return new WaitForSeconds(invincibilityDeltaTime);
             if (IsGrounded()) {
@@ -200,17 +195,25 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        GetComponentInChildren<SpriteRenderer>().enabled = true;
+        TurnInvisible(true);
         playerHit = false;
     }
 
-    void Flip () {
+    private void TurnInvisible(bool boolean) {
+        foreach (SpriteRenderer child_sr in spriteRenderers) {
+            child_sr.enabled = boolean;
+        }
+    }
 
-        // if (rb.velocity.x <= 0) {
-        //     transform.localScale.x = Mathf.Abs(transform.localScale.x);
-        //     transform.localScale.x *= -1;
-        // } else {
-        //     transform.localScale.x = Mathf.Abs(transform.localScale.x);
-        // }
+    void Flip () {
+        if (rb.velocity.x <= 0) {
+            foreach (SpriteRenderer child_sr in spriteRenderers) {
+                child_sr.flipX = false;
+            }
+        } else {
+            foreach (SpriteRenderer child_sr in spriteRenderers) {
+                child_sr.flipX = true;
+            }
+        }
     }
 }
