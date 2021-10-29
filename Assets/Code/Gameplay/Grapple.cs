@@ -7,7 +7,14 @@ public class Grapple : MonoBehaviour {
 
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
+    private SpriteMask spriteMask;
+    private BoxCollider2D boxCollider2D;
+    float distanceMoved = 0;
+
     void Awake() {
+        spriteMask = GetComponentInChildren<SpriteMask>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
+        audioSrc = GetComponent<AudioSource>();
         PlaySound();
     }
 
@@ -17,21 +24,32 @@ public class Grapple : MonoBehaviour {
     }
 
     void FixedUpdate() {
-
-        Vector3 currentScale = new Vector3(0f, speed / 100, 0f);
         Vector3 currentPosition = new Vector3(0f, speed / 200, 0f);
+        Vector2 collisionOffset = new Vector3(0f, speed / 200, 0f);
 
-        transform.localScale += currentScale;
         transform.localPosition += currentPosition;
+        spriteMask.transform.position -= currentPosition;
+        distanceMoved += currentPosition.y;
+
+        boxCollider2D.offset = new Vector2(0, 0.5f * GetInverseProgress());
+        boxCollider2D.size = new Vector2(1, 1f * GetProgress());
+    }
+
+    float GetProgress() {
+        return distanceMoved / transform.localScale.y;
+    }
+
+    float GetInverseProgress() {
+        return 1 - (distanceMoved / transform.localScale.y);
     }
 
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Wall") {
-            Destroy(transform.parent.gameObject);
+            Destroy(transform.gameObject);
         }
 
         if (col.gameObject.tag == "Ball") {
-            Destroy(transform.parent.gameObject);
+            Destroy(transform.gameObject);
         }
     }
 }
