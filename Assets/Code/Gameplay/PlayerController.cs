@@ -13,10 +13,13 @@ public class PlayerController : MonoBehaviour {
     public int ammoCount = 10;
     public int score = 0;
     public int projectileType = 0;
+    float movementX = 0;
+    float movementY = 0;
 
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
     BoxCollider2D bc;
+    SpriteRenderer[] spriteRenderers;
     [SerializeField] private LayerMask layerMask;
     public GameObject grapplePrefab;
     private int health = 3;
@@ -31,13 +34,14 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         ChangeAmmoCount(0);
         ChangeAmmoCount(0);
     }
 
     void Update() {
         if (!UIController.paused) {
-            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0) {
+            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded()) {
                 Attack();
             }
 
@@ -74,17 +78,19 @@ public class PlayerController : MonoBehaviour {
                 rb.gravityScale = 1;
             }
         }
+
+        Flip();
     }
 
     void Walk() {
         if (!playerHit || !hitOffGroundOffset) {
-            float movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
+            movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
         }
     }
 
     void Climb() {
-        float movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
+        movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
         transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
     }
 
@@ -92,7 +98,7 @@ public class PlayerController : MonoBehaviour {
         ChangeAmmoCount(-1);
         switch (projectileType) {
             case 0:
-                GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y + projectileOffset, 0f), Quaternion.identity) as GameObject;
+                GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.transform.localScale.y/2) + projectileOffset, 0f), Quaternion.identity) as GameObject;
                 break;
             default:
                 Debug.Log("Invalid projectile type");
@@ -183,7 +189,7 @@ public class PlayerController : MonoBehaviour {
         hitOffGroundOffset = true;
 
         for (float i = 0; i < invincibilityDurationSeconds; i += invincibilityDeltaTime) {
-            GetComponentInChildren<SpriteRenderer>().enabled = flash;
+            TurnInvisible(flash);
             flash = !flash;
             yield return new WaitForSeconds(invincibilityDeltaTime);
             if (IsGrounded()) {
@@ -191,7 +197,21 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        GetComponentInChildren<SpriteRenderer>().enabled = true;
+        TurnInvisible(true);
         playerHit = false;
+    }
+
+    private void TurnInvisible(bool boolean) {
+        foreach (SpriteRenderer child_sr in spriteRenderers) {
+            child_sr.enabled = boolean;
+        }
+    }
+
+    void Flip () {
+        if (movementX < 0 || rb.velocity.x < 0) {
+            transform.localScale = new Vector2(1, 1);
+        } else if (movementX > 0 || rb.velocity.x > 0) {
+            transform.localScale = new Vector2(-1, 1);
+        }
     }
 }
