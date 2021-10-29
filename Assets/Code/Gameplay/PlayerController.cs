@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour {
     public int ammoCount = 10;
     public int score = 0;
     public int projectileType = 0;
+    float movementX = 0;
+    float movementY = 0;
 
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
@@ -82,13 +84,13 @@ public class PlayerController : MonoBehaviour {
 
     void Walk() {
         if (!playerHit || !hitOffGroundOffset) {
-            float movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
+            movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
         }
     }
 
     void Climb() {
-        float movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
+        movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
         transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
     }
 
@@ -206,14 +208,16 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Flip () {
-        if (rb.velocity.x <= 0) {
-            foreach (SpriteRenderer child_sr in spriteRenderers) {
-                child_sr.flipX = false;
-            }
-        } else {
-            foreach (SpriteRenderer child_sr in spriteRenderers) {
-                child_sr.flipX = true;
-            }
+        if (movementX < 0 || rb.velocity.x < 0) {
+            // foreach (SpriteRenderer child_sr in spriteRenderers) {
+            //     child_sr.flipX = false;
+            // }
+            transform.localScale = new Vector2(1, 1);
+        } else if (movementX > 0 || rb.velocity.x > 0) {
+            // foreach (SpriteRenderer child_sr in spriteRenderers) {
+            //     child_sr.flipX = true;
+            // }
+            transform.localScale = new Vector2(-1, 1);
         }
     }
 }
