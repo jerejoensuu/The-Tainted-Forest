@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10dd6b36b7fd11f4c8cdfec76396fea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 12
   audioSrc: {fileID: 0}
   audioClips:
   - {fileID: 8300000, guid: b2f2d6b855aab934e98d9d512075b3a9, type: 3}

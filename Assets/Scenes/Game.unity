@@ -3866,10 +3866,6 @@ PrefabInstance:
       propertyPath: hud
       value: 
       objectReference: {fileID: 462673742}
-    - target: {fileID: 6650826596685636434, guid: b66405ccd11f4a8458aea010b85416bf, type: 3}
-      propertyPath: projectileOffset
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 8481086973786663343, guid: b66405ccd11f4a8458aea010b85416bf, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3880,7 +3876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8481086973786663343, guid: b66405ccd11f4a8458aea010b85416bf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.5
+      value: -4.81
       objectReference: {fileID: 0}
     - target: {fileID: 8481086973786663343, guid: b66405ccd11f4a8458aea010b85416bf, type: 3}
       propertyPath: m_LocalPosition.z
