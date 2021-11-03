@@ -85,15 +85,15 @@ public class BallController : MonoBehaviour {
     }
 
     public void DestroyBall() {
-        if (!isDestroyed) {
-            isDestroyed = true;
+        // if (!isDestroyed) {
+        //     isDestroyed = true;
             if (size >= minimumSize) {
                 SpawnBalls(-1, size * spawnSizeMultiplier);
                 SpawnBalls(1, size * spawnSizeMultiplier);
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);
-        }
+        // }
     }
 
     void SpawnBalls(float direction, float newSize) {

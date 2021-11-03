@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     public int projectileType = 0;
     float movementX = 0;
     float movementY = 0;
+    bool collisionCooldown = false;
 
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
@@ -118,14 +119,19 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col) {
 
-        if (col.gameObject.tag == "Ball" && !playerHit) {
-            HitPlayer(col.gameObject.transform.localPosition.x);
-        }
-        
         if (col.gameObject.tag == "Ladder" && !playerHit) {
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
             currentLadderY = col.gameObject.transform.localPosition.y;
+        }
+
+        // Avoid double collisions:
+        if (collisionCooldown) {
+            return;
+        }
+
+        if (col.gameObject.tag == "Ball" && !playerHit) {
+            HitPlayer(col.gameObject.transform.localPosition.x);
         }
 
         // Drops:
@@ -133,6 +139,8 @@ public class PlayerController : MonoBehaviour {
             HandleDrops(col.gameObject);
             Destroy(col.gameObject);
         }
+
+        StartCoroutine(StartCollisionCooldown());
 
     }
 
@@ -145,6 +153,12 @@ public class PlayerController : MonoBehaviour {
             case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
                                 break;
         }
+    }
+
+    IEnumerator StartCollisionCooldown() {
+        collisionCooldown = true;
+        yield return new WaitForSeconds(0.1f);
+        collisionCooldown = false;
     }
     
     void OnTriggerExit2D(Collider2D col) {
