@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoDropController : MonoBehaviour {
+public class DropController : MonoBehaviour {
     private Animation spawnAnimation;
     private BoxCollider2D boxCollider2D;
 

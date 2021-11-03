@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
     public float moveSpeed;
+    private float freezeFactor = 1;
     public float gravity = 0.05f;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
     [SerializeField] float direction;
@@ -37,12 +38,14 @@ public class BallController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         
-        GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum , 0) * Time.deltaTime;
-        lastMomentum = momentum;
-        momentum -= gravity;
+        GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum, 0) * freezeFactor * Time.deltaTime;
+        if (freezeFactor == 1) {
+            lastMomentum = momentum;
+        }
+        momentum -= gravity * freezeFactor;
         
         // Reset momentum if a ball is detected moving on a flat surface (ie. not bouncing)
-        if (lastY == gameObject.transform.localPosition.y) {
+        if (lastY == gameObject.transform.localPosition.y && freezeFactor == 1) {
             stationaryYCounter++;
             if (stationaryYCounter > 3) {
                 momentum = 0;
@@ -61,19 +64,27 @@ public class BallController : MonoBehaviour {
 
     }
 
-    void Update() {
 
-        if (Input.GetMouseButtonDown(0)) {
+    public IEnumerator FreezeBall() {
+        // WIP:
+        // for (float i = 0; i < 5; i += 0.01f) {
+        //     yield return new WaitForSeconds(0.01f);
+        //     freezeFactor *= 0.97f;
+        // }
 
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            
-            if (hit && hit.collider.gameObject.transform.position == transform.position) {
-                    DestroyBall();
-            }
-        }   
+        // for (float i = 0; i < 1; i += 0.03f) {
+        //     yield return new WaitForSeconds(0.01f);
+        //     freezeFactor = i;
+        // }
+
+        // freezeFactor = 1;
+
+        freezeFactor = 0;
+        yield return new WaitForSeconds(5);
+        freezeFactor = 1;
     }
 
-    void DestroyBall() {
+    public void DestroyBall() {
         if (!isDestroyed) {
             isDestroyed = true;
             if (size >= minimumSize) {
@@ -86,7 +97,8 @@ public class BallController : MonoBehaviour {
     }
 
     void SpawnBalls(float direction, float newSize) {
-        GameObject newBall = Instantiate(circlePrefab, transform.position, Quaternion.identity) as GameObject;
+        GameObject newBall = Instantiate (circlePrefab, transform.position, Quaternion.identity) as GameObject;
+        newBall.transform.parent = transform.parent;
 
         newBall.GetComponent<BallController>().direction = direction;
         newBall.GetComponent<BallController>().momentum = gravity * 33;

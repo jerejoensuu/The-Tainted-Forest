@@ -128,11 +128,23 @@ public class PlayerController : MonoBehaviour {
             currentLadderY = col.gameObject.transform.localPosition.y;
         }
 
-        if (col.gameObject.tag == "AmmoDrop" && !playerHit) {
-            ChangeAmmoCount(Random.Range(1, 4));
+        // Drops:
+        if (col.gameObject.layer == 11 && !playerHit) {
+            HandleDrops(col.gameObject);
             Destroy(col.gameObject);
         }
 
+    }
+
+    void HandleDrops(GameObject gameObject) {
+        switch (gameObject.tag) {
+            case "AmmoDrop":    ChangeAmmoCount(Random.Range(1, 4));
+                                break;
+            case "TimeFreeze":  transform.parent.GetComponent<LevelManager>().FreezeBubbles();
+                                break;
+            case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
+                                break;
+        }
     }
     
     void OnTriggerExit2D(Collider2D col) {

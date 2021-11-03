@@ -54,7 +54,6 @@ public class DropManager : MonoBehaviour {
     }
 
     IEnumerator Spawn() {
-        Debug.Log("spawning");
         GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];
         Vector2 location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.transform.localScale.x/2 + ammoDrop.transform.localScale.x/2,
                                                     spawnPlatform.transform.position.x + spawnPlatform.transform.localScale.x/2)
