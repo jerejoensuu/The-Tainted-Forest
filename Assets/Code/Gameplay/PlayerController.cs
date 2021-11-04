@@ -152,6 +152,8 @@ public class PlayerController : MonoBehaviour {
                                 break;
             case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
                                 break;
+            case "Shield":      StartCoroutine(StartShield());
+                                break;
         }
     }
 
@@ -159,6 +161,12 @@ public class PlayerController : MonoBehaviour {
         collisionCooldown = true;
         yield return new WaitForSeconds(0.1f);
         collisionCooldown = false;
+    }
+
+    IEnumerator StartShield() {
+        transform.Find("EnemyCollisionTrigger").GetComponent<BoxCollider2D>().enabled = false;
+        yield return new WaitForSeconds(5);
+        transform.Find("EnemyCollisionTrigger").GetComponent<BoxCollider2D>().enabled = true;
     }
     
     void OnTriggerExit2D(Collider2D col) {
