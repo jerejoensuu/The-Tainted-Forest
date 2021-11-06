@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     float movementX = 0;
     float movementY = 0;
     bool collisionCooldown = false;
+    bool shieldActive = false;
 
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
@@ -152,7 +153,7 @@ public class PlayerController : MonoBehaviour {
                                 break;
             case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
                                 break;
-            case "Shield":      StartCoroutine(StartShield());
+            case "Shield":      shieldActive = true;;
                                 break;
         }
     }
@@ -161,12 +162,6 @@ public class PlayerController : MonoBehaviour {
         collisionCooldown = true;
         yield return new WaitForSeconds(0.1f);
         collisionCooldown = false;
-    }
-
-    IEnumerator StartShield() {
-        transform.Find("EnemyCollisionTrigger").GetComponent<BoxCollider2D>().enabled = false;
-        yield return new WaitForSeconds(5);
-        transform.Find("EnemyCollisionTrigger").GetComponent<BoxCollider2D>().enabled = true;
     }
     
     void OnTriggerExit2D(Collider2D col) {
@@ -178,6 +173,12 @@ public class PlayerController : MonoBehaviour {
 
     public void HitPlayer(float enemyX) {
         if (playerHit) {
+            return;
+        }
+
+        if (shieldActive) {
+            shieldActive = false;
+            StartCoroutine(CreateIFrames());
             return;
         }
         

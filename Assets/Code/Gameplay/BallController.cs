@@ -14,7 +14,7 @@ public class BallController : MonoBehaviour {
     public float spawnSizeMultiplier = 0.5f;
     [Tooltip("Spawn new balls only if current size >= this.")]
     public float minimumSize;
-    bool isDestroyed = false;
+    //bool isDestroyed = false;
     float momentum = 0;
     float lastMomentum = 0;
     float lastY = 0;

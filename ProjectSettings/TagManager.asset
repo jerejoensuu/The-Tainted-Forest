@@ -11,6 +11,7 @@ TagManager:
   - AmmoDrop
   - TimeFreeze
   - DamageAll
+  - Shield
   layers:
   - Default
   - TransparentFX

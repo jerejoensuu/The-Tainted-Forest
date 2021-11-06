@@ -5,17 +5,42 @@ using UnityEngine;
 public class DropManager : MonoBehaviour {
 
     private List<GameObject> Spawns = new List<GameObject>();
+
     [SerializeField] private GameObject ammoDrop;
+    [SerializeField] private int ammoDropWeight;
+    [SerializeField] private GameObject damageAll;
+    [SerializeField] private int damageAllWeight;
+    [SerializeField] private GameObject timeFreeze;
+    [SerializeField] private int timeFreezeWeight;
+    [SerializeField] private GameObject shield;
+    [SerializeField] private int shieldWeight;
+
     public int time { get; private set;}
-    [Tooltip("How may seconds should the script wait before attempting to spawn ammo drops again after spawning one.")]
-    [SerializeField] private int cooldown;
+    [Tooltip("How may seconds should the script wait before attempting to spawn ammo drops again after spawning one.")] [SerializeField] private int cooldown;
     private int currentCooldown = 0;
-    [Tooltip("Change of ammo drops spawning per second as percentage.")]
-    [SerializeField] private float changeOfSpawn;
+    [Tooltip("Change of a drop spawning per second as percentage.")] [SerializeField] private float changeOfSpawn;
     private ParticleSystem particleRays;
     private ParticleSystem particleCircle;
+
+    private List<Drop> drops = new List<Drop>();
+    private List<GameObject> dropPool = new List<GameObject>();
+    public class Drop {
+        public GameObject drop { get; set; }
+        public int weight { get; set; }
+    }
     
     void Start() {
+        drops.Add(new Drop{drop = ammoDrop, weight = ammoDropWeight});
+        drops.Add(new Drop{drop = damageAll, weight = damageAllWeight});
+        drops.Add(new Drop{drop = timeFreeze, weight = timeFreezeWeight});
+        drops.Add(new Drop{drop = shield, weight = shieldWeight});
+
+        foreach (Drop drop in drops) {
+            for (int i = 0; i < drop.weight; i++) {
+                dropPool.Add(drop.drop);
+            }
+        }
+
         particleRays = transform.Find("DropAnimation").Find("Particle System").GetComponent<ParticleSystem>();
         particleCircle = transform.Find("DropAnimation").Find("Center sphere").GetComponent<ParticleSystem>();
         
@@ -49,7 +74,7 @@ public class DropManager : MonoBehaviour {
     void AttemptSpawn() {
         if (Random.Range(0, (int)(1 / changeOfSpawn)) == 0) {
             StartCoroutine(Spawn());
-            currentCooldown = cooldown;
+            currentCooldown = cooldown + (int)particleCircle.main.startLifetime.constantMax;
         }
     }
 
@@ -66,7 +91,7 @@ public class DropManager : MonoBehaviour {
 
         yield return new WaitForSeconds(particleCircle.main.startLifetime.constantMax);
         
-        Instantiate(ammoDrop, location, Quaternion.identity);
+        Instantiate(dropPool[Random.Range(0, dropPool.Count)], location, Quaternion.identity);
 
     }
 }
