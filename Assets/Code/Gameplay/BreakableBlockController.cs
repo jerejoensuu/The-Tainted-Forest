@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BreakableBlockController : MonoBehaviour {
 
+    [SerializeField] public bool allowDrops;
     private ParticleSystem particle;
     private SpriteRenderer sr;
 

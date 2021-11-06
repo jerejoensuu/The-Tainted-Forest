@@ -9,6 +9,9 @@ TagManager:
   - Projectile
   - Ladder
   - AmmoDrop
+  - TimeFreeze
+  - DamageAll
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - PlayerTrigger
   - SemisolidPlayer
   - Floor
-  - AmmoDrop
+  - Drop
   - AmmoSpawn
   - 
   - 
