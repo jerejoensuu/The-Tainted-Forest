@@ -5,26 +5,27 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
     public float moveSpeed;
+    [Range(1, 4)] [SerializeField] public int size;
+    private float freezeFactor = 1;
     public float gravity = 0.05f;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
     [SerializeField] float direction;
-    public float size;
     [Tooltip("Ball spawn size percentage.")]
-    public float spawnSizeMultiplier = 0.5f;
-    [Tooltip("Spawn new balls only if current size >= this.")]
-    public float minimumSize;
-    bool isDestroyed = false;
+    //bool isDestroyed = false;
     float momentum = 0;
     float lastMomentum = 0;
     float lastY = 0;
     int stationaryYCounter = 0;
-    public GameObject debugDot;
     public GameObject circlePrefab;
+    private SpriteRenderer sr;
+
+    private List<float> sizes = new List<float>{ 0.4f, 0.7f, 1.125f, 2.25f };
 
 
     // Start is called before the first frame update
     void Start() {
-        transform.localScale = new Vector3(size, size, 1);
+        sr = GetComponent<SpriteRenderer>();
+        transform.localScale = GetSize(size);
 
         if (direction == 0) {
             direction = Mathf.Sign(Random.Range(-1, 1)); // random direction
@@ -37,12 +38,14 @@ public class BallController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         
-        GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum , 0) * Time.deltaTime;
-        lastMomentum = momentum;
-        momentum -= gravity;
+        GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum, 0) * freezeFactor * Time.deltaTime;
+        if (freezeFactor == 1) {
+            lastMomentum = momentum;
+        }
+        momentum -= gravity * freezeFactor;
         
         // Reset momentum if a ball is detected moving on a flat surface (ie. not bouncing)
-        if (lastY == gameObject.transform.localPosition.y) {
+        if (lastY == gameObject.transform.localPosition.y && freezeFactor == 1) {
             stationaryYCounter++;
             if (stationaryYCounter > 3) {
                 momentum = 0;
@@ -61,32 +64,51 @@ public class BallController : MonoBehaviour {
 
     }
 
-    void Update() {
-
-        if (Input.GetMouseButtonDown(0)) {
-
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            
-            if (hit && hit.collider.gameObject.transform.position == transform.position) {
-                    DestroyBall();
-            }
-        }   
+    Vector2 GetSize(int s) {
+        return new Vector2(sizes[s-1], sizes[s-1]);
     }
 
-    void DestroyBall() {
-        if (!isDestroyed) {
-            isDestroyed = true;
-            if (size >= minimumSize) {
-                SpawnBalls(-1, size * spawnSizeMultiplier);
-                SpawnBalls(1, size * spawnSizeMultiplier);
+
+    public void Freeze() {
+        // WIP:
+        // for (float i = 0; i < 5; i += 0.01f) {
+        //     yield return new WaitForSeconds(0.01f);
+        //     freezeFactor *= 0.97f;
+        // }
+
+        // for (float i = 0; i < 1; i += 0.03f) {
+        //     yield return new WaitForSeconds(0.01f);
+        //     freezeFactor = i;
+        // }
+
+        // freezeFactor = 1;
+
+        freezeFactor = 0;
+        sr.color = Color.blue;        
+    }
+
+    public void UnFreeze() {
+        sr.color = Color.white;
+        freezeFactor = 1;
+    }
+
+    public void DestroyBall() {
+        // if (!isDestroyed) {
+        //     isDestroyed = true;
+            if (size > 1) {
+                SpawnBalls(-1, size - 1);
+                SpawnBalls(1, size - 1);
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);
-        }
+        // }
     }
 
-    void SpawnBalls(float direction, float newSize) {
-        GameObject newBall = Instantiate(circlePrefab, transform.position, Quaternion.identity) as GameObject;
+    void SpawnBalls(float direction, int newSize) {
+        GameObject newBall = Instantiate (circlePrefab,
+                                            new Vector2(transform.position.x + (sizes[newSize] * 0.25f) * direction, transform.position.y),
+                                            Quaternion.identity) as GameObject;
+        newBall.transform.parent = transform.parent;
 
         newBall.GetComponent<BallController>().direction = direction;
         newBall.GetComponent<BallController>().momentum = gravity * 33;

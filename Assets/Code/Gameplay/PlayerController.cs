@@ -10,11 +10,13 @@ public class PlayerController : MonoBehaviour {
     private float currentLadderY = 0;
     public float climbingSpeed;
 
-    public int ammoCount = 10;
+    [HideInInspector] public int ammoCount;
     public int score = 0;
     public int projectileType = 0;
     float movementX = 0;
     float movementY = 0;
+    bool collisionCooldown = false;
+    bool shieldActive = false;
 
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
@@ -35,8 +37,8 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        ChangeAmmoCount(0);
-        ChangeAmmoCount(0);
+
+        hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
     }
 
     void Update() {
@@ -118,21 +120,48 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col) {
 
-        if (col.gameObject.tag == "Ball" && !playerHit) {
-            HitPlayer(col.gameObject.transform.localPosition.x);
-        }
-        
         if (col.gameObject.tag == "Ladder" && !playerHit) {
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
             currentLadderY = col.gameObject.transform.localPosition.y;
         }
 
-        if (col.gameObject.tag == "AmmoDrop" && !playerHit) {
-            ChangeAmmoCount(Random.Range(1, 4));
+        // Avoid double collisions:
+        if (collisionCooldown) {
+            return;
+        }
+
+        if (col.gameObject.tag == "Ball" && !playerHit) {
+            HitPlayer(col.gameObject.transform.localPosition.x);
+        }
+
+        // Drops:
+        if (col.gameObject.layer == 11 && !playerHit) {
+            HandleDrops(col.gameObject);
             Destroy(col.gameObject);
         }
 
+        StartCoroutine(StartCollisionCooldown());
+
+    }
+
+    void HandleDrops(GameObject gameObject) {
+        switch (gameObject.tag) {
+            case "AmmoDrop":    ChangeAmmoCount(Random.Range(1, 4));
+                                break;
+            case "TimeFreeze":  StartCoroutine(transform.parent.GetComponent<LevelManager>().FreezeBubbles());
+                                break;
+            case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
+                                break;
+            case "Shield":      shieldActive = true;;
+                                break;
+        }
+    }
+
+    IEnumerator StartCollisionCooldown() {
+        collisionCooldown = true;
+        yield return new WaitForSeconds(0.1f);
+        collisionCooldown = false;
     }
     
     void OnTriggerExit2D(Collider2D col) {
@@ -144,6 +173,12 @@ public class PlayerController : MonoBehaviour {
 
     public void HitPlayer(float enemyX) {
         if (playerHit) {
+            return;
+        }
+
+        if (shieldActive) {
+            shieldActive = false;
+            StartCoroutine(CreateIFrames());
             return;
         }
         
