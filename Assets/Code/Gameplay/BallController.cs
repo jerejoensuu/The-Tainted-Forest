@@ -21,10 +21,12 @@ public class BallController : MonoBehaviour {
     int stationaryYCounter = 0;
     public GameObject debugDot;
     public GameObject circlePrefab;
+    private SpriteRenderer sr;
 
 
     // Start is called before the first frame update
     void Start() {
+        sr = GetComponent<SpriteRenderer>();
         transform.localScale = new Vector3(size, size, 1);
 
         if (direction == 0) {
@@ -80,7 +82,9 @@ public class BallController : MonoBehaviour {
         // freezeFactor = 1;
 
         freezeFactor = 0;
+        sr.color = Color.blue;
         yield return new WaitForSeconds(5);
+        sr.color = Color.white;
         freezeFactor = 1;
     }
 
