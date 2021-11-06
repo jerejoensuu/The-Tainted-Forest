@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
     private float currentLadderY = 0;
     public float climbingSpeed;
 
-    public int ammoCount = 10;
+    [HideInInspector] public int ammoCount;
     public int score = 0;
     public int projectileType = 0;
     float movementX = 0;
@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        ChangeAmmoCount(0);
-        ChangeAmmoCount(0);
+
+        hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
     }
 
     void Update() {
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour {
         switch (gameObject.tag) {
             case "AmmoDrop":    ChangeAmmoCount(Random.Range(1, 4));
                                 break;
-            case "TimeFreeze":  transform.parent.GetComponent<LevelManager>().FreezeBubbles();
+            case "TimeFreeze":  StartCoroutine(transform.parent.GetComponent<LevelManager>().FreezeBubbles());
                                 break;
             case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
                                 break;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
     public float moveSpeed;
-    [Range(1, 4)] [SerializeField] int size;
+    [Range(1, 4)] [SerializeField] public int size;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
@@ -69,7 +69,7 @@ public class BallController : MonoBehaviour {
     }
 
 
-    public IEnumerator FreezeBall() {
+    public void Freeze() {
         // WIP:
         // for (float i = 0; i < 5; i += 0.01f) {
         //     yield return new WaitForSeconds(0.01f);
@@ -84,8 +84,10 @@ public class BallController : MonoBehaviour {
         // freezeFactor = 1;
 
         freezeFactor = 0;
-        sr.color = Color.blue;
-        yield return new WaitForSeconds(5);
+        sr.color = Color.blue;        
+    }
+
+    public void UnFreeze() {
         sr.color = Color.white;
         freezeFactor = 1;
     }
@@ -103,7 +105,9 @@ public class BallController : MonoBehaviour {
     }
 
     void SpawnBalls(float direction, int newSize) {
-        GameObject newBall = Instantiate (circlePrefab, transform.position, Quaternion.identity) as GameObject;
+        GameObject newBall = Instantiate (circlePrefab,
+                                            new Vector2(transform.position.x + (sizes[newSize] * 0.25f) * direction, transform.position.y),
+                                            Quaternion.identity) as GameObject;
         newBall.transform.parent = transform.parent;
 
         newBall.GetComponent<BallController>().direction = direction;

@@ -10700,7 +10700,7 @@ MonoBehaviour:
   shield: {fileID: 226877250837588279, guid: 7a4909e50e1e3934a9379cefb1128144, type: 3}
   shieldWeight: 3
   cooldown: 4
-  changeOfSpawn: 0.1
+  changeOfSpawn: 0.2
 --- !u!1 &5849209743242408509
 GameObject:
   m_ObjectHideFlags: 0

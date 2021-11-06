@@ -4,14 +4,31 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
     
-    void Start() {
-        
-    }
-
-    public void FreezeBubbles() {
+    void Awake() {
+        int bubbleCount = 0;
         foreach (Transform child in transform) {
             if (child.tag == "Ball") {
-                StartCoroutine(child.GetComponent<BallController>().FreezeBall());
+                bubbleCount += (int)Mathf.Pow(child.GetComponent<BallController>().size, 2);
+            }
+        }
+
+        transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.3f);
+    }
+
+    public IEnumerator FreezeBubbles() {
+
+        for (float i = 0; i < 5; i += 0.01f) {
+            foreach (Transform child in transform) {
+                if (child.tag == "Ball") {
+                    child.GetComponent<BallController>().Freeze();
+                }
+            }
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        foreach (Transform child in transform) {
+            if (child.tag == "Ball") {
+                child.GetComponent<BallController>().UnFreeze();
             }
         }
     }
