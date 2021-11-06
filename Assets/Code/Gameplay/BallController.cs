@@ -5,29 +5,27 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
     public float moveSpeed;
+    [Range(1, 4)] [SerializeField] int size;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
     [SerializeField] float direction;
-    public float size;
     [Tooltip("Ball spawn size percentage.")]
-    public float spawnSizeMultiplier = 0.5f;
-    [Tooltip("Spawn new balls only if current size >= this.")]
-    public float minimumSize;
     //bool isDestroyed = false;
     float momentum = 0;
     float lastMomentum = 0;
     float lastY = 0;
     int stationaryYCounter = 0;
-    public GameObject debugDot;
     public GameObject circlePrefab;
     private SpriteRenderer sr;
+
+    private List<float> sizes = new List<float>{ 0.4f, 0.7f, 1.125f, 2.25f };
 
 
     // Start is called before the first frame update
     void Start() {
         sr = GetComponent<SpriteRenderer>();
-        transform.localScale = new Vector3(size, size, 1);
+        transform.localScale = GetSize(size);
 
         if (direction == 0) {
             direction = Mathf.Sign(Random.Range(-1, 1)); // random direction
@@ -66,6 +64,10 @@ public class BallController : MonoBehaviour {
 
     }
 
+    Vector2 GetSize(int s) {
+        return new Vector2(sizes[s-1], sizes[s-1]);
+    }
+
 
     public IEnumerator FreezeBall() {
         // WIP:
@@ -91,16 +93,16 @@ public class BallController : MonoBehaviour {
     public void DestroyBall() {
         // if (!isDestroyed) {
         //     isDestroyed = true;
-            if (size >= minimumSize) {
-                SpawnBalls(-1, size * spawnSizeMultiplier);
-                SpawnBalls(1, size * spawnSizeMultiplier);
+            if (size > 1) {
+                SpawnBalls(-1, size - 1);
+                SpawnBalls(1, size - 1);
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);
         // }
     }
 
-    void SpawnBalls(float direction, float newSize) {
+    void SpawnBalls(float direction, int newSize) {
         GameObject newBall = Instantiate (circlePrefab, transform.position, Quaternion.identity) as GameObject;
         newBall.transform.parent = transform.parent;
 
