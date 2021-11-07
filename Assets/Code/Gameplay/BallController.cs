@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
     public float moveSpeed;
-    [Range(1, 4)] [SerializeField] public int size;
+    [Range(1, 4)] [SerializeField] [Tooltip("0.4, 0.7, 1.125, 2.25")] public int size;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
