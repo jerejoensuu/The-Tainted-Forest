@@ -21,6 +21,7 @@ public class BallController : MonoBehaviour {
 
     private List<float> sizes = new List<float>{ 0.4f, 0.7f, 1.125f, 2.25f };
 
+    private LevelManager levelManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -33,6 +34,8 @@ public class BallController : MonoBehaviour {
             direction = Mathf.Sign(direction); // correct for inputs <-1 and >1
         }
         
+        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+        if (levelManager != null) { levelManager.ballsInLevel.Add(this.gameObject); }
     }
 
     // Update is called once per frame
@@ -95,9 +98,14 @@ public class BallController : MonoBehaviour {
     public void DestroyBall() {
         // if (!isDestroyed) {
         //     isDestroyed = true;
+            if (levelManager != null) { levelManager.ballsInLevel.Remove(this.gameObject); }
+            
             if (size > 1) {
                 SpawnBalls(-1, size - 1);
                 SpawnBalls(1, size - 1);
+            }
+            else if (levelManager != null) {
+                levelManager.CheckRemainingBalls();
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);

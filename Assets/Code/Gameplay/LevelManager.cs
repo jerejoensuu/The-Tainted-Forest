@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
+
+    public List<GameObject> ballsInLevel = new List<GameObject>();
     
     void Awake() {
         int bubbleCount = 0;
@@ -13,6 +15,12 @@ public class LevelManager : MonoBehaviour {
         }
 
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.3f);
+    }
+
+    public void CheckRemainingBalls() {
+        if (ballsInLevel.Count == 0) {
+            Debug.Log("Win");
+        }
     }
 
     public IEnumerator FreezeBubbles() {
