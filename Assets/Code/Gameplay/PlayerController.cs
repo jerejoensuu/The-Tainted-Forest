@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        if (!UIController.paused) {
+        if (!UIController.paused && health >= 1) {
             if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded()) {
                 Attack();
             }
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (!UIController.paused) {
+        if (!UIController.paused && health >= 1) {
             // Horizontal movement:
             if (Input.GetAxisRaw("Horizontal") != 0) {
                 Walk();
@@ -192,7 +192,8 @@ public class PlayerController : MonoBehaviour {
         // Player dead:
         if (health <= 0) {
             Debug.Log("Player dead");
-            GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().LevelLose();
+            //GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
         }
 
         StartCoroutine(CreateIFrames());

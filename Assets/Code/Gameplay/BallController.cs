@@ -35,7 +35,7 @@ public class BallController : MonoBehaviour {
         }
         
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
-        if (levelManager != null) { levelManager.ballsInLevel.Add(this.gameObject); }
+        if (levelManager != null) { levelManager.bubblesRemaining.Add(this.gameObject); }
     }
 
     // Update is called once per frame
@@ -95,21 +95,21 @@ public class BallController : MonoBehaviour {
         freezeFactor = 1;
     }
 
+    bool isDestroyed = false;
     public void DestroyBall() {
-        // if (!isDestroyed) {
-        //     isDestroyed = true;
-            if (levelManager != null) { levelManager.ballsInLevel.Remove(this.gameObject); }
-            
+        if (!isDestroyed) {
+            isDestroyed = true;
             if (size > 1) {
                 SpawnBalls(-1, size - 1);
                 SpawnBalls(1, size - 1);
             }
-            else if (levelManager != null) {
-                levelManager.CheckRemainingBalls();
+            if (levelManager != null) {
+                levelManager.bubblesRemaining.Remove(this.gameObject);
+                levelManager.CheckRemainingBubbles();
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);
-        // }
+        }
     }
 
     void SpawnBalls(float direction, int newSize) {
