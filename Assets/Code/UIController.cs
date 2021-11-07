@@ -100,11 +100,13 @@ public class UIController : MonoBehaviour {
 
         if (hasWon) {
             winScreen.SetActive(true);
+            Time.timeScale = 0;
             GetComponent<EventSystem>().SetSelectedGameObject(null);
             GetComponent<EventSystem>().SetSelectedGameObject(winScreenActiveButton);
         }
         else {
             loseScreen.SetActive(true);
+            Time.timeScale = 0;
             GetComponent<EventSystem>().SetSelectedGameObject(null);
             GetComponent<EventSystem>().SetSelectedGameObject(loseScreenActiveButton);
         }
