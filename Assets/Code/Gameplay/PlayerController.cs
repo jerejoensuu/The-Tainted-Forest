@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour {
                     canClimbDown = false;
                     gameObject.layer = LayerMask.NameToLayer("Player");
                 }
+                rb.velocity = new Vector2(0, 0);
                 rb.gravityScale = 0;
                 Climb();
             // If the player is unable to climb anymore, turn it's gravityScale back on:
@@ -215,6 +216,7 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, bc.bounds.extents.y + extraHeight), Vector2.right * (bc.bounds.extents.x * 2), rayColor);
         */
+        
 
         return raycastHit.collider != null;
     }

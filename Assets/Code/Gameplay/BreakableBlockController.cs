@@ -11,6 +11,9 @@ public class BreakableBlockController : MonoBehaviour {
     void Awake() {
         particle = GetComponentInChildren<ParticleSystem>();
         sr = GetComponent<SpriteRenderer>();
+
+        var sh = particle.shape;
+        sh.scale = new Vector3 (transform.localScale.x, transform.localScale.y, 0);
     }
 
     void OnTriggerEnter2D(Collider2D col) {
