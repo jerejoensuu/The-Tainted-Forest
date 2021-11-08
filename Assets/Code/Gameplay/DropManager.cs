@@ -79,11 +79,19 @@ public class DropManager : MonoBehaviour {
     }
 
     IEnumerator Spawn() {
+        Vector2 location;
         GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];
-        Vector2 location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.transform.localScale.x/2 + ammoDrop.transform.localScale.x/2,
-                                                    spawnPlatform.transform.position.x + spawnPlatform.transform.localScale.x/2)
+        
+        if (spawnPlatform.layer == 3) {
+            location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 + ammoDrop.transform.localScale.x/2,
+                                                    spawnPlatform.transform.position.x + spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 - ammoDrop.transform.localScale.x/2)
                                        ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + ammoDrop.transform.localScale.y/2);
-
+        } else {
+            location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.transform.localScale.x/2 + ammoDrop.transform.localScale.x/2,
+                                                    spawnPlatform.transform.position.x + spawnPlatform.transform.localScale.x/2 - ammoDrop.transform.localScale.x/2)
+                                       ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + ammoDrop.transform.localScale.y/2);
+        }
+        
         particleRays.transform.position = location;
         particleCircle.transform.position = location;
         particleRays.Play();
