@@ -201,30 +201,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &125483731 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1412611107111909588, guid: 5b985a00deb2cf64ba7db42d4775d8b7, type: 3}
-  m_PrefabInstance: {fileID: 1906928252}
-  m_PrefabAsset: {fileID: 0}
---- !u!251 &125483732
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125483731}
-  m_Enabled: 0
-  m_UseColliderMask: 0
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 439
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!1 &144436423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,6 +2648,10 @@ PrefabInstance:
     - target: {fileID: 1412611107111909588, guid: 5b985a00deb2cf64ba7db42d4775d8b7, type: 3}
       propertyPath: m_Name
       value: Ladder (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942813177678908271, guid: 5b985a00deb2cf64ba7db42d4775d8b7, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b985a00deb2cf64ba7db42d4775d8b7, type: 3}
