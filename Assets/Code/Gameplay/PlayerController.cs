@@ -31,13 +31,14 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float invincibilityDurationSeconds;
     [SerializeField] private float invincibilityDeltaTime = 0.15f;
 
-    public GameObject hud;
+    GameObject hud;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 
+        hud = GameObject.Find("PlayerUI");
         hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
     }
 
