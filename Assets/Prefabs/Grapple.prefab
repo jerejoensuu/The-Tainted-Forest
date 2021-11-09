@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 3953437995567698515}
   - component: {fileID: 2817996306969211406}
   - component: {fileID: 6064403744794779107}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Grapple
-  m_TagString: Projectile
+  m_TagString: Vine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
