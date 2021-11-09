@@ -99,10 +99,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Attack() {
-        ChangeAmmoCount(-1);
+        
         switch (projectileType) {
             case 0:
-                GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.transform.localScale.y/2) + projectileOffset, 0f), Quaternion.identity) as GameObject;
+                if (transform.parent.GetComponent<LevelManager>().CountVines() < 1) {
+                    ChangeAmmoCount(-1);
+                    GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.transform.localScale.y/2) + projectileOffset, 0f), Quaternion.identity) as GameObject;
+                    grappleObject.transform.parent = transform.parent;
+                }
                 break;
             default:
                 Debug.Log("Invalid projectile type");
