@@ -12,7 +12,7 @@ public class CutsceneController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Input.anyKeyDown) {
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("Level 1");
         }
     }
 }

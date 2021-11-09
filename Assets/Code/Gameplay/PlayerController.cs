@@ -31,18 +31,19 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float invincibilityDurationSeconds;
     [SerializeField] private float invincibilityDeltaTime = 0.15f;
 
-    public GameObject hud;
+    GameObject hud;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 
+        hud = GameObject.Find("PlayerUI");
         hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
     }
 
     void Update() {
-        if (!UIController.paused) {
+        if (!UIController.paused && health >= 1) {
             if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded()) {
                 Attack();
             }
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (!UIController.paused) {
+        if (!UIController.paused && health >= 1) {
             // Horizontal movement:
             if (Input.GetAxisRaw("Horizontal") != 0) {
                 Walk();
@@ -73,6 +74,7 @@ public class PlayerController : MonoBehaviour {
                     canClimbDown = false;
                     gameObject.layer = LayerMask.NameToLayer("Player");
                 }
+                rb.velocity = new Vector2(0, 0);
                 rb.gravityScale = 0;
                 Climb();
             // If the player is unable to climb anymore, turn it's gravityScale back on:
@@ -192,7 +194,8 @@ public class PlayerController : MonoBehaviour {
         // Player dead:
         if (health <= 0) {
             Debug.Log("Player dead");
-            GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().LevelLose();
+            //GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
         }
 
         StartCoroutine(CreateIFrames());
@@ -214,6 +217,7 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, bc.bounds.extents.y + extraHeight), Vector2.right * (bc.bounds.extents.x * 2), rayColor);
         */
+        
 
         return raycastHit.collider != null;
     }

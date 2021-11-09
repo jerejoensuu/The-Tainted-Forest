@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
     public float moveSpeed;
-    [Range(1, 4)] [SerializeField] public int size;
+    [Range(1, 4)] [SerializeField] [Tooltip("0.4, 0.7, 1.125, 2.25")] public int size;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
@@ -21,6 +21,7 @@ public class BallController : MonoBehaviour {
 
     private List<float> sizes = new List<float>{ 0.4f, 0.7f, 1.125f, 2.25f };
 
+    private LevelManager levelManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -33,6 +34,8 @@ public class BallController : MonoBehaviour {
             direction = Mathf.Sign(direction); // correct for inputs <-1 and >1
         }
         
+        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+        if (levelManager != null) { levelManager.bubblesRemaining.Add(this.gameObject); }
     }
 
     // Update is called once per frame
@@ -92,16 +95,21 @@ public class BallController : MonoBehaviour {
         freezeFactor = 1;
     }
 
+    bool isDestroyed = false;
     public void DestroyBall() {
-        // if (!isDestroyed) {
-        //     isDestroyed = true;
+        if (!isDestroyed) {
+            isDestroyed = true;
             if (size > 1) {
                 SpawnBalls(-1, size - 1);
                 SpawnBalls(1, size - 1);
             }
+            if (levelManager != null) {
+                levelManager.bubblesRemaining.Remove(this.gameObject);
+                levelManager.CheckRemainingBubbles();
+            }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);
-        // }
+        }
     }
 
     void SpawnBalls(float direction, int newSize) {

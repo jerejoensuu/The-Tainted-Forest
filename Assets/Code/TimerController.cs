@@ -22,6 +22,7 @@ public class TimerController : MonoBehaviour {
             seconds--;
             SetTime();
         }
+        OutOfTime();
     }
 
     void SetTime() {
@@ -32,5 +33,9 @@ public class TimerController : MonoBehaviour {
         } else {
             m_TextComponent.text = seconds.ToString();
         }
+    }
+
+    void OutOfTime() {
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().LevelLose();
     }
 }
