@@ -33,6 +33,17 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+    public int CountVines() { 
+        int bubbleCount = 0;
+        foreach (Transform child in transform) {
+            if (child.tag == "Vine") {
+                bubbleCount++;
+            }
+        }
+        Debug.Log(bubbleCount);
+        return bubbleCount;
+    }
+
     public void LevelWin() {
         if (!levelWon && !levelLost) {
             levelWon = true;

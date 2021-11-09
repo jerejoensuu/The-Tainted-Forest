@@ -13,6 +13,7 @@ TagManager:
   - DamageAll
   - Shield
   - GroundCheck
+  - Vine
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Drop
   - AmmoSpawn
   - LadderPlatform
-  - 
+  - Projectile
   - 
   - 
   - 

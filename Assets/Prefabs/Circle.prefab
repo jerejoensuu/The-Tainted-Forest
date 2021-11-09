@@ -198,15 +198,7 @@ MonoBehaviour:
   size: 4
   gravity: 15
   direction: 0
-  spawnSizeMultiplier: 0.6
-  minimumSize: 0.65
-  debugDot: {fileID: 9022102137030400920, guid: 322822163eceaa04183b413478e2e6a2, type: 3}
   circlePrefab: {fileID: 4032727282863226376}
-  sizes:
-  - 2.65
-  - 1.9
-  - 1.15
-  - 0.4
 --- !u!82 &7173061738822332874
 AudioSource:
   m_ObjectHideFlags: 0
@@ -360,7 +352,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c57caee3354acc244960876a05799037, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.84313726}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
