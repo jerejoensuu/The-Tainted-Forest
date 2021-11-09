@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
 
         if (col.gameObject.tag == "Ladder" && !playerHit) {
+            Debug.Log("hit");
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
             currentLadderY = col.gameObject.transform.localPosition.y;
@@ -134,10 +135,12 @@ public class PlayerController : MonoBehaviour {
 
         // Avoid double collisions:
         if (collisionCooldown) {
+            Debug.Log("hit");
             return;
         }
 
         if (col.gameObject.tag == "Ball" && !playerHit) {
+            Debug.Log("hit");
             HitPlayer(col.gameObject.transform.localPosition.x);
         }
 
@@ -187,7 +190,7 @@ public class PlayerController : MonoBehaviour {
             StartCoroutine(CreateIFrames());
             return;
         }
-        
+
         health--;
         int dir = enemyX < transform.localPosition.x ? 1 : -1;
         rb.gravityScale = 0.5f;
@@ -251,10 +254,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Flip () {
+        float oldX = Mathf.Abs(transform.localScale.x);
+        float oldY = Mathf.Abs(transform.localScale.y);
         if (movementX < 0 || rb.velocity.x < 0) {
-            transform.localScale = new Vector2(1, 1);
+            transform.localScale = new Vector2(oldX, oldY);
         } else if (movementX > 0 || rb.velocity.x > 0) {
-            transform.localScale = new Vector2(-1, 1);
+            transform.localScale = new Vector2(-oldX, oldY);
         }
     }
 }
