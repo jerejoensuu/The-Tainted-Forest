@@ -18,7 +18,7 @@ public class BreakableBlockController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col) {
         // Collision with player projectiles
-        if (col.gameObject.tag == "Projectile") {
+        if (col.gameObject.tag == "Vine") {
             StartCoroutine(Break());
         }
     }
