@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour {
         }
 
         transform.Find("PlatformAndDropManager").GetComponent<DropManager>().ApplyTheme(theme);
+        ApplyBackground();
 
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.3f);
 
@@ -93,5 +94,13 @@ public class LevelManager : MonoBehaviour {
         foreach (GameObject bubble in bubbles) {
             bubble.GetComponent<BallController>().DestroyBall();
         }
+    }
+
+    private void ApplyBackground() {
+        transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(false);
+        transform.Find("Backgrounds").GetChild(0).GetChild(0).gameObject.SetActive(false);
+
+        transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(true);
+        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).gameObject.SetActive(true);
     }
 }
