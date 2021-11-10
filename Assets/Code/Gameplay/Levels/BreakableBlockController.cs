@@ -13,7 +13,7 @@ public class BreakableBlockController : MonoBehaviour {
         sr = GetComponentInChildren<SpriteRenderer>();
 
         var sh = particle.shape;
-        sh.scale = new Vector3 (transform.localScale.x, transform.localScale.y, 0);
+        sh.scale = new Vector3 (GetComponent<SpriteRenderer>().size.x/2, GetComponent<SpriteRenderer>().size.y/2, 0);
     }
 
     void OnTriggerEnter2D(Collider2D col) {
@@ -25,7 +25,11 @@ public class BreakableBlockController : MonoBehaviour {
 
     IEnumerator Break() {
         particle.Play();
-        sr.enabled = false;
+        foreach (Transform child in transform) {
+            if (child.tag == "Theme") {
+                child.GetComponent<SpriteRenderer>().enabled = false;
+            }
+        }
 
         yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
         Destroy(gameObject);
