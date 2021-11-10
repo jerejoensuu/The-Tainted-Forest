@@ -2056,10 +2056,9 @@ MonoBehaviour:
   ammoCount: 25
   score: 0
   projectileType: 0
-  projectileOffset: 0.1
   layerMask:
     serializedVersion: 2
-    m_Bits: 1032
+    m_Bits: 9224
   grapplePrefab: {fileID: 6995751139742916582, guid: c979113742b4f2f41b4fcc0a33998985, type: 3}
   hitOffGroundOffset: 0
   invincibilityDurationSeconds: 2.5

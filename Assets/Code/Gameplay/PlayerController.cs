@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour {
     bool collisionCooldown = false;
     bool shieldActive = false;
 
-    [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
     Rigidbody2D rb;
     BoxCollider2D bc;
     SpriteRenderer[] spriteRenderers;
@@ -104,7 +103,7 @@ public class PlayerController : MonoBehaviour {
             case 0:
                 if (transform.parent.GetComponent<LevelManager>().CountVines() < 1) {
                     ChangeAmmoCount(-1);
-                    GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.transform.localScale.y/2) + projectileOffset, 0f), Quaternion.identity) as GameObject;
+                    GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
                     grappleObject.transform.parent = transform.parent;
                 }
                 break;
@@ -127,7 +126,6 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
 
         if (col.gameObject.tag == "Ladder" && !playerHit) {
-            Debug.Log("hit");
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
             currentLadderY = col.gameObject.transform.localPosition.y;
@@ -135,12 +133,10 @@ public class PlayerController : MonoBehaviour {
 
         // Avoid double collisions:
         if (collisionCooldown) {
-            Debug.Log("hit");
             return;
         }
 
         if (col.gameObject.tag == "Ball" && !playerHit) {
-            Debug.Log("hit");
             HitPlayer(col.gameObject.transform.localPosition.x);
         }
 
@@ -225,7 +221,6 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, bc.bounds.extents.y + extraHeight), Vector2.right * (bc.bounds.extents.x * 2), rayColor);
         */
         
-
         return raycastHit.collider != null;
     }
 
