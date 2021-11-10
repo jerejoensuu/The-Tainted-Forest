@@ -4,13 +4,30 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour {
-    // Start is called before the first frame update
+
+    public GameObject[] mainMenuStates;
     public void NewGame() {
         SceneManager.LoadScene("Cutscene");
     }
 
     public void OpenSettings() {
         Debug.Log("Add settings");
+    }
+
+    public void OpenLevelSelect() {
+
+    }
+
+    public void BackToMain() {
+
+    }
+
+    public void SaveAndExit() {
+
+    }
+
+    public void ExitWithoutSaving() {
+        
     }
 
     public void QuitGame() {
