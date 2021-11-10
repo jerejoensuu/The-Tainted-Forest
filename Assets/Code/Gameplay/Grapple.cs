@@ -10,6 +10,7 @@ public class Grapple : MonoBehaviour {
     private SpriteMask spriteMask;
     private BoxCollider2D boxCollider2D;
     float distanceMoved = 0;
+    [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
 
     void Awake() {
         spriteMask = GetComponentInChildren<SpriteMask>();
@@ -31,16 +32,8 @@ public class Grapple : MonoBehaviour {
         spriteMask.transform.position -= currentPosition;
         distanceMoved += currentPosition.y;
 
-        boxCollider2D.offset = new Vector2(0, 0.5f * GetInverseProgress());
-        boxCollider2D.size = new Vector2(1, 1f * GetProgress());
-    }
-
-    float GetProgress() {
-        return distanceMoved / transform.localScale.y;
-    }
-
-    float GetInverseProgress() {
-        return 1 - (distanceMoved / transform.localScale.y);
+        boxCollider2D.size = new Vector2(1, distanceMoved);
+        boxCollider2D.offset = new Vector2(0, GetComponent<SpriteRenderer>().size.y/2 - distanceMoved/2 + projectileOffset);
     }
 
     void OnTriggerEnter2D(Collider2D col) {

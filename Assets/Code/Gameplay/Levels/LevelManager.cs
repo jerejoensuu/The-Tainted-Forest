@@ -40,7 +40,6 @@ public class LevelManager : MonoBehaviour {
                 bubbleCount++;
             }
         }
-        Debug.Log(bubbleCount);
         return bubbleCount;
     }
 

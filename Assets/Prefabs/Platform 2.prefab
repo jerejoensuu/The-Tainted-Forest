@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 3592810352200584538}
   - component: {fileID: 3592810352200584535}
   - component: {fileID: 3592810352200584536}
+  - component: {fileID: 3592810352200584534}
   - component: {fileID: 5491122834778538825}
-  - component: {fileID: 5143964384353954408}
+  - component: {fileID: 2954541079952030240}
   m_Layer: 3
-  m_Name: Vertical platform
+  m_Name: Platform 2
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,10 +71,10 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.22999999, y: 0.21, z: 0.24, w: 0.35999998}
+    border: {x: 0.19999999, y: 0.17, z: 0.17, w: 0.24}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.09, y: 1.06}
-    newSize: {x: 1, y: 2}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 2, y: 1}
     adaptiveTilingThreshold: 1
     drawMode: 2
     adaptiveTiling: 1
@@ -81,6 +82,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!251 &3592810352200584534
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592810352200584533}
+  m_Enabled: 1
+  m_UseColliderMask: 0
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 439
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!114 &5491122834778538825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowDrops: 0
---- !u!212 &5143964384353954408
+--- !u!212 &2954541079952030240
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,12 +154,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 75ef085768dd7534cabbf658f797aa77, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a991a8a92ba63934b8317b2daab63eb9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 2, y: 1}
   m_AdaptiveModeThreshold: 1
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
