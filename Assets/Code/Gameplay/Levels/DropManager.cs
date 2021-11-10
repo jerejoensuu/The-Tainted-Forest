@@ -102,4 +102,14 @@ public class DropManager : MonoBehaviour {
         Instantiate(dropPool[Random.Range(0, dropPool.Count)], location, Quaternion.identity);
 
     }
+
+    public void ApplyTheme(int theme) {
+        foreach (Transform child in transform) {
+            if (child.gameObject.layer == 3 && child.GetComponentInChildren<SpriteRenderer>() != null) {
+                child.GetComponent<SpriteRenderer>().enabled = false;
+                child.GetChild(theme-1).GetComponent<SpriteRenderer>().enabled = true;
+                child.GetChild(theme-1).GetComponent<SpriteRenderer>().size = child.GetComponent<SpriteRenderer>().size;
+            }
+        }
+    }
 }

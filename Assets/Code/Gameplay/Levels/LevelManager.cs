@@ -7,16 +7,24 @@ public class LevelManager : MonoBehaviour {
     public List<GameObject> bubblesRemaining = new List<GameObject>();
     private bool levelWon = false;
     private bool levelLost = false;
+    [Range(1, 2)] [SerializeField] int theme = 1;
+    [Range(1, 3)] [SerializeField] int taintLevel = 1;
     
     void Awake() {
         int bubbleCount = 0;
         foreach (Transform child in transform) {
+
             if (child.tag == "Ball") {
                 bubbleCount += (int)Mathf.Pow(child.GetComponent<BallController>().size, 2);
             }
+            
         }
 
+        transform.Find("PlatformAndDropManager").GetComponent<DropManager>().ApplyTheme(theme);
+
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.3f);
+
+
     }
 
     public void CheckRemainingBubbles() {
