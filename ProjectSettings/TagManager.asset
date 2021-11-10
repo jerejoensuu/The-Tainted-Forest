@@ -14,6 +14,7 @@ TagManager:
   - Shield
   - GroundCheck
   - Vine
+  - Theme
   layers:
   - Default
   - TransparentFX
