@@ -17,9 +17,12 @@ public class PlayerController : MonoBehaviour {
     float movementY = 0;
     bool collisionCooldown = false;
     bool shieldActive = false;
+    string activeAnimation = "Idle";
+    bool isShooting = false;
 
     Rigidbody2D rb;
     BoxCollider2D bc;
+    Animator animator;
     SpriteRenderer[] spriteRenderers;
     [SerializeField] private LayerMask layerMask;
     public GameObject grapplePrefab;
@@ -36,9 +39,11 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         hud = GameObject.Find("PlayerUI");
         hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
+        SetActiveAnimation("Idle");
     }
 
     void Update() {
@@ -52,17 +57,22 @@ public class PlayerController : MonoBehaviour {
                 canClimbDown = false;
             }
         }
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
+            SetActiveAnimation("Idle");
+            isShooting = false;
+        }
+        
     }
 
     void FixedUpdate() {
         if (!UIController.paused && health >= 1) {
             // Horizontal movement:
-            if (Input.GetAxisRaw("Horizontal") != 0) {
+            if (Input.GetAxisRaw("Horizontal") != 0 && !isShooting) {
                 Walk();
             }
 
             // Can player climb and are they trying to climb:
-            if (canClimb && Input.GetAxisRaw("Vertical") != 0) {
+            if (canClimb && Input.GetAxisRaw("Vertical") != 0 && !isShooting) {
                 // Can player climb down, is the ladder below them and are they attempting to climb down:
                 if (canClimbDown && currentLadderY < transform.localPosition.y && Input.GetAxisRaw("Vertical") < 0) {
                     // Turn player into a semisolid able to go through platforms:
@@ -98,10 +108,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Attack() {
-        
         switch (projectileType) {
             case 0:
                 if (transform.parent.GetComponent<LevelManager>().CountVines() < 1) {
+                    isShooting = true;
+                    SetActiveAnimation("Shooting");
+                    animator.SetTrigger("shot");
                     ChangeAmmoCount(-1);
                     GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
                     grappleObject.transform.parent = transform.parent;
@@ -192,6 +204,7 @@ public class PlayerController : MonoBehaviour {
         rb.gravityScale = 0.5f;
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(2.5f * dir, 3.25f), ForceMode2D.Impulse);
+        SetActiveAnimation("Hit");
 
 
         // Player dead:
@@ -235,6 +248,7 @@ public class PlayerController : MonoBehaviour {
             yield return new WaitForSeconds(invincibilityDeltaTime);
             if (IsGrounded()) {
                 hitOffGroundOffset = false;
+                SetActiveAnimation("Idle");
             }
         }
 
@@ -243,9 +257,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void TurnInvisible(bool boolean) {
-        foreach (SpriteRenderer child_sr in spriteRenderers) {
-            child_sr.enabled = boolean;
-        }
+        transform.Find(activeAnimation).gameObject.SetActive(boolean);
     }
 
     void Flip () {
@@ -257,4 +269,14 @@ public class PlayerController : MonoBehaviour {
             transform.localScale = new Vector2(-oldX, oldY);
         }
     }
+
+    public void SetActiveAnimation(string newAnimation = "Idle") {
+        transform.Find("Idle").gameObject.SetActive(false);
+        transform.Find("Hit").gameObject.SetActive(false);
+        transform.Find("Shooting").gameObject.SetActive(false);
+        
+        activeAnimation = newAnimation;
+        transform.Find(activeAnimation).gameObject.SetActive(true);
+    }
+
 }
