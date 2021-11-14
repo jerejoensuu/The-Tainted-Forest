@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Grapple : MonoBehaviour {
-    public float speed = 8f;
-
+    public float speed;
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
     private SpriteMask spriteMask;
@@ -28,6 +27,7 @@ public class Grapple : MonoBehaviour {
 
     void FixedUpdate() {
         if (moving) {
+            speed *= 1.005f;
             Vector3 currentPosition = new Vector3(0f, speed / 200, 0f);
             Vector2 collisionOffset = new Vector3(0f, speed / 200, 0f);
 
