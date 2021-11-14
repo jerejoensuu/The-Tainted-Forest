@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
     bool shieldActive = false;
     string activeAnimation = "Idle";
     bool isShooting = false;
+    int maxVines = 1;
 
     Rigidbody2D rb;
     BoxCollider2D bc;
@@ -57,9 +58,10 @@ public class PlayerController : MonoBehaviour {
                 canClimbDown = false;
             }
         }
-        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && isShooting) {
             SetActiveAnimation("Idle");
             isShooting = false;
+            Debug.Log("Stopped shooting");
         }
         
     }
@@ -110,8 +112,9 @@ public class PlayerController : MonoBehaviour {
     void Attack() {
         switch (projectileType) {
             case 0:
-                if (transform.parent.GetComponent<LevelManager>().CountVines() < 1) {
+                if (transform.parent.GetComponent<LevelManager>().CountVines() < maxVines && !isShooting) {
                     isShooting = true;
+                    Debug.Log("shooting");
                     SetActiveAnimation("Shooting");
                     animator.SetTrigger("shot");
                     ChangeAmmoCount(-1);
@@ -170,7 +173,9 @@ public class PlayerController : MonoBehaviour {
                                 break;
             case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
                                 break;
-            case "Shield":      shieldActive = true;;
+            case "Shield":      shieldActive = true;
+                                break;
+            case "DoubleVines": maxVines = 2;
                                 break;
         }
     }

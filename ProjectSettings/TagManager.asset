@@ -15,6 +15,7 @@ TagManager:
   - GroundCheck
   - Vine
   - Theme
+  - DoubleVines
   layers:
   - Default
   - TransparentFX
