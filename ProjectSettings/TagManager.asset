@@ -16,6 +16,7 @@ TagManager:
   - Vine
   - Theme
   - DoubleVines
+  - StickyVines
   layers:
   - Default
   - TransparentFX

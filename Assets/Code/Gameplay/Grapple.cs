@@ -10,6 +10,8 @@ public class Grapple : MonoBehaviour {
     private SpriteMask spriteMask;
     private BoxCollider2D boxCollider2D;
     float distanceMoved = 0;
+    public bool stickyVines = false;
+    bool moving = true;
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
 
     void Awake() {
@@ -25,20 +27,27 @@ public class Grapple : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Vector3 currentPosition = new Vector3(0f, speed / 200, 0f);
-        Vector2 collisionOffset = new Vector3(0f, speed / 200, 0f);
+        if (moving) {
+            Vector3 currentPosition = new Vector3(0f, speed / 200, 0f);
+            Vector2 collisionOffset = new Vector3(0f, speed / 200, 0f);
 
-        transform.localPosition += currentPosition;
-        spriteMask.transform.position -= currentPosition;
-        distanceMoved += currentPosition.y;
+            transform.localPosition += currentPosition;
+            spriteMask.transform.position -= currentPosition;
+            distanceMoved += currentPosition.y;
 
-        boxCollider2D.size = new Vector2(1, distanceMoved);
-        boxCollider2D.offset = new Vector2(0, GetComponent<SpriteRenderer>().size.y/2 - distanceMoved/2 + projectileOffset);
+            boxCollider2D.size = new Vector2(1, distanceMoved);
+            boxCollider2D.offset = new Vector2(0, GetComponent<SpriteRenderer>().size.y/2 - distanceMoved/2 + projectileOffset);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Wall") {
-            Destroy(transform.gameObject);
+            if (stickyVines) {
+                moving = false;
+            } else {
+                Destroy(transform.gameObject);
+            }
+            
         }
 
         if (col.gameObject.tag == "Ball") {

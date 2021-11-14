@@ -96,6 +96,15 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+    public void DestroyAllVines() {
+        foreach (Transform child in transform) {
+            if (child.tag == "Vine") {
+                Debug.Log("Destroyed");
+                Destroy(child.gameObject);
+            }
+        }
+    }
+
     private void ApplyBackground() {
         transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(false);
         transform.Find("Backgrounds").GetChild(0).GetChild(0).gameObject.SetActive(false);

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     string activeAnimation = "Idle";
     bool isShooting = false;
     int maxVines = 1;
+    bool stickyVines = false;
 
     Rigidbody2D rb;
     BoxCollider2D bc;
@@ -61,7 +62,6 @@ public class PlayerController : MonoBehaviour {
         if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && isShooting) {
             SetActiveAnimation("Idle");
             isShooting = false;
-            Debug.Log("Stopped shooting");
         }
         
     }
@@ -110,16 +110,19 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Attack() {
+        GameObject grappleObject;
         switch (projectileType) {
             case 0:
                 if (transform.parent.GetComponent<LevelManager>().CountVines() < maxVines && !isShooting) {
                     isShooting = true;
-                    Debug.Log("shooting");
                     SetActiveAnimation("Shooting");
                     animator.SetTrigger("shot");
                     ChangeAmmoCount(-1);
-                    GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
+                    grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
                     grappleObject.transform.parent = transform.parent;
+                    grappleObject.GetComponent<Grapple>().stickyVines = stickyVines;
+                } else if (stickyVines) {
+                    transform.parent.GetComponent<LevelManager>().DestroyAllVines();
                 }
                 break;
             default:
@@ -185,6 +188,10 @@ public class PlayerController : MonoBehaviour {
             case "Shield":      shieldActive = true;
                                 break;
             case "DoubleVines": maxVines = 2;
+                                stickyVines = false;
+                                break;
+            case "StickyVines": stickyVines = true;
+                                maxVines = 1;
                                 break;
         }
     }
