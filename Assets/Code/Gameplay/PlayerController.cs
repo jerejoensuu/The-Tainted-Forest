@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour {
                                 break;
             case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
                                 break;
-            case "Shield":      shieldActive = true;
+            case "Shield":      ActiveShield();
                                 break;
             case "DoubleVines": maxVines = 2;
                                 stickyVines = false;
@@ -194,6 +194,11 @@ public class PlayerController : MonoBehaviour {
                                 maxVines = 1;
                                 break;
         }
+    }
+
+    void ActiveShield() {
+        // turn blue here or something
+        shieldActive = true;
     }
 
     IEnumerator StartCollisionCooldown() {
