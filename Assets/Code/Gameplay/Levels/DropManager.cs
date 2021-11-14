@@ -81,6 +81,7 @@ public class DropManager : MonoBehaviour {
     IEnumerator Spawn() {
         Vector2 location;
         GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];
+        GameObject drop;        
         
         if (spawnPlatform.layer == 3) {
             location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 + ammoDrop.transform.localScale.x/2,
@@ -98,8 +99,13 @@ public class DropManager : MonoBehaviour {
         particleCircle.Play();
 
         yield return new WaitForSeconds(particleCircle.main.startLifetime.constantMax);
-        
-        Instantiate(dropPool[Random.Range(0, dropPool.Count)], location, Quaternion.identity);
+
+        if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount == 0) {
+            drop = ammoDrop;
+        } else {
+            drop = dropPool[Random.Range(0, dropPool.Count)];
+        }        
+        Instantiate(drop, location, Quaternion.identity);
 
     }
 

@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowDrops: 0
+  mat1: {fileID: 2100000, guid: d9651f262c1a79f40a1364bda1a82e4f, type: 2}
+  mat2: {fileID: 2100000, guid: ce1432b70f536c546a9eb5ff09f4945a, type: 2}
 --- !u!50 &3255106822215427226
 Rigidbody2D:
   serializedVersion: 4
