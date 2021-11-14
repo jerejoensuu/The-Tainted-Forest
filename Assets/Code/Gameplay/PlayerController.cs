@@ -167,8 +167,17 @@ public class PlayerController : MonoBehaviour {
 
     void HandleDrops(GameObject gameObject) {
         switch (gameObject.tag) {
-            case "AmmoDrop":    ChangeAmmoCount(Random.Range(1, 4));
-                                break;
+            case "AmmoDrop":    if (ammoCount > 5) {
+                                    ChangeAmmoCount(Random.Range(1, 4));
+                                    break;
+                                } else if (ammoCount > 0) {
+                                    ChangeAmmoCount(Random.Range(2, 5));
+                                    break;
+                                } else {
+                                    ChangeAmmoCount(Random.Range(3, 6));
+                                    break;
+                                }
+                                
             case "TimeFreeze":  StartCoroutine(transform.parent.GetComponent<LevelManager>().FreezeBubbles());
                                 break;
             case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
