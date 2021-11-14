@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubblesRemaining: []
   theme: 1
-  taintLevel: 1
+  taintLevel: 3
 --- !u!4 &4670068
 Transform:
   m_ObjectHideFlags: 0
@@ -576,7 +576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4032727282863226380, guid: b720190ff40c505408e0d359fc1c2397, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.76
+      value: -2.15
       objectReference: {fileID: 0}
     - target: {fileID: 4032727282863226380, guid: b720190ff40c505408e0d359fc1c2397, type: 3}
       propertyPath: m_LocalPosition.y
