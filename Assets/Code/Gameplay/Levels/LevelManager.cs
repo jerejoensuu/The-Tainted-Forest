@@ -7,16 +7,25 @@ public class LevelManager : MonoBehaviour {
     public List<GameObject> bubblesRemaining = new List<GameObject>();
     private bool levelWon = false;
     private bool levelLost = false;
+    [Range(1, 2)] [SerializeField] public int theme = 1;
+    [Range(1, 3)] [SerializeField] int taintLevel = 1;
     
     void Awake() {
         int bubbleCount = 0;
         foreach (Transform child in transform) {
+
             if (child.tag == "Ball") {
                 bubbleCount += (int)Mathf.Pow(child.GetComponent<BallController>().size, 2);
             }
+            
         }
 
+        transform.Find("PlatformAndDropManager").GetComponent<DropManager>().ApplyTheme(theme);
+        ApplyBackground();
+
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.3f);
+
+
     }
 
     public void CheckRemainingBubbles() {
@@ -85,5 +94,22 @@ public class LevelManager : MonoBehaviour {
         foreach (GameObject bubble in bubbles) {
             bubble.GetComponent<BallController>().DestroyBall();
         }
+    }
+
+    public void DestroyAllVines() {
+        foreach (Transform child in transform) {
+            if (child.tag == "Vine") {
+                Debug.Log("Destroyed");
+                Destroy(child.gameObject);
+            }
+        }
+    }
+
+    private void ApplyBackground() {
+        transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(false);
+        transform.Find("Backgrounds").GetChild(0).GetChild(0).gameObject.SetActive(false);
+
+        transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(true);
+        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).gameObject.SetActive(true);
     }
 }

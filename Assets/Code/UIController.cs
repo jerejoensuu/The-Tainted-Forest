@@ -19,7 +19,7 @@ public class UIController : MonoBehaviour {
     public GameObject endOverlay;
 
     void Start() {
-        UnpauseGame();
+        //UnpauseGame();
     }
 
     void Update() {

@@ -81,6 +81,7 @@ public class DropManager : MonoBehaviour {
     IEnumerator Spawn() {
         Vector2 location;
         GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];
+        GameObject drop;        
         
         if (spawnPlatform.layer == 3) {
             location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 + ammoDrop.transform.localScale.x/2,
@@ -98,8 +99,23 @@ public class DropManager : MonoBehaviour {
         particleCircle.Play();
 
         yield return new WaitForSeconds(particleCircle.main.startLifetime.constantMax);
-        
-        Instantiate(dropPool[Random.Range(0, dropPool.Count)], location, Quaternion.identity);
 
+        if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount == 0) {
+            drop = ammoDrop;
+        } else {
+            drop = dropPool[Random.Range(0, dropPool.Count)];
+        }        
+        Instantiate(drop, location, Quaternion.identity);
+
+    }
+
+    public void ApplyTheme(int theme) {
+        foreach (Transform child in transform) {
+            if (child.gameObject.layer == 3 && child.GetComponentInChildren<SpriteRenderer>() != null) {
+                child.GetComponent<SpriteRenderer>().enabled = false;
+                child.GetChild(theme-1).GetComponent<SpriteRenderer>().enabled = true;
+                child.GetChild(theme-1).GetComponent<SpriteRenderer>().size = child.GetComponent<SpriteRenderer>().size;
+            }
+        }
     }
 }
