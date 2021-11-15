@@ -2,25 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LevelStartTransition : MonoBehaviour {
 
     TextMeshProUGUI txt;
     public GameObject textObject;
-    Animation animation;
+    Animator animator;
+    private TextMeshProUGUI m_TextComponent;
     
     void Start() {
-        animation = transform.GetChild(0).GetComponent<Animation>();
+        m_TextComponent = GetComponent<TextMeshProUGUI>();
+        animator = transform.GetComponent<Animator>();
         Time.timeScale = 0;
-        StartLevel();
+        m_TextComponent.text = SceneManager.GetActiveScene().name;
     }
 
     
     void Update() {
-        //textObject.transform.position = new Vector3(textObject.transform.position.x + 1, textObject.transform.position.y, 0);
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
+            Time.timeScale = 1;
+        }
     }
 
-    void StartLevel() {
-        //animation.Play();
+    public void StartLevel() {
+        m_TextComponent.text = "Start!";
     }
 }
