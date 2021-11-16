@@ -155,6 +155,8 @@ public class PlayerController : MonoBehaviour {
 
         // Avoid double collisions:
         if (collisionCooldown) {
+            Debug.Log("cooldown active");
+            collisionCooldown = false;
             return;
         }
 
@@ -168,7 +170,9 @@ public class PlayerController : MonoBehaviour {
             Destroy(col.gameObject);
         }
 
-        StartCoroutine(StartCollisionCooldown());
+        if (col.gameObject.tag != "Platform") {
+            StartCoroutine(StartCollisionCooldown());
+        }
 
     }
 
@@ -279,7 +283,6 @@ public class PlayerController : MonoBehaviour {
             yield return new WaitForSeconds(invincibilityDeltaTime);
             if (IsGrounded()) {
                 hitOffGroundOffset = false;
-                Debug.Log("hit ground");
                 SetActiveAnimation("Idle");
             }
         }

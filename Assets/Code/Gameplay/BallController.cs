@@ -123,8 +123,11 @@ public class BallController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
         // Collision with player projectiles
         if (col.gameObject.layer == 14) {
-            DestroyBall();
+            if (Random.Range(0f, 1f) < 0.3f) {
+                GameObject drop = Instantiate(transform.root.Find("PlatformAndDropManager").GetComponent<DropManager>().GetRandomDrop(), transform.position, Quaternion.identity) as GameObject;
+            }
             Destroy(col.gameObject);
+            DestroyBall();
         }
     }
     void OnCollisionEnter2D(Collision2D col) {
