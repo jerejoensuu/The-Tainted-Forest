@@ -10599,7 +10599,7 @@ MonoBehaviour:
   stickyVineWeight: 3
   doubleVine: {fileID: 226877250837588279, guid: 8f2c3bb938953d2418faee6a1454b10e, type: 3}
   doubleVineWeight: 3
-  cooldown: 4
+  cooldown: 10
   changeOfSpawn: 0.2
 --- !u!1 &5849209743242408509
 GameObject:
