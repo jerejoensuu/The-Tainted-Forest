@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour {
 
+    [Range(1, 4)] [SerializeField] [Tooltip("0.4, 0.7, 1.3, 2.25")] public int size;
+    [Tooltip("-1 and 1 for left and right, 0 for random direction.")] [Range(-1, 1)] [SerializeField] int direction;
+
     public float moveSpeed;
-    [Range(1, 4)] [SerializeField] [Tooltip("0.4, 0.7, 1.125, 2.25")] public int size;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
-    [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
-    [SerializeField] float direction;
-    [Tooltip("Ball spawn size percentage.")]
     //bool isDestroyed = false;
     float momentum = 0;
     float lastMomentum = 0;
@@ -19,19 +18,25 @@ public class BallController : MonoBehaviour {
     public GameObject circlePrefab;
     private SpriteRenderer sr;
 
-    private List<float> sizes = new List<float>{ 0.4f, 0.7f, 1.125f, 2.25f };
+    private List<float> sizes = new List<float>{ 0.4f, 0.7f, 1.3f, 2.25f };
 
     private LevelManager levelManager;
 
     // Start is called before the first frame update
     void Start() {
+        try {
+            bool test = transform.parent.name != "LevelManager";
+        }
+        catch (System.Exception) {
+            Debug.Log("OBJECT NOT SET AS CHILD OF LevelManager!");
+            throw;
+        }
+
         sr = GetComponent<SpriteRenderer>();
         transform.localScale = GetSize(size);
 
         if (direction == 0) {
-            direction = Mathf.Sign(Random.Range(-1, 1)); // random direction
-        } else {
-            direction = Mathf.Sign(direction); // correct for inputs <-1 and >1
+            direction = (int)Mathf.Sign(Random.Range(-1, 1)); // random direction
         }
         
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
@@ -112,7 +117,7 @@ public class BallController : MonoBehaviour {
         }
     }
 
-    void SpawnBalls(float direction, int newSize) {
+    void SpawnBalls(int direction, int newSize) {
         GameObject newBall = Instantiate (circlePrefab,
                                             new Vector2(transform.position.x + (sizes[newSize] * 0.25f) * direction, transform.position.y),
                                             Quaternion.identity) as GameObject;
@@ -126,6 +131,10 @@ public class BallController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
         // Collision with player projectiles
         if (col.gameObject.layer == 14) {
+            if (Random.Range(0f, 1f) < 0.4f) {
+                GameObject drop = Instantiate(transform.root.Find("PlatformAndDropManager").GetComponent<DropManager>().GetRandomDrop(), transform.position, Quaternion.identity) as GameObject;
+            }
+            Destroy(col.gameObject);
             DestroyBall();
         }
     }

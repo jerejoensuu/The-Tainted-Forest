@@ -17,9 +17,19 @@ public class PlayerController : MonoBehaviour {
     float movementY = 0;
     bool collisionCooldown = false;
     bool shieldActive = false;
+    string activeAnimation = "Idle";
+    bool isShooting = false;
+    int maxVines = 1;
+    bool stickyVines = false;
+    bool knockedFromLadder = false;
+    bool canStep = true; //temp
+
+    public AudioSource audioSrc;
+    public AudioClip[] audioClips;
 
     Rigidbody2D rb;
     BoxCollider2D bc;
+    Animator animator;
     SpriteRenderer[] spriteRenderers;
     [SerializeField] private LayerMask layerMask;
     public GameObject grapplePrefab;
@@ -36,33 +46,42 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        audioSrc = GetComponent<AudioSource>();
 
         hud = GameObject.Find("PlayerUI");
         hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
+        SetActiveAnimation("Idle");
     }
 
     void Update() {
-        if (!UIController.paused && health >= 1) {
+        if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
             if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded()) {
                 Attack();
             }
 
-            if (playerHit) {
+            if (knockedFromLadder) {
                 canClimb = false;
                 canClimbDown = false;
+                knockedFromLadder = false;
             }
         }
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && isShooting) {
+            SetActiveAnimation("Idle");
+            isShooting = false;
+        }
+        
     }
 
     void FixedUpdate() {
-        if (!UIController.paused && health >= 1) {
+        if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
             // Horizontal movement:
-            if (Input.GetAxisRaw("Horizontal") != 0) {
+            if (Input.GetAxisRaw("Horizontal") != 0 && !isShooting) {
                 Walk();
             }
 
             // Can player climb and are they trying to climb:
-            if (canClimb && Input.GetAxisRaw("Vertical") != 0) {
+            if (canClimb && Input.GetAxisRaw("Vertical") != 0 && !isShooting) {
                 // Can player climb down, is the ladder below them and are they attempting to climb down:
                 if (canClimbDown && currentLadderY < transform.localPosition.y && Input.GetAxisRaw("Vertical") < 0) {
                     // Turn player into a semisolid able to go through platforms:
@@ -73,8 +92,6 @@ public class PlayerController : MonoBehaviour {
                     canClimbDown = false;
                     gameObject.layer = LayerMask.NameToLayer("Player");
                 }
-                rb.velocity = new Vector2(0, 0);
-                rb.gravityScale = 0;
                 Climb();
             // If the player is unable to climb anymore, turn it's gravityScale back on:
             } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
@@ -89,22 +106,49 @@ public class PlayerController : MonoBehaviour {
         if (!playerHit || !hitOffGroundOffset) {
             movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
+
+            if (canStep) {
+                MakeFootstepSound();
+                StartCoroutine(FootstepCooldown());
+            }
         }
     }
 
+    void MakeFootstepSound() {
+        audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
+        audioSrc.Play();
+    }
+
+    IEnumerator FootstepCooldown() { //temp
+        canStep = false;
+        yield return new WaitForSeconds(0.45f);
+        canStep = true;
+    }
+
     void Climb() {
-        movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
-        transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
+        if (!playerHit || !hitOffGroundOffset) {
+            rb.velocity = new Vector2(0, 0);
+            rb.gravityScale = 0;
+            movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
+            transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
+        }
     }
 
     void Attack() {
-        
+        GameObject grappleObject;
         switch (projectileType) {
             case 0:
-                if (transform.parent.GetComponent<LevelManager>().CountVines() < 1) {
+                if (transform.parent.GetComponent<LevelManager>().CountVines() < maxVines && !isShooting) {
+                    isShooting = true;
+                    SetActiveAnimation("Shooting");
+                    animator.SetTrigger("shot");
                     ChangeAmmoCount(-1);
-                    GameObject grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
+                    grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
                     grappleObject.transform.parent = transform.parent;
+                    grappleObject.GetComponent<Grapple>().stickyVines = stickyVines;
+                } else if (stickyVines) {
+                    transform.parent.GetComponent<LevelManager>().DestroyAllVines();
                 }
                 break;
             default:
@@ -125,7 +169,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col) {
 
-        if (col.gameObject.tag == "Ladder" && !playerHit) {
+        if (col.gameObject.tag == "Ladder") {
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
             currentLadderY = col.gameObject.transform.localPosition.y;
@@ -133,6 +177,8 @@ public class PlayerController : MonoBehaviour {
 
         // Avoid double collisions:
         if (collisionCooldown) {
+            Debug.Log("cooldown active");
+            collisionCooldown = false;
             return;
         }
 
@@ -141,26 +187,48 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Drops:
-        if (col.gameObject.layer == 11 && !playerHit) {
+        if (col.gameObject.layer == 11) {
             HandleDrops(col.gameObject);
             Destroy(col.gameObject);
         }
 
-        StartCoroutine(StartCollisionCooldown());
+        if (col.gameObject.tag != "Platform") {
+            StartCoroutine(StartCollisionCooldown());
+        }
 
     }
 
     void HandleDrops(GameObject gameObject) {
         switch (gameObject.tag) {
-            case "AmmoDrop":    ChangeAmmoCount(Random.Range(1, 4));
-                                break;
+            case "AmmoDrop":    if (ammoCount > 5) {
+                                    ChangeAmmoCount(Random.Range(1, 4));
+                                    break;
+                                } else if (ammoCount > 0) {
+                                    ChangeAmmoCount(Random.Range(2, 5));
+                                    break;
+                                } else {
+                                    ChangeAmmoCount(Random.Range(3, 6));
+                                    break;
+                                }
+                                
             case "TimeFreeze":  StartCoroutine(transform.parent.GetComponent<LevelManager>().FreezeBubbles());
                                 break;
             case "DamageAll":   transform.parent.GetComponent<LevelManager>().DamageAllBubbles();
                                 break;
-            case "Shield":      shieldActive = true;;
+            case "Shield":      ActiveShield();
+                                break;
+            case "DoubleVines": maxVines = 2;
+                                stickyVines = false;
+                                break;
+            case "StickyVines": stickyVines = true;
+                                maxVines = 1;
                                 break;
         }
+    }
+
+    void ActiveShield() {
+        // turn blue here or something
+        shieldActive = true;
     }
 
     IEnumerator StartCollisionCooldown() {
@@ -188,10 +256,12 @@ public class PlayerController : MonoBehaviour {
         }
 
         health--;
+        knockedFromLadder = true;
         int dir = enemyX < transform.localPosition.x ? 1 : -1;
         rb.gravityScale = 0.5f;
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(2.5f * dir, 3.25f), ForceMode2D.Impulse);
+        SetActiveAnimation("Hit");
 
 
         // Player dead:
@@ -235,6 +305,7 @@ public class PlayerController : MonoBehaviour {
             yield return new WaitForSeconds(invincibilityDeltaTime);
             if (IsGrounded()) {
                 hitOffGroundOffset = false;
+                SetActiveAnimation("Idle");
             }
         }
 
@@ -243,9 +314,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void TurnInvisible(bool boolean) {
-        foreach (SpriteRenderer child_sr in spriteRenderers) {
-            child_sr.enabled = boolean;
-        }
+        transform.Find(activeAnimation).gameObject.SetActive(boolean);
     }
 
     void Flip () {
@@ -257,4 +326,14 @@ public class PlayerController : MonoBehaviour {
             transform.localScale = new Vector2(-oldX, oldY);
         }
     }
+
+    public void SetActiveAnimation(string newAnimation = "Idle") {
+        transform.Find("Idle").gameObject.SetActive(false);
+        transform.Find("Hit").gameObject.SetActive(false);
+        transform.Find("Shooting").gameObject.SetActive(false);
+        
+        activeAnimation = newAnimation;
+        transform.Find(activeAnimation).gameObject.SetActive(true);
+    }
+
 }

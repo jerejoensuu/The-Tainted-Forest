@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
-    public static bool paused = false;
+    public bool paused = false;
     public GameObject pauseMenu;
     [Tooltip("Set selection to this button when game is paused")] public GameObject pauseMenuActiveButton;
     [Tooltip("Set selection to this button when level is won")] public GameObject winScreenActiveButton;
@@ -19,11 +19,12 @@ public class UIController : MonoBehaviour {
     public GameObject endOverlay;
 
     void Start() {
-        UnpauseGame();
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
+        //UnpauseGame();
     }
 
     void Update() {
-        if (Input.GetButtonDown("Pause")) { // Esc or start button
+        if (Input.GetButtonDown("Pause") && transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted) { // Esc or start button
             TogglePause();
         }
     }
@@ -47,7 +48,7 @@ public class UIController : MonoBehaviour {
         Time.timeScale = 0;
     }
 
-    void UnpauseGame() {
+    public void UnpauseGame() {
         Debug.Log("Game unpaused");
         paused = false;
         pauseMenu.SetActive(false);
