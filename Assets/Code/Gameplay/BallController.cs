@@ -24,6 +24,14 @@ public class BallController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        try {
+            bool test = transform.parent.name != "LevelManager";
+        }
+        catch (System.Exception) {
+            Debug.Log("OBJECT NOT SET AS CHILD OF LevelManager!");
+            throw;
+        }
+
         sr = GetComponent<SpriteRenderer>();
         transform.localScale = GetSize(size);
 
