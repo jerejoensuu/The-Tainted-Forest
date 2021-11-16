@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TimerController : MonoBehaviour {
     
-    [SerializeField] public int seconds;
+    int seconds = 60;
     [SerializeField] public bool formatTime = true;
     private TextMeshProUGUI m_TextComponent;
     private System.DateTime dateTime;
 
     void Awake() {
+        seconds = transform.root.GetComponent<LevelManager>().time;
         m_TextComponent = GetComponent<TextMeshProUGUI>();
         SetTime();
         StartCoroutine(RunTimer());

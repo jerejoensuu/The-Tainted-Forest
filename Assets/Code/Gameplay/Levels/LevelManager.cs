@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour {
     private bool levelLost = false;
     [Range(1, 2)] [SerializeField] public int theme = 1;
     [Range(1, 3)] [SerializeField] int taintLevel = 1;
+    [Range(10, 180)] [SerializeField] [Tooltip("In seconds")] public int time = 90;
     
     void Awake() {
         int bubbleCount = 0;
@@ -23,7 +24,7 @@ public class LevelManager : MonoBehaviour {
         transform.Find("PlatformAndDropManager").GetComponent<DropManager>().ApplyTheme(theme);
         ApplyBackground();
 
-        transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.3f);
+        transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.2f);
 
 
     }
@@ -50,6 +51,15 @@ public class LevelManager : MonoBehaviour {
             }
         }
         return bubbleCount;
+    }
+
+    public bool FindAmmoDrops() {
+        foreach (Transform child in transform) {
+            if (child.tag == "AmmoDrop") {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void LevelWin() {

@@ -11,6 +11,14 @@ public class BreakableBlockController : MonoBehaviour {
     [SerializeField] Material mat2;
 
     void Awake() {
+        try {
+            bool test = transform.parent.name != "PlatformAndDropManager";
+        }
+        catch (System.Exception) {
+            Debug.Log("OBJECT NOT SET AS CHILD OF PlatformAndDropManager!");
+            throw;
+        }
+
         particle = GetComponentInChildren<ParticleSystem>();
         sr = GetComponentInChildren<SpriteRenderer>();
 

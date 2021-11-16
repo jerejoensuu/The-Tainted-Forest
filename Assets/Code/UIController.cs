@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
-    public static bool paused = false;
+    public bool paused = false;
     public GameObject pauseMenu;
     [Tooltip("Set selection to this button when game is paused")] public GameObject pauseMenuActiveButton;
     [Tooltip("Set selection to this button when level is won")] public GameObject winScreenActiveButton;
@@ -48,7 +48,7 @@ public class UIController : MonoBehaviour {
         Time.timeScale = 0;
     }
 
-    void UnpauseGame() {
+    public void UnpauseGame() {
         Debug.Log("Game unpaused");
         paused = false;
         pauseMenu.SetActive(false);

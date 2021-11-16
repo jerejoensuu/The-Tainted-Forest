@@ -14,6 +14,10 @@ public class DropManager : MonoBehaviour {
     [SerializeField] private int timeFreezeWeight;
     [SerializeField] private GameObject shield;
     [SerializeField] private int shieldWeight;
+    [SerializeField] private GameObject stickyVine;
+    [SerializeField] private int stickyVineWeight;
+    [SerializeField] private GameObject doubleVine;
+    [SerializeField] private int doubleVineWeight;
 
     public int time { get; private set;}
     [Tooltip("How may seconds should the script wait before attempting to spawn ammo drops again after spawning one.")] [SerializeField] private int cooldown;
@@ -34,6 +38,8 @@ public class DropManager : MonoBehaviour {
         drops.Add(new Drop{drop = damageAll, weight = damageAllWeight});
         drops.Add(new Drop{drop = timeFreeze, weight = timeFreezeWeight});
         drops.Add(new Drop{drop = shield, weight = shieldWeight});
+        drops.Add(new Drop{drop = stickyVine, weight = stickyVineWeight});
+        drops.Add(new Drop{drop = doubleVine, weight = doubleVineWeight});
 
         foreach (Drop drop in drops) {
             for (int i = 0; i < drop.weight; i++) {
@@ -62,6 +68,9 @@ public class DropManager : MonoBehaviour {
             yield return new WaitForSeconds(1);
             time++;
 
+            if (transform.root.Find("Player").GetComponent<PlayerController>().ammoCount < 3 && transform.root.GetComponent<LevelManager>().FindAmmoDrops()) {
+                currentCooldown = 0 + Random.Range(3, 6);
+            }
             if (currentCooldown > 0) {
                 currentCooldown--;
             } else {
@@ -80,8 +89,7 @@ public class DropManager : MonoBehaviour {
 
     IEnumerator Spawn() {
         Vector2 location;
-        GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];
-        GameObject drop;        
+        GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];      
         
         if (spawnPlatform.layer == 3) {
             location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 + ammoDrop.transform.localScale.x/2,
@@ -99,14 +107,17 @@ public class DropManager : MonoBehaviour {
         particleCircle.Play();
 
         yield return new WaitForSeconds(particleCircle.main.startLifetime.constantMax);
+      
+        Instantiate(GetRandomDrop(), location, Quaternion.identity);
 
-        if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount == 0) {
-            drop = ammoDrop;
+    }
+
+    public GameObject GetRandomDrop() {
+        if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount < 3) {
+            return ammoDrop;
         } else {
-            drop = dropPool[Random.Range(0, dropPool.Count)];
-        }        
-        Instantiate(drop, location, Quaternion.identity);
-
+            return dropPool[Random.Range(0, dropPool.Count)];
+        }  
     }
 
     public void ApplyTheme(int theme) {
