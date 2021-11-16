@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     bool isShooting = false;
     int maxVines = 1;
     bool stickyVines = false;
+    bool knockedFromLadder = false;
 
     Rigidbody2D rb;
     BoxCollider2D bc;
@@ -54,9 +55,10 @@ public class PlayerController : MonoBehaviour {
                 Attack();
             }
 
-            if (playerHit) {
+            if (knockedFromLadder) {
                 canClimb = false;
                 canClimbDown = false;
+                knockedFromLadder = false;
             }
         }
         if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && isShooting) {
@@ -85,8 +87,6 @@ public class PlayerController : MonoBehaviour {
                     canClimbDown = false;
                     gameObject.layer = LayerMask.NameToLayer("Player");
                 }
-                rb.velocity = new Vector2(0, 0);
-                rb.gravityScale = 0;
                 Climb();
             // If the player is unable to climb anymore, turn it's gravityScale back on:
             } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
@@ -105,8 +105,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Climb() {
-        movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
-        transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
+        if (!playerHit || !hitOffGroundOffset) {
+            rb.velocity = new Vector2(0, 0);
+            rb.gravityScale = 0;
+            movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
+            transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
+        }
     }
 
     void Attack() {
@@ -143,7 +147,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col) {
 
-        if (col.gameObject.tag == "Ladder" && !playerHit) {
+        if (col.gameObject.tag == "Ladder") {
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
             currentLadderY = col.gameObject.transform.localPosition.y;
@@ -159,7 +163,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Drops:
-        if (col.gameObject.layer == 11 && !playerHit) {
+        if (col.gameObject.layer == 11) {
             HandleDrops(col.gameObject);
             Destroy(col.gameObject);
         }
@@ -226,6 +230,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         health--;
+        knockedFromLadder = true;
         int dir = enemyX < transform.localPosition.x ? 1 : -1;
         rb.gravityScale = 0.5f;
         rb.velocity = Vector2.zero;
@@ -274,6 +279,7 @@ public class PlayerController : MonoBehaviour {
             yield return new WaitForSeconds(invincibilityDeltaTime);
             if (IsGrounded()) {
                 hitOffGroundOffset = false;
+                Debug.Log("hit ground");
                 SetActiveAnimation("Idle");
             }
         }
