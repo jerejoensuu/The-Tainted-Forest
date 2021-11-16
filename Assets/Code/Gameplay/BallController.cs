@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour {
 
-    public float moveSpeed;
     [Range(1, 4)] [SerializeField] [Tooltip("0.4, 0.7, 1.3, 2.25")] public int size;
+    [Tooltip("-1 and 1 for left and right, 0 for random direction.")] [Range(-1, 1)] [SerializeField] int direction;
+
+    public float moveSpeed;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
-    [Tooltip("-1 and 1 for left and right, 0 for random direction.")]
-    [SerializeField] float direction;
-    [Tooltip("Ball spawn size percentage.")]
     //bool isDestroyed = false;
     float momentum = 0;
     float lastMomentum = 0;
@@ -29,9 +28,7 @@ public class BallController : MonoBehaviour {
         transform.localScale = GetSize(size);
 
         if (direction == 0) {
-            direction = Mathf.Sign(Random.Range(-1, 1)); // random direction
-        } else {
-            direction = Mathf.Sign(direction); // correct for inputs <-1 and >1
+            direction = (int)Mathf.Sign(Random.Range(-1, 1)); // random direction
         }
         
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
@@ -112,7 +109,7 @@ public class BallController : MonoBehaviour {
         }
     }
 
-    void SpawnBalls(float direction, int newSize) {
+    void SpawnBalls(int direction, int newSize) {
         GameObject newBall = Instantiate (circlePrefab,
                                             new Vector2(transform.position.x + (sizes[newSize] * 0.25f) * direction, transform.position.y),
                                             Quaternion.identity) as GameObject;
