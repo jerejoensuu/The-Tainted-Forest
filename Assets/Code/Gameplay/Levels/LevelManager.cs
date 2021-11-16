@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour {
         transform.Find("PlatformAndDropManager").GetComponent<DropManager>().ApplyTheme(theme);
         ApplyBackground();
 
-        transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.3f);
+        transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.2f);
 
 
     }
