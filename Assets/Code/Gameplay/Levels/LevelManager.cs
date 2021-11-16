@@ -53,6 +53,15 @@ public class LevelManager : MonoBehaviour {
         return bubbleCount;
     }
 
+    public bool FindAmmoDrops() {
+        foreach (Transform child in transform) {
+            if (child.tag == "AmmoDrop") {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void LevelWin() {
         if (!levelWon && !levelLost) {
             levelWon = true;

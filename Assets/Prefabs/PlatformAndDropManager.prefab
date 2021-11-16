@@ -10588,7 +10588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoDrop: {fileID: 226877250837588279, guid: 1d6124f04a2c4b948acc009413cfea91, type: 3}
-  ammoDropWeight: 4
+  ammoDropWeight: 3
   damageAll: {fileID: 226877250837588279, guid: cbbdbbe89b75eed41926499006929c2a, type: 3}
   damageAllWeight: 1
   timeFreeze: {fileID: 226877250837588279, guid: 8b16af3a55fccba41b439c219831c548, type: 3}

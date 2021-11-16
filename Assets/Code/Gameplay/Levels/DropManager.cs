@@ -62,6 +62,9 @@ public class DropManager : MonoBehaviour {
             yield return new WaitForSeconds(1);
             time++;
 
+            if (transform.root.Find("Player").GetComponent<PlayerController>().ammoCount < 3 && transform.root.GetComponent<LevelManager>().FindAmmoDrops()) {
+                currentCooldown = 0 + Random.Range(3, 6);
+            }
             if (currentCooldown > 0) {
                 currentCooldown--;
             } else {
@@ -100,7 +103,7 @@ public class DropManager : MonoBehaviour {
 
         yield return new WaitForSeconds(particleCircle.main.startLifetime.constantMax);
 
-        if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount == 0) {
+        if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount < 3) {
             drop = ammoDrop;
         } else {
             drop = dropPool[Random.Range(0, dropPool.Count)];
