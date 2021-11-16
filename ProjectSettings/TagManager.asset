@@ -34,7 +34,7 @@ TagManager:
   - AmmoSpawn
   - LadderPlatform
   - Projectile
-  - DropCollider
+  - DropCollision
   - 
   - 
   - 
