@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour {
     private bool levelLost = false;
     [Range(1, 2)] [SerializeField] public int theme = 1;
     [Range(1, 3)] [SerializeField] int taintLevel = 1;
+    [Range(10, 180)] [SerializeField] [Tooltip("In seconds")] public int time = 90;
     
     void Awake() {
         int bubbleCount = 0;
