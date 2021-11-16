@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour {
     int maxVines = 1;
     bool stickyVines = false;
     bool knockedFromLadder = false;
+    bool canStep = true; //temp
+
+    public AudioSource audioSrc;
+    public AudioClip[] audioClips;
 
     Rigidbody2D rb;
     BoxCollider2D bc;
@@ -43,6 +47,7 @@ public class PlayerController : MonoBehaviour {
         bc = GetComponent<BoxCollider2D>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSrc = GetComponent<AudioSource>();
 
         hud = GameObject.Find("PlayerUI");
         hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
@@ -101,7 +106,24 @@ public class PlayerController : MonoBehaviour {
         if (!playerHit || !hitOffGroundOffset) {
             movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
+
+            if (canStep) {
+                MakeFootstepSound();
+                StartCoroutine(FootstepCooldown());
+            }
         }
+    }
+
+    void MakeFootstepSound() {
+        audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
+        audioSrc.Play();
+    }
+
+    IEnumerator FootstepCooldown() { //temp
+        canStep = false;
+        yield return new WaitForSeconds(0.45f);
+        canStep = true;
     }
 
     void Climb() {
