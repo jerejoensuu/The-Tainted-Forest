@@ -298,6 +298,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlatformAndDropManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5849209743193237667, guid: df76f4c9e5ad2c1408f4a2af37bdd798, type: 3}
+      propertyPath: ammoDropWeight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df76f4c9e5ad2c1408f4a2af37bdd798, type: 3}
 --- !u!4 &8294935028757654142 stripped
