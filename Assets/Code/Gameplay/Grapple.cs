@@ -50,8 +50,8 @@ public class Grapple : MonoBehaviour {
             
         }
 
-        if (col.gameObject.tag == "Ball") {
-            Destroy(transform.gameObject);
-        }
+        // if (col.gameObject.tag == "Ball") {
+        //     Destroy(transform.gameObject);
+        // }
     }
 }

@@ -124,6 +124,7 @@ public class BallController : MonoBehaviour {
         // Collision with player projectiles
         if (col.gameObject.layer == 14) {
             DestroyBall();
+            Destroy(col.gameObject);
         }
     }
     void OnCollisionEnter2D(Collision2D col) {
