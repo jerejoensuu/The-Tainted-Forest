@@ -10,6 +10,7 @@ public class LevelStartTransition : MonoBehaviour {
     public GameObject textObject;
     Animator animator;
     private TextMeshProUGUI m_TextComponent;
+    public bool levelStarted = false;
     
     void Start() {
         m_TextComponent = GetComponent<TextMeshProUGUI>();
@@ -20,7 +21,8 @@ public class LevelStartTransition : MonoBehaviour {
 
     
     void Update() {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !levelStarted) {
+            levelStarted = true;
             Time.timeScale = 1;
         }
     }

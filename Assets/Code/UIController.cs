@@ -23,7 +23,7 @@ public class UIController : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetButtonDown("Pause")) { // Esc or start button
+        if (Input.GetButtonDown("Pause") && transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted) { // Esc or start button
             TogglePause();
         }
     }
