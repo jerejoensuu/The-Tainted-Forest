@@ -13,9 +13,11 @@ public class LevelStartTransition : MonoBehaviour {
     public bool levelStarted = false;
     
     void Start() {
+        transform.parent.parent.Find("UIController").GetComponent<UIController>().paused = true;
+        Time.timeScale = 0;
+
         m_TextComponent = GetComponent<TextMeshProUGUI>();
         animator = transform.GetComponent<Animator>();
-        Time.timeScale = 0;
         m_TextComponent.text = SceneManager.GetActiveScene().name;
     }
 
@@ -24,6 +26,7 @@ public class LevelStartTransition : MonoBehaviour {
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !levelStarted) {
             levelStarted = true;
             Time.timeScale = 1;
+            transform.parent.parent.Find("UIController").GetComponent<UIController>().UnpauseGame();
         }
     }
 

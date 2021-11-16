@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        if (!UIController.paused && health >= 1) {
+        if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
             if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded()) {
                 Attack();
             }
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (!UIController.paused && health >= 1) {
+        if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
             // Horizontal movement:
             if (Input.GetAxisRaw("Horizontal") != 0 && !isShooting) {
                 Walk();
