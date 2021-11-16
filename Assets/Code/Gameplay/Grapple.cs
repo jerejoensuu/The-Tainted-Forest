@@ -22,6 +22,7 @@ public class Grapple : MonoBehaviour {
 
     void PlaySound() {
         audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSrc.volume = ApplicationSettings.SoundVolume();
         audioSrc.Play();
     }
 

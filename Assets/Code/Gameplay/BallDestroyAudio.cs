@@ -11,6 +11,7 @@ public class BallDestroyAudio : MonoBehaviour {
 
     public void PlaySound() {
         audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
+        audioSrc.volume = ApplicationSettings.SoundVolume();
         audioSrc.Play();
         transform.SetParent(null);
         Destroy(gameObject, 0.5f);

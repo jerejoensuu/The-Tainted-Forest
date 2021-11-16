@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour {
 
     public GameObject[] mainMenuPanels;
+    public Slider[] volumeSliders;
 
     void ChangePanel(int index) {
         for (int i = 0; i < mainMenuPanels.Length; i++) {
@@ -22,7 +25,10 @@ public class MainMenuController : MonoBehaviour {
     }
 
     public void OpenSettings() {
-        Debug.Log("Add settings");
+        ChangePanel(2);
+        volumeSliders[0].value = ApplicationSettings.masterVolume;
+        volumeSliders[1].value = ApplicationSettings.soundVolume;
+        volumeSliders[2].value = ApplicationSettings.musicVolume;
     }
 
     public void OpenLevelSelect() {
@@ -34,11 +40,12 @@ public class MainMenuController : MonoBehaviour {
     }
 
     public void SaveAndExit() {
-
+        ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
+        BackToMain();
     }
 
     public void ExitWithoutSaving() {
-        
+        BackToMain();
     }
 
     public void QuitGame() {
