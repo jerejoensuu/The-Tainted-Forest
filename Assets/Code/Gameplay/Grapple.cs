@@ -35,7 +35,7 @@ public class Grapple : MonoBehaviour {
             spriteMask.transform.position -= currentPosition;
             distanceMoved += currentPosition.y;
 
-            boxCollider2D.size = new Vector2(1, distanceMoved);
+            boxCollider2D.size = new Vector2(0.3f, distanceMoved);
             boxCollider2D.offset = new Vector2(0, GetComponent<SpriteRenderer>().size.y/2 - distanceMoved/2 + projectileOffset);
         }
     }
