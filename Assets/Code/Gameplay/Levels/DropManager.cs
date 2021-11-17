@@ -68,7 +68,7 @@ public class DropManager : MonoBehaviour {
             yield return new WaitForSeconds(1);
             time++;
 
-            if (transform.root.Find("Player").GetComponent<PlayerController>().ammoCount < 3 && transform.root.GetComponent<LevelManager>().FindAmmoDrops()) {
+            if (transform.root.Find("Player").GetComponent<PlayerController>().ammoCount < 3 && transform.root.GetComponent<LevelManager>().FindDrops(ammoDrop)) {
                 currentCooldown = 0 + Random.Range(3, 6);
             }
             if (currentCooldown > 0) {
@@ -114,11 +114,18 @@ public class DropManager : MonoBehaviour {
     }
 
     public GameObject GetRandomDrop() {
+        GameObject drop;
         if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount < 3) {
-            return ammoDrop;
+            drop = ammoDrop;
         } else {
-            return dropPool[Random.Range(0, dropPool.Count)];
-        }  
+            while(true) {
+                drop = dropPool[Random.Range(0, dropPool.Count)];
+                if (!transform.root.GetComponent<LevelManager>().FindDrops(drop)) {
+                    break;
+                }
+            }
+        }
+        return drop;  
     }
 
     public void ApplyTheme(int theme) {
