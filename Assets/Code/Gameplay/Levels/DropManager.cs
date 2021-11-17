@@ -118,11 +118,13 @@ public class DropManager : MonoBehaviour {
         if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount < 3) {
             drop = ammoDrop;
         } else {
+            int failsafe = 100;
             while(true) {
                 drop = dropPool[Random.Range(0, dropPool.Count)];
-                if (!transform.root.GetComponent<LevelManager>().FindDrops(drop)) {
+                if (!transform.root.GetComponent<LevelManager>().FindDrops(drop) || failsafe == 0) {
                     break;
                 }
+                failsafe--;
             }
         }
         return drop;  
