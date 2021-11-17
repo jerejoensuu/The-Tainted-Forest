@@ -177,7 +177,6 @@ public class PlayerController : MonoBehaviour {
 
         // Avoid double collisions:
         if (collisionCooldown) {
-            Debug.Log("cooldown active");
             collisionCooldown = false;
             return;
         }

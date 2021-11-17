@@ -10590,15 +10590,15 @@ MonoBehaviour:
   ammoDrop: {fileID: 226877250837588279, guid: 1d6124f04a2c4b948acc009413cfea91, type: 3}
   ammoDropWeight: 1
   damageAll: {fileID: 226877250837588279, guid: cbbdbbe89b75eed41926499006929c2a, type: 3}
-  damageAllWeight: 3
+  damageAllWeight: 1
   timeFreeze: {fileID: 226877250837588279, guid: 8b16af3a55fccba41b439c219831c548, type: 3}
   timeFreezeWeight: 4
   shield: {fileID: 226877250837588279, guid: dee970ed746e3dd48aeb3fd14050ef56, type: 3}
   shieldWeight: 5
   stickyVine: {fileID: 226877250837588279, guid: d3fed7e074e0f274aace41b45319b671, type: 3}
-  stickyVineWeight: 4
+  stickyVineWeight: 3
   doubleVine: {fileID: 226877250837588279, guid: 8f2c3bb938953d2418faee6a1454b10e, type: 3}
-  doubleVineWeight: 4
+  doubleVineWeight: 3
   cooldown: 10
   changeOfSpawn: 0.2
 --- !u!1 &5849209743242408509
