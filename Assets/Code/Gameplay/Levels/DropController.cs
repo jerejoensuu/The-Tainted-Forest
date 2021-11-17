@@ -15,4 +15,11 @@ public class DropController : MonoBehaviour {
         spawnAnimation.Play();
         yield return new WaitForSeconds(spawnAnimation.GetClip("AmmoSpawn").length);
     }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.layer == 8) {
+            transform.root.Find("Player").GetComponent<PlayerController>().HandleDrops(transform.gameObject);
+            Destroy(transform.gameObject);
+        }
+    }
 }

@@ -108,7 +108,8 @@ public class DropManager : MonoBehaviour {
 
         yield return new WaitForSeconds(particleCircle.main.startLifetime.constantMax);
       
-        Instantiate(GetRandomDrop(), location, Quaternion.identity);
+        GameObject drop = Instantiate(GetRandomDrop(), location, Quaternion.identity) as GameObject;
+        drop.transform.parent = transform.root.transform;
 
     }
 

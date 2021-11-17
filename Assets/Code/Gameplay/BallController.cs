@@ -133,6 +133,7 @@ public class BallController : MonoBehaviour {
         if (col.gameObject.layer == 14) {
             if (Random.Range(0f, 1f) < 0.2f) {
                 GameObject drop = Instantiate(transform.root.Find("PlatformAndDropManager").GetComponent<DropManager>().GetRandomDrop(), transform.position, Quaternion.identity) as GameObject;
+                drop.transform.parent = transform.root.transform;
             }
             Destroy(col.gameObject);
             DestroyBall();
