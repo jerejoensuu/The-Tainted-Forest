@@ -68,7 +68,7 @@ public class DropManager : MonoBehaviour {
             yield return new WaitForSeconds(1);
             time++;
 
-            if (transform.root.Find("Player").GetComponent<PlayerController>().ammoCount < 3 && transform.root.GetComponent<LevelManager>().FindAmmoDrops()) {
+            if (transform.root.Find("Player").GetComponent<PlayerController>().ammoCount < 3 && transform.root.GetComponent<LevelManager>().FindDrops(ammoDrop)) {
                 currentCooldown = 0 + Random.Range(3, 6);
             }
             if (currentCooldown > 0) {
@@ -108,16 +108,26 @@ public class DropManager : MonoBehaviour {
 
         yield return new WaitForSeconds(particleCircle.main.startLifetime.constantMax);
       
-        Instantiate(GetRandomDrop(), location, Quaternion.identity);
+        GameObject drop = Instantiate(GetRandomDrop(), location, Quaternion.identity) as GameObject;
+        drop.transform.parent = transform.root.transform;
 
     }
 
     public GameObject GetRandomDrop() {
+        GameObject drop;
         if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount < 3) {
-            return ammoDrop;
+            drop = ammoDrop;
         } else {
-            return dropPool[Random.Range(0, dropPool.Count)];
-        }  
+            int failsafe = 100;
+            while(true) {
+                drop = dropPool[Random.Range(0, dropPool.Count)];
+                if (!transform.root.GetComponent<LevelManager>().FindDrops(drop) || failsafe == 0) {
+                    break;
+                }
+                failsafe--;
+            }
+        }
+        return drop;  
     }
 
     public void ApplyTheme(int theme) {

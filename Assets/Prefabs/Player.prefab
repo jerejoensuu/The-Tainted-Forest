@@ -1364,7 +1364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4275191193917229167}
   - component: {fileID: 5331409819577502798}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyCollisionTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

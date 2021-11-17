@@ -53,9 +53,9 @@ public class LevelManager : MonoBehaviour {
         return bubbleCount;
     }
 
-    public bool FindAmmoDrops() {
+    public bool FindDrops(GameObject drop) {
         foreach (Transform child in transform) {
-            if (child.tag == "AmmoDrop") {
+            if (child.tag == drop.tag) {
                 return true;
             }
         }

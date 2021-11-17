@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class DropController : MonoBehaviour {
     private Animation spawnAnimation;
-    private BoxCollider2D boxCollider2D;
+    bool collected = false;
 
     void Start() {
-        boxCollider2D = GetComponent<BoxCollider2D>();
-        boxCollider2D.enabled = false;
         spawnAnimation = GetComponent<Animation>();
 
         StartCoroutine(Spawn());
@@ -17,6 +15,13 @@ public class DropController : MonoBehaviour {
     IEnumerator Spawn() {
         spawnAnimation.Play();
         yield return new WaitForSeconds(spawnAnimation.GetClip("AmmoSpawn").length);
-        boxCollider2D.enabled = true;
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.layer == 8 && !collected) {
+            collected = true;
+            transform.root.Find("Player").GetComponent<PlayerController>().HandleDrops(transform.gameObject);
+            Destroy(transform.gameObject);
+        }
     }
 }

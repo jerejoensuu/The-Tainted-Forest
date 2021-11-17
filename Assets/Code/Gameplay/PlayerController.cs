@@ -176,29 +176,30 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Avoid double collisions:
-        if (collisionCooldown) {
-            Debug.Log("cooldown active");
-            collisionCooldown = false;
-            return;
-        }
+        // if (collisionCooldown) {
+        //     collisionCooldown = false;
+        //     return;
+        // }
 
         if (col.gameObject.tag == "Ball" && !playerHit) {
             HitPlayer(col.gameObject.transform.localPosition.x);
         }
 
         // Drops:
-        if (col.gameObject.layer == 11) {
-            HandleDrops(col.gameObject);
-            Destroy(col.gameObject);
-        }
+        // if (col.gameObject.layer == 11) {
+        //     Debug.Log(col.gameObject.name);
+        //     HandleDrops(col.gameObject);
+        //     Destroy(col.gameObject);
+        // }
 
-        if (col.gameObject.tag != "Platform") {
-            StartCoroutine(StartCollisionCooldown());
-        }
+        // if (col.gameObject.tag != "Platform") {
+        //     StartCoroutine(StartCollisionCooldown());
+        // }
 
     }
 
-    void HandleDrops(GameObject gameObject) {
+    public void HandleDrops(GameObject gameObject) {
+        Debug.Log("Drop collected");
         switch (gameObject.tag) {
             case "AmmoDrop":    if (ammoCount > 5) {
                                     ChangeAmmoCount(Random.Range(1, 4));
