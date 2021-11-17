@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DropController : MonoBehaviour {
     private Animation spawnAnimation;
+    bool collected = false;
 
     void Start() {
         spawnAnimation = GetComponent<Animation>();
@@ -17,7 +18,8 @@ public class DropController : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.layer == 8) {
+        if (col.gameObject.layer == 8 && !collected) {
+            collected = true;
             transform.root.Find("Player").GetComponent<PlayerController>().HandleDrops(transform.gameObject);
             Destroy(transform.gameObject);
         }
