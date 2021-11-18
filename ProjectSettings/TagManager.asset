@@ -18,6 +18,7 @@ TagManager:
   - DoubleVines
   - StickyVines
   - LevelButton
+  - RapidFire
   layers:
   - Default
   - TransparentFX
