@@ -3286,7 +3286,7 @@ GameObject:
   - component: {fileID: 227078805393036178}
   - component: {fileID: -9105044839051419157}
   - component: {fileID: -7633447855627818852}
-  - component: {fileID: 2445089892704651306}
+  - component: {fileID: 4121105951606332253}
   - component: {fileID: 5051681846425022098}
   m_Layer: 6
   m_Name: Player
@@ -3397,7 +3397,7 @@ MonoBehaviour:
   climbingSpeed: 4
   ammoCount: 25
   score: 0
-  projectileType: 0
+  projectileType: Vine
   audioSrc: {fileID: 0}
   audioClips:
   - {fileID: 8300000, guid: 292e4deb93345ab4aad66a50c6bbfe42, type: 3}
@@ -3413,27 +3413,24 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9224
   grapplePrefab: {fileID: 6995751139742916582, guid: c979113742b4f2f41b4fcc0a33998985, type: 3}
+  rapidFirePrefab: {fileID: 0}
   hitOffGroundOffset: 0
   invincibilityDurationSeconds: 2.5
   invincibilityDeltaTime: 0.3
---- !u!114 &2445089892704651306
+--- !u!114 &4121105951606332253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8909934212896576240}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 097b551f2844b054290f18a39bf892e9, type: 3}
+  m_Script: {fileID: 11500000, guid: f8dbaf6a82d33c14cb01c46422b3ac1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Solvers:
-  - {fileID: 0}
-  m_Weight: 1
-  m_SolverEditorData:
-  - color: {r: 0, g: 1, b: 0, a: 1}
-    showGizmo: 1
+  bulletPrefab: {fileID: 6995751139742916582, guid: 41b238f00a87dd245828de0eecac0015, type: 3}
+  projectileOffset: 1
 --- !u!82 &5051681846425022098
 AudioSource:
   m_ObjectHideFlags: 0
