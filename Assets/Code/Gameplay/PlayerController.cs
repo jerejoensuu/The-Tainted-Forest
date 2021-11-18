@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
 
     [HideInInspector] public int ammoCount;
     public int score = 0;
-    public int projectileType = 0;
+    [HideInInspector] public string projectileType = "Vine";
     float movementX = 0;
     float movementY = 0;
     bool collisionCooldown = false;
@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour {
     SpriteRenderer[] spriteRenderers;
     [SerializeField] private LayerMask layerMask;
     public GameObject grapplePrefab;
+    public GameObject rapidFirePrefab;
+    RapidFireManager rapidFire;
+    Coroutine lastRoutine = null;
     private int health = 3;
     [SerializeField] public bool playerHit {get; set;}
     // prevent gravityScale from turning back too soon:
@@ -48,6 +51,7 @@ public class PlayerController : MonoBehaviour {
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         animator = GetComponent<Animator>();
         audioSrc = GetComponent<AudioSource>();
+        rapidFire = GetComponent<RapidFireManager>();
 
         hud = GameObject.Find("PlayerUI");
         hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
@@ -56,8 +60,14 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
         if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
-            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded()) {
+
+            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded() && projectileType == "RapidFire" && lastRoutine == null) {
+                lastRoutine = StartCoroutine(HoldingAttack());
+            } else if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded() && lastRoutine == null) {
                 Attack();
+            } else if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Jump") || projectileType != "RapidFire" && lastRoutine != null) {
+                StopCoroutine(lastRoutine);
+                lastRoutine = null;
             }
 
             if (knockedFromLadder) {
@@ -66,6 +76,7 @@ public class PlayerController : MonoBehaviour {
                 knockedFromLadder = false;
             }
         }
+
         if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && isShooting) {
             SetActiveAnimation("Idle");
             isShooting = false;
@@ -138,7 +149,7 @@ public class PlayerController : MonoBehaviour {
     void Attack() {
         GameObject grappleObject;
         switch (projectileType) {
-            case 0:
+            case "Vine":
                 if (transform.parent.GetComponent<LevelManager>().CountVines() < maxVines && !isShooting) {
                     isShooting = true;
                     SetActiveAnimation("Shooting");
@@ -151,9 +162,23 @@ public class PlayerController : MonoBehaviour {
                     transform.parent.GetComponent<LevelManager>().DestroyAllVines();
                 }
                 break;
+
+            case "RapidFire":
+                rapidFire.Fire();
+                break;
+
             default:
                 Debug.Log("Invalid projectile type");
                 break;
+        }
+    }
+
+    IEnumerator HoldingAttack() {
+        while(true) {
+            if (IsGrounded()) {
+                Attack();
+            }
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -220,8 +245,14 @@ public class PlayerController : MonoBehaviour {
                                 break;
             case "DoubleVines": maxVines = 2;
                                 stickyVines = false;
+                                projectileType = "Vine";
                                 break;
             case "StickyVines": stickyVines = true;
+                                maxVines = 1;
+                                projectileType = "Vine";
+                                break;
+            case "RapidFire":   StartCoroutine(rapidFire.Activate());
+                                stickyVines = false;
                                 maxVines = 1;
                                 break;
         }
@@ -231,6 +262,8 @@ public class PlayerController : MonoBehaviour {
         // turn blue here or something
         shieldActive = true;
     }
+
+    //void 
 
     IEnumerator StartCollisionCooldown() {
         collisionCooldown = true;
