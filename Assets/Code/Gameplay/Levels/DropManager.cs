@@ -18,6 +18,8 @@ public class DropManager : MonoBehaviour {
     [SerializeField] private int stickyVineWeight;
     [SerializeField] private GameObject doubleVine;
     [SerializeField] private int doubleVineWeight;
+    [SerializeField] private GameObject rapidFire;
+    [SerializeField] private int rapidFireWeight;
 
     public int time { get; private set;}
     [Tooltip("How may seconds should the script wait before attempting to spawn ammo drops again after spawning one.")] [SerializeField] private int cooldown;
@@ -40,6 +42,7 @@ public class DropManager : MonoBehaviour {
         drops.Add(new Drop{drop = shield, weight = shieldWeight});
         drops.Add(new Drop{drop = stickyVine, weight = stickyVineWeight});
         drops.Add(new Drop{drop = doubleVine, weight = doubleVineWeight});
+        drops.Add(new Drop{drop = rapidFire, weight = rapidFireWeight});
 
         foreach (Drop drop in drops) {
             for (int i = 0; i < drop.weight; i++) {

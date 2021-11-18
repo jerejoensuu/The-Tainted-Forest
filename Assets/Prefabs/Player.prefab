@@ -3429,7 +3429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8dbaf6a82d33c14cb01c46422b3ac1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
   bulletPrefab: {fileID: 6995751139742916582, guid: 41b238f00a87dd245828de0eecac0015, type: 3}
   projectileOffset: 1
 --- !u!82 &5051681846425022098

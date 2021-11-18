@@ -65,9 +65,10 @@ public class PlayerController : MonoBehaviour {
                 lastRoutine = StartCoroutine(HoldingAttack());
             } else if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded() && lastRoutine == null) {
                 Attack();
-            } else if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Jump") || projectileType != "RapidFire" && lastRoutine != null) {
+            } else if ((Input.GetButtonUp("Fire1") || Input.GetButtonUp("Jump") || projectileType != "RapidFire") && lastRoutine != null && animator.GetBool("rapidFiring")) {
                 StopCoroutine(lastRoutine);
                 lastRoutine = null;
+                animator.SetBool("rapidFiring", false);
             }
 
             if (knockedFromLadder) {
@@ -75,11 +76,6 @@ public class PlayerController : MonoBehaviour {
                 canClimbDown = false;
                 knockedFromLadder = false;
             }
-        }
-
-        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("shooting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && isShooting) {
-            SetActiveAnimation("Idle");
-            isShooting = false;
         }
         
     }
@@ -164,6 +160,10 @@ public class PlayerController : MonoBehaviour {
                 break;
 
             case "RapidFire":
+                isShooting = true;
+                SetActiveAnimation("Shooting");
+                animator.SetTrigger("shot fast");
+                animator.SetBool("rapidFiring", true);
                 rapidFire.Fire();
                 break;
 
@@ -368,6 +368,9 @@ public class PlayerController : MonoBehaviour {
         
         activeAnimation = newAnimation;
         transform.Find(activeAnimation).gameObject.SetActive(true);
+        if (newAnimation == "Idle") {
+            isShooting = false;
+        }
     }
 
 }
