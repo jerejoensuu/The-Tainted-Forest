@@ -141,7 +141,7 @@ public class BallController : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D col) {
 
-        if (col.collider.tag == "Wall") {
+        if (col.collider.tag == "Wall" || col.collider.tag == "BreakableWall") {
             Vector2 contactP = col.GetContact(0).point;
 
             float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;
