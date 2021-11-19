@@ -194,6 +194,11 @@ public class PlayerController : MonoBehaviour {
         hud.SetScore(score);
     }
 
+    void ChangeHealth(int amount) {
+        health += amount;
+        hud.SetHealth(health);
+    }
+
     void OnTriggerEnter2D(Collider2D col) {
 
         if (col.gameObject.tag == "Ladder") {
@@ -291,8 +296,7 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
-        health--;
-        hud.SetHealth(health);
+        ChangeHealth(-1);
         knockedFromLadder = true;
         int dir = enemyX < transform.localPosition.x ? 1 : -1;
         rb.gravityScale = 0.5f;
