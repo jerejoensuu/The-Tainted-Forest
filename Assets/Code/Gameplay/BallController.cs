@@ -103,6 +103,7 @@ public class BallController : MonoBehaviour {
     bool isDestroyed = false;
     public void DestroyBall() {
         if (!isDestroyed) {
+            AddToScore();
             isDestroyed = true;
             if (size > 1) {
                 SpawnBalls(-1, size - 1);
@@ -115,6 +116,12 @@ public class BallController : MonoBehaviour {
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);
         }
+    }
+
+    public void AddToScore() {
+        int combo = transform.root.Find("Player").GetComponent<PlayerController>().combo;
+        //"ScoreManager".AddToScore(100 * combo);
+        transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (100 * combo).ToString(), transform.position);
     }
 
     void SpawnBalls(int direction, int newSize) {
@@ -135,6 +142,7 @@ public class BallController : MonoBehaviour {
                 GameObject drop = Instantiate(transform.root.Find("PlatformAndDropManager").GetComponent<DropManager>().GetRandomDrop(), transform.position, Quaternion.identity) as GameObject;
                 drop.transform.parent = transform.root.transform;
             }
+            transform.root.Find("Player").GetComponent<PlayerController>().combo = transform.root.Find("Player").GetComponent<PlayerController>().combo + 1;
             Destroy(col.gameObject);
             DestroyBall();
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class DropController : MonoBehaviour {
     private Animation spawnAnimation;
     bool collected = false;
+    public int score;
 
     void Start() {
         spawnAnimation = GetComponent<Animation>();
@@ -21,7 +22,12 @@ public class DropController : MonoBehaviour {
         if (col.gameObject.layer == 8 && !collected) {
             collected = true;
             transform.root.Find("Player").GetComponent<PlayerController>().HandleDrops(transform.gameObject);
+            AddToScore();
             Destroy(transform.gameObject);
         }
+    }
+
+    void AddToScore() {
+        transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (score).ToString(), transform.position);
     }
 }

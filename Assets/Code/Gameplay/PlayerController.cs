@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     bool stickyVines = false;
     bool knockedFromLadder = false;
     bool canStep = true; //temp
+    public int combo = 0;
 
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
@@ -208,6 +209,7 @@ public class PlayerController : MonoBehaviour {
 
         if (col.gameObject.tag == "Ball" && !playerHit) {
             HitPlayer(col.gameObject.transform.localPosition.x);
+            combo = 0;
         }
 
         // Drops:
@@ -254,6 +256,9 @@ public class PlayerController : MonoBehaviour {
             case "RapidFire":   StartCoroutine(rapidFire.Activate());
                                 stickyVines = false;
                                 maxVines = 1;
+                                break;
+            case "TimerBoost":  transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(Random.Range(10, 21));
+                                
                                 break;
         }
     }

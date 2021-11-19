@@ -10587,20 +10587,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12939e4586128c14e9eb6f784a15178b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoDrop: {fileID: 226877250837588279, guid: 1d6124f04a2c4b948acc009413cfea91, type: 3}
-  ammoDropWeight: 1
-  damageAll: {fileID: 226877250837588279, guid: cbbdbbe89b75eed41926499006929c2a, type: 3}
-  damageAllWeight: 1
-  timeFreeze: {fileID: 226877250837588279, guid: 8b16af3a55fccba41b439c219831c548, type: 3}
-  timeFreezeWeight: 4
-  shield: {fileID: 226877250837588279, guid: dee970ed746e3dd48aeb3fd14050ef56, type: 3}
-  shieldWeight: 5
-  stickyVine: {fileID: 226877250837588279, guid: d3fed7e074e0f274aace41b45319b671, type: 3}
-  stickyVineWeight: 3
-  doubleVine: {fileID: 226877250837588279, guid: 8f2c3bb938953d2418faee6a1454b10e, type: 3}
-  doubleVineWeight: 3
-  rapidFire: {fileID: 226877250837588279, guid: 686a048628b732c498ab07ea55af6c0e, type: 3}
-  rapidFireWeight: 1
+  dropPrefabs:
+  - {fileID: 226877250837588279, guid: 1d6124f04a2c4b948acc009413cfea91, type: 3}
+  - {fileID: 226877250837588279, guid: cbbdbbe89b75eed41926499006929c2a, type: 3}
+  - {fileID: 226877250837588279, guid: 8f2c3bb938953d2418faee6a1454b10e, type: 3}
+  - {fileID: 226877250837588279, guid: 686a048628b732c498ab07ea55af6c0e, type: 3}
+  - {fileID: 226877250837588279, guid: dee970ed746e3dd48aeb3fd14050ef56, type: 3}
+  - {fileID: 226877250837588279, guid: d3fed7e074e0f274aace41b45319b671, type: 3}
+  - {fileID: 226877250837588279, guid: 8b16af3a55fccba41b439c219831c548, type: 3}
+  - {fileID: 226877250837588279, guid: a5c5d0bb9af22ab49bc06df83b510cb1, type: 3}
+  dropWeights: 0100000001000000040000000100000003000000030000000200000002000000
+  dropScores: 00000000f401000000000000c80000000000000000000000c800000000000000
   cooldown: 10
   changeOfSpawn: 0.2
 --- !u!1 &5849209743242408509
