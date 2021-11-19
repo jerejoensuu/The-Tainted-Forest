@@ -6,6 +6,7 @@ public class BallController : MonoBehaviour {
 
     [Range(1, 4)] [SerializeField] [Tooltip("0.4, 0.7, 1.3, 2.25")] public int size;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")] [Range(-1, 1)] [SerializeField] int direction;
+    [Tooltip("Points awarded for popping a bubble")] [SerializeField] private int points = 50;
 
     public float moveSpeed;
     private float freezeFactor = 1;
@@ -110,6 +111,7 @@ public class BallController : MonoBehaviour {
             }
             if (levelManager != null) {
                 levelManager.bubblesRemaining.Remove(this.gameObject);
+                GameObject.Find("PlayerUI").GetComponent<PlayerUI>().ChangeScore(points);
                 levelManager.CheckRemainingBubbles();
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();

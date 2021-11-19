@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour {
     public float climbingSpeed;
 
     [HideInInspector] public int ammoCount;
-    public int score = 0;
     [HideInInspector] public string projectileType = "Vine";
     float movementX = 0;
     float movementY = 0;
@@ -187,11 +186,6 @@ public class PlayerController : MonoBehaviour {
     void ChangeAmmoCount(int amount) {
         ammoCount += amount;
         hud.SetAmmo(ammoCount);
-    }
-
-    void ChangeScore(int amount) {
-        score += amount;
-        hud.SetScore(score);
     }
 
     void ChangeHealth(int amount) {

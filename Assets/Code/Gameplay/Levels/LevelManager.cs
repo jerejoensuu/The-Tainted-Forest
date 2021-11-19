@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour {
 
     public List<GameObject> bubblesRemaining = new List<GameObject>();
+
     private bool levelWon = false;
     private bool levelLost = false;
     [Range(1, 2)] [SerializeField] public int theme = 1;

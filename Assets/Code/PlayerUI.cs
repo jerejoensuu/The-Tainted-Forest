@@ -12,20 +12,31 @@ public class PlayerUI : MonoBehaviour {
     public GameObject[] healthContainers;
     public Sprite[] healthIcons;
 
-    TextMeshProUGUI score;
-    TextMeshProUGUI ammo;
+    TextMeshProUGUI scoreText;
+    TextMeshProUGUI ammoText;
+
+    private int levelScore;
+
+    public void ChangeScore(int amount) {
+        levelScore += amount;
+        SetScore(levelScore);
+    }
+
+    public void EndScore() {
+        // Points for time remaining + ammo remaining + full health bonus?
+    }
 
     void Awake () {
-        score = scoreCounter.GetComponent<TextMeshProUGUI>();
-        ammo = ammoCounter.GetComponent<TextMeshProUGUI>();
+        scoreText = scoreCounter.GetComponent<TextMeshProUGUI>();
+        ammoText = ammoCounter.GetComponent<TextMeshProUGUI>();
     }
 
     public void SetScore(int amount) {
-        score.SetText(amount.ToString("#,000000"));
+        scoreText.SetText(amount.ToString("#,000000"));
     }
 
     public void SetAmmo(int amount) {
-        ammo.SetText(amount.ToString());
+        ammoText.SetText(amount.ToString());
     }
 
     public void SetHealth(int amount) {
