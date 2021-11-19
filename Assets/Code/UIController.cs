@@ -9,7 +9,10 @@ public class UIController : MonoBehaviour {
 
     public bool paused = false;
     public GameObject pauseMenu;
+    public GameObject[] pauseMenuPanels;
+    public Slider[] volumeSliders;
     [Tooltip("Set selection to this button when game is paused")] public GameObject pauseMenuActiveButton;
+    [Tooltip("Set selection to this button when settings menu is opened")] public GameObject settingsPanelActiveButton;
     [Tooltip("Set selection to this button when level is won")] public GameObject winScreenActiveButton;
     [Tooltip("Set selection to this button when level is lost")] public GameObject loseScreenActiveButton;
     
@@ -41,6 +44,7 @@ public class UIController : MonoBehaviour {
     void PauseGame() {
         Debug.Log("Game paused");
         paused = true;
+        ChangePanel(0);
         pauseMenu.SetActive(true);
         GetComponent<AudioSource>().Pause();
         GetComponent<EventSystem>().SetSelectedGameObject(null);
@@ -61,8 +65,34 @@ public class UIController : MonoBehaviour {
         TogglePause();
     }
 
+    void ChangePanel(int index) {
+        for (int i = 0; i < pauseMenuPanels.Length; i++) {
+            if (index == i) {
+                pauseMenuPanels[i].SetActive(true);
+            }
+            else {
+                pauseMenuPanels[i].SetActive(false);
+            }
+        }
+    }
+
     public void OpenSettings() {
-        Debug.Log("Add settings");
+        ChangePanel(1);
+        volumeSliders[0].value = ApplicationSettings.GetMasterVolume();
+        volumeSliders[1].value = ApplicationSettings.GetSoundVolume();
+        volumeSliders[2].value = ApplicationSettings.GetMusicVolume();
+        GetComponent<EventSystem>().SetSelectedGameObject(null);
+        GetComponent<EventSystem>().SetSelectedGameObject(settingsPanelActiveButton);
+    }
+
+    public void ApplySettings() {
+        ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
+    }
+
+    public void ExitSettings() {
+        ChangePanel(0);
+        GetComponent<EventSystem>().SetSelectedGameObject(null);
+        GetComponent<EventSystem>().SetSelectedGameObject(pauseMenuActiveButton);
     }
 
     public void ReturnToMenu() {
