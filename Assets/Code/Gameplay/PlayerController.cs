@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float invincibilityDurationSeconds;
     [SerializeField] private float invincibilityDeltaTime = 0.15f;
 
-    GameObject hud;
+    private PlayerUI hud;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -53,8 +53,10 @@ public class PlayerController : MonoBehaviour {
         audioSrc = GetComponent<AudioSource>();
         rapidFire = GetComponent<RapidFireManager>();
 
-        hud = GameObject.Find("PlayerUI");
-        hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
+        hud = GameObject.Find("PlayerUI").GetComponent<PlayerUI>();
+        hud.SetAmmo(ammoCount);
+        hud.SetHealth(health);
+
         SetActiveAnimation("Idle");
     }
 
@@ -184,12 +186,12 @@ public class PlayerController : MonoBehaviour {
 
     void ChangeAmmoCount(int amount) {
         ammoCount += amount;
-        hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
+        hud.SetAmmo(ammoCount);
     }
 
     void ChangeScore(int amount) {
         score += amount;
-        hud.GetComponent<PlayerUI>().SetScore(score);
+        hud.SetScore(score);
     }
 
     void OnTriggerEnter2D(Collider2D col) {
@@ -290,6 +292,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         health--;
+        hud.SetHealth(health);
         knockedFromLadder = true;
         int dir = enemyX < transform.localPosition.x ? 1 : -1;
         rb.gravityScale = 0.5f;
