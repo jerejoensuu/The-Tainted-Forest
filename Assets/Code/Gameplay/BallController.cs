@@ -6,12 +6,11 @@ public class BallController : MonoBehaviour {
 
     [Range(1, 4)] [SerializeField] [Tooltip("0.4, 0.7, 1.3, 2.25")] public int size;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")] [Range(-1, 1)] [SerializeField] int direction;
-    [Tooltip("Points awarded for popping a bubble")] [SerializeField] private int points = 50;
+    private int pointsAward = 100;
 
     public float moveSpeed;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
-    //bool isDestroyed = false;
     float momentum = 0;
     float lastMomentum = 0;
     float lastY = 0;
@@ -120,7 +119,7 @@ public class BallController : MonoBehaviour {
     }
 
     public void AddToScore() {
-        int points = transform.root.Find("Player").GetComponent<PlayerController>().combo * 100;
+        int points = transform.root.Find("Player").GetComponent<PlayerController>().combo * pointsAward;
         //"ScoreManager".AddToScore(100 * combo);
         transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (points).ToString(), transform.position);
         GameObject.Find("PlayerUI").GetComponent<PlayerUI>().ChangeScore(points);
