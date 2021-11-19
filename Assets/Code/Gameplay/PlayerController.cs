@@ -103,8 +103,12 @@ public class PlayerController : MonoBehaviour {
                 }
                 Climb();
             // If the player is unable to climb anymore, turn it's gravityScale back on:
+            } else if (canClimb && animator.GetBool("isClimbing")) {
+                animator.speed = 0;
             } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
                 rb.gravityScale = 1;
+                animator.speed = 1;
+                animator.SetBool("isClimbing", false);
             }
         }
 
@@ -137,10 +141,13 @@ public class PlayerController : MonoBehaviour {
 
     void Climb() {
         if (!playerHit || !hitOffGroundOffset) {
+            animator.speed = 1;
+            animator.SetBool("isClimbing", true);
             rb.velocity = new Vector2(0, 0);
             rb.gravityScale = 0;
             movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
             transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
+            SetActiveAnimation("Climbing");
         }
     }
 
@@ -281,6 +288,8 @@ public class PlayerController : MonoBehaviour {
         if (col.gameObject.tag == "Ladder") {
             canClimb = false;
             canClimbDown = false;
+            SetActiveAnimation("Idle");
+            animator.SetBool("isClimbing", false);
         }
     }
 
@@ -371,6 +380,7 @@ public class PlayerController : MonoBehaviour {
         transform.Find("Idle").gameObject.SetActive(false);
         transform.Find("Hit").gameObject.SetActive(false);
         transform.Find("Shooting").gameObject.SetActive(false);
+        transform.Find("Climbing").gameObject.SetActive(false);
         
         activeAnimation = newAnimation;
         transform.Find(activeAnimation).gameObject.SetActive(true);
