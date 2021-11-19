@@ -4301,12 +4301,13 @@ MonoBehaviour:
   pauseMenuPanels:
   - {fileID: 4998499864343295571}
   - {fileID: 4176333340223049944}
+  panelActiveButtons:
+  - {fileID: 4998499865343784054}
+  - {fileID: 1829848273006039534}
   volumeSliders:
   - {fileID: 5014114358411670348}
   - {fileID: 6603545698305630777}
   - {fileID: 4985026549270222004}
-  pauseMenuActiveButton: {fileID: 4998499865343784054}
-  settingsPanelActiveButton: {fileID: 1829848273006039534}
   winScreenActiveButton: {fileID: 4998499863500617305}
   loseScreenActiveButton: {fileID: 4998499865345110188}
   winScreen: {fileID: 4998499864270571583}
