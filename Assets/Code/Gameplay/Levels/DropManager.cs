@@ -6,20 +6,11 @@ public class DropManager : MonoBehaviour {
 
     private List<GameObject> Spawns = new List<GameObject>();
 
-    [SerializeField] private GameObject ammoDrop;
-    [SerializeField] private int ammoDropWeight;
-    [SerializeField] private GameObject damageAll;
-    [SerializeField] private int damageAllWeight;
-    [SerializeField] private GameObject timeFreeze;
-    [SerializeField] private int timeFreezeWeight;
-    [SerializeField] private GameObject shield;
-    [SerializeField] private int shieldWeight;
-    [SerializeField] private GameObject stickyVine;
-    [SerializeField] private int stickyVineWeight;
-    [SerializeField] private GameObject doubleVine;
-    [SerializeField] private int doubleVineWeight;
-    [SerializeField] private GameObject rapidFire;
-    [SerializeField] private int rapidFireWeight;
+    private GameObject ammoDrop;
+
+    public List<GameObject> dropPrefabs;
+    public List<int> dropWeights;
+    public List<int> dropScores;
 
     public int time { get; private set;}
     [Tooltip("How may seconds should the script wait before attempting to spawn ammo drops again after spawning one.")] [SerializeField] private int cooldown;
@@ -28,25 +19,19 @@ public class DropManager : MonoBehaviour {
     private ParticleSystem particleRays;
     private ParticleSystem particleCircle;
 
-    private List<Drop> drops = new List<Drop>();
-    private List<GameObject> dropPool = new List<GameObject>();
+    private List<Drop> dropPool = new List<Drop>();
     public class Drop {
         public GameObject drop { get; set; }
-        public int weight { get; set; }
+        //public int weight { get; set; }
+        public int score { get; set; }
     }
     
     void Start() {
-        drops.Add(new Drop{drop = ammoDrop, weight = ammoDropWeight});
-        drops.Add(new Drop{drop = damageAll, weight = damageAllWeight});
-        drops.Add(new Drop{drop = timeFreeze, weight = timeFreezeWeight});
-        drops.Add(new Drop{drop = shield, weight = shieldWeight});
-        drops.Add(new Drop{drop = stickyVine, weight = stickyVineWeight});
-        drops.Add(new Drop{drop = doubleVine, weight = doubleVineWeight});
-        drops.Add(new Drop{drop = rapidFire, weight = rapidFireWeight});
+        GameObject ammoDrop = dropPrefabs[0];
 
-        foreach (Drop drop in drops) {
-            for (int i = 0; i < drop.weight; i++) {
-                dropPool.Add(drop.drop);
+        for (int i = 0; i < dropPrefabs.Count; i++) {
+            for (int j = 0; j < dropWeights[i]; j++) {
+                dropPool.Add(new Drop{drop = dropPrefabs[i], score = dropScores[i]});
             }
         }
 
@@ -92,16 +77,17 @@ public class DropManager : MonoBehaviour {
 
     IEnumerator Spawn() {
         Vector2 location;
-        GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];      
+        GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];
+        GameObject dropObject = GetRandomDrop();
         
         if (spawnPlatform.layer == 3) {
-            location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 + ammoDrop.transform.localScale.x/2,
-                                                    spawnPlatform.transform.position.x + spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 - ammoDrop.transform.localScale.x/2)
-                                       ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + ammoDrop.transform.localScale.y/2);
+            location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 + dropObject.transform.localScale.x/2,
+                                                    spawnPlatform.transform.position.x + spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 - dropObject.transform.localScale.x/2)
+                                       ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + dropObject.transform.localScale.y/2);
         } else {
-            location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.transform.localScale.x/2 + ammoDrop.transform.localScale.x/2,
-                                                    spawnPlatform.transform.position.x + spawnPlatform.transform.localScale.x/2 - ammoDrop.transform.localScale.x/2)
-                                       ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + ammoDrop.transform.localScale.y/2);
+            location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.transform.localScale.x/2 + dropObject.transform.localScale.x/2,
+                                                    spawnPlatform.transform.position.x + spawnPlatform.transform.localScale.x/2 - dropObject.transform.localScale.x/2)
+                                       ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + dropObject.transform.localScale.y/2);
         }
         
         particleRays.transform.position = location;
@@ -111,7 +97,7 @@ public class DropManager : MonoBehaviour {
 
         yield return new WaitForSeconds(particleCircle.main.startLifetime.constantMax);
       
-        GameObject drop = Instantiate(GetRandomDrop(), location, Quaternion.identity) as GameObject;
+        GameObject drop = Instantiate(dropObject, location, Quaternion.identity) as GameObject;
         drop.transform.parent = transform.root.transform;
 
     }
@@ -123,7 +109,9 @@ public class DropManager : MonoBehaviour {
         } else {
             int failsafe = 100;
             while(true) {
-                drop = dropPool[Random.Range(0, dropPool.Count)];
+                int index = Random.Range(0, dropPool.Count);
+                drop = dropPool[index].drop;
+                drop.GetComponent<DropController>().score = dropPool[index].score;
                 if (!transform.root.GetComponent<LevelManager>().FindDrops(drop) || failsafe == 0) {
                     break;
                 }

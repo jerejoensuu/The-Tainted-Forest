@@ -38,7 +38,7 @@ public class RapidFireController : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Wall") {
+        if (col.gameObject.tag == "Wall" || col.gameObject.tag == "BreakableWall") {
             Destroy(transform.gameObject);
         }
     }
