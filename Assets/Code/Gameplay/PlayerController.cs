@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour {
                     grappleObject.transform.parent = transform.parent;
                     grappleObject.GetComponent<Grapple>().stickyVines = stickyVines;
                 } else if (stickyVines) {
-                    transform.parent.GetComponent<LevelManager>().DestroyAllVines();
+                    transform.parent.GetComponent<LevelManager>().DestroyUnmovingVines();
                 }
                 break;
 
