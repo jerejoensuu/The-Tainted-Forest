@@ -26,9 +26,9 @@ public class MainMenuController : MonoBehaviour {
 
     public void OpenSettings() {
         ChangePanel(2);
-        volumeSliders[0].value = ApplicationSettings.masterVolume;
-        volumeSliders[1].value = ApplicationSettings.soundVolume;
-        volumeSliders[2].value = ApplicationSettings.musicVolume;
+        volumeSliders[0].value = ApplicationSettings.GetMasterVolume();
+        volumeSliders[1].value = ApplicationSettings.GetSoundVolume();
+        volumeSliders[2].value = ApplicationSettings.GetMusicVolume();
     }
 
     public void OpenLevelSelect() {

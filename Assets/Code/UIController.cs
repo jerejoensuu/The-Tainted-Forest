@@ -52,6 +52,7 @@ public class UIController : MonoBehaviour {
         Debug.Log("Game unpaused");
         paused = false;
         pauseMenu.SetActive(false);
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
         GetComponent<AudioSource>().UnPause();
         Time.timeScale = 1;
     }
