@@ -28,6 +28,8 @@ public class DropController : MonoBehaviour {
     }
 
     void AddToScore() {
-        transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (score).ToString(), transform.position);
+        if (score > 0) {
+            transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (score).ToString(), transform.position);
+        }
     }
 }

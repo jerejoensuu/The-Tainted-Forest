@@ -104,7 +104,6 @@ public class BallController : MonoBehaviour {
     bool isDestroyed = false;
     public void DestroyBall() {
         if (!isDestroyed) {
-            AddToScore();
             isDestroyed = true;
             if (size > 1) {
                 SpawnBalls(-1, size - 1);
@@ -112,7 +111,7 @@ public class BallController : MonoBehaviour {
             }
             if (levelManager != null) {
                 levelManager.bubblesRemaining.Remove(this.gameObject);
-                GameObject.Find("PlayerUI").GetComponent<PlayerUI>().ChangeScore(points);
+                AddToScore();
                 levelManager.CheckRemainingBubbles();
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
@@ -121,9 +120,10 @@ public class BallController : MonoBehaviour {
     }
 
     public void AddToScore() {
-        int combo = transform.root.Find("Player").GetComponent<PlayerController>().combo;
+        int points = transform.root.Find("Player").GetComponent<PlayerController>().combo * 100;
         //"ScoreManager".AddToScore(100 * combo);
-        transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (100 * combo).ToString(), transform.position);
+        transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (points).ToString(), transform.position);
+        GameObject.Find("PlayerUI").GetComponent<PlayerUI>().ChangeScore(points);
     }
 
     void SpawnBalls(int direction, int newSize) {
