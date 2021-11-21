@@ -143,6 +143,10 @@ PrefabInstance:
       value: Vertical platform (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
       value: 1.0484347
       objectReference: {fileID: 0}
@@ -196,7 +200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491122834778538825, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: allowDrops
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40f749c919644004a85888bc2db87101, type: 3}
@@ -289,6 +293,14 @@ PrefabInstance:
       value: Vertical platform (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 1.043053
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
       value: 1.5
       objectReference: {fileID: 0}
@@ -338,7 +350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491122834778538825, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: allowDrops
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40f749c919644004a85888bc2db87101, type: 3}
@@ -441,6 +453,10 @@ PrefabInstance:
       value: Vertical platform (4)
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
       value: 1.0484347
       objectReference: {fileID: 0}
@@ -494,7 +510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491122834778538825, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: allowDrops
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40f749c919644004a85888bc2db87101, type: 3}
@@ -516,6 +532,18 @@ PrefabInstance:
     - target: {fileID: 3592810352200584533, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_Name
       value: Vertical platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 1.0484347
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584538, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_RootOrder
@@ -563,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491122834778538825, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: allowDrops
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40f749c919644004a85888bc2db87101, type: 3}
@@ -656,6 +684,10 @@ PrefabInstance:
       value: Vertical platform (5)
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
       value: 1.043053
       objectReference: {fileID: 0}
@@ -709,7 +741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491122834778538825, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: allowDrops
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40f749c919644004a85888bc2db87101, type: 3}
@@ -1023,6 +1055,10 @@ PrefabInstance:
       value: Vertical platform (3)
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
       value: 1.043053
       objectReference: {fileID: 0}
@@ -1076,7 +1112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491122834778538825, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: allowDrops
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40f749c919644004a85888bc2db87101, type: 3}

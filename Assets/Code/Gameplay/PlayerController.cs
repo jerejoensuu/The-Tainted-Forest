@@ -106,7 +106,6 @@ public class PlayerController : MonoBehaviour {
             } else if (canClimb && animator.GetBool("isClimbing") && !IsGrounded()) {
                 animator.speed = 0;
             } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
-                Debug.Log("stopped climbing");
                 rb.gravityScale = 1;
                 animator.speed = 1;
                 animator.SetBool("isClimbing", false);

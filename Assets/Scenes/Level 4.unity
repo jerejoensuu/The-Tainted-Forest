@@ -164,7 +164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4670066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25280753, y: 0.31248108, z: 0}
+  m_LocalPosition: {x: 0.25280753, y: 0.31248108, z: -17.92894}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 598702129}
@@ -432,11 +432,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1.224993
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 4
+      value: 5.4985776
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584538, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_RootOrder
@@ -698,11 +698,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 2
+      value: 5.5024962
       objectReference: {fileID: 0}
     - target: {fileID: 3592810352200584536, guid: 40f749c919644004a85888bc2db87101, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -941,6 +941,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4670068}
     m_Modifications:
+    - target: {fileID: 5849209742496335418, guid: df76f4c9e5ad2c1408f4a2af37bdd798, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5849209743193237664, guid: df76f4c9e5ad2c1408f4a2af37bdd798, type: 3}
       propertyPath: m_RootOrder
       value: 2
