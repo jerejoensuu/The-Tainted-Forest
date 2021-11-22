@@ -91,10 +91,12 @@ public class PlayerController : MonoBehaviour {
 
             // Can player climb and are they trying to climb:
             if (canClimb && Input.GetAxisRaw("Vertical") != 0 && !isShooting) {
+
                 // Can player climb down, is the ladder below them and are they attempting to climb down:
-                if (canClimbDown && currentLadderY < transform.localPosition.y && Input.GetAxisRaw("Vertical") < 0) {
+                if (canClimbDown && currentLadderY < bc.bounds.min.y && Input.GetAxisRaw("Vertical") < 0) {
                     // Turn player into a semisolid able to go through platforms:
                     gameObject.layer = LayerMask.NameToLayer("SemisolidPlayer");
+
                 // Is the player on the ground or is the ladder they're climbing above them:
                 } else if (IsGrounded() || currentLadderY > transform.localPosition.y) {
                     // Turn player back into a solid object and disable canClimbDown:
@@ -102,6 +104,7 @@ public class PlayerController : MonoBehaviour {
                     gameObject.layer = LayerMask.NameToLayer("Player");
                 }
                 Climb();
+
             // If the player is unable to climb anymore, turn it's gravityScale back on:
             } else if (canClimb && animator.GetBool("isClimbing") && !IsGrounded()) {
                 animator.speed = 0;
@@ -206,32 +209,20 @@ public class PlayerController : MonoBehaviour {
         if (col.gameObject.tag == "Ladder") {
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
-            currentLadderY = col.gameObject.transform.localPosition.y;
+            currentLadderY = col.bounds.center.y - col.bounds.extents.y;
         }
-
-        // Avoid double collisions:
-        // if (collisionCooldown) {
-        //     collisionCooldown = false;
-        //     return;
-        // }
 
         if (col.gameObject.tag == "Ball" && !playerHit) {
             HitPlayer(col.gameObject.transform.localPosition.x);
             combo = 0;
         }
 
-        // Drops:
-        // if (col.gameObject.layer == 11) {
-        //     Debug.Log(col.gameObject.name);
-        //     HandleDrops(col.gameObject);
-        //     Destroy(col.gameObject);
-        // }
-
-        // if (col.gameObject.tag != "Platform") {
-        //     StartCoroutine(StartCollisionCooldown());
-        // }
-
     }
+
+    // Debug for ladders
+    // void OnDrawGizmos() {
+    //     Gizmos.DrawLine(new Vector2(0, currentLadderY), new Vector2(10, currentLadderY));
+    // }
 
     public void HandleDrops(GameObject gameObject) {
         Debug.Log("Drop collected");
