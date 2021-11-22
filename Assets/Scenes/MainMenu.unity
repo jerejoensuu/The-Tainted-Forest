@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 26502919}
   - component: {fileID: 26502918}
   - component: {fileID: 26502917}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: firefly2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26502915}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1006.4175, y: 373.50308, z: 560.31915}
+  m_LocalPosition: {x: 448.29932, y: 63.379417, z: 560.31915}
   m_LocalScale: {x: 75.05952, y: 75.05952, z: 93.824394}
   m_Children: []
   m_Father: {fileID: 1091326710}
@@ -2377,7 +2377,7 @@ GameObject:
   - component: {fileID: 652892231}
   - component: {fileID: 652892230}
   - component: {fileID: 652892229}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: firefly1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2392,7 +2392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652892227}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 906.11816, y: 408.1237, z: 560.31915}
+  m_LocalPosition: {x: 348, y: 98, z: 560.31915}
   m_LocalScale: {x: 46.912197, y: 46.912197, z: 93.824394}
   m_Children: []
   m_Father: {fileID: 1091326710}
@@ -2624,7 +2624,7 @@ GameObject:
   - component: {fileID: 742373472}
   - component: {fileID: 742373474}
   - component: {fileID: 742373473}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: fog2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2639,8 +2639,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742373471}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 585, y: 304, z: 560.3188}
-  m_LocalScale: {x: 63.66391, y: 63.66391, z: 63.66391}
+  m_LocalPosition: {x: 0, y: 5, z: 560.3188}
+  m_LocalScale: {x: 60.678074, y: 60.678074, z: 60.678074}
   m_Children: []
   m_Father: {fileID: 1091326710}
   m_RootOrder: 7
@@ -2860,7 +2860,7 @@ GameObject:
   - component: {fileID: 770658441}
   - component: {fileID: 770658443}
   - component: {fileID: 770658442}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: firefly3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2875,7 +2875,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770658440}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 945.72534, y: 308.77762, z: 560.31915}
+  m_LocalPosition: {x: 387.60715, y: -1.3460445, z: 560.31915}
   m_LocalScale: {x: 93.824394, y: 93.824394, z: 93.824394}
   m_Children: []
   m_Father: {fileID: 1091326710}
@@ -2940,7 +2940,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 52d9d2a008341d94e82557c3ee6789fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93beb06f85cc17d42b98e1ea1b5dae2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3927,7 +3927,7 @@ GameObject:
   - component: {fileID: 1022841486}
   - component: {fileID: 1022841488}
   - component: {fileID: 1022841487}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: firefly6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3942,7 +3942,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022841485}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 438, y: 358, z: 560.31915}
+  m_LocalPosition: {x: -120.11817, y: 47.876335, z: 560.31915}
   m_LocalScale: {x: 56.294636, y: 56.294636, z: 93.824394}
   m_Children: []
   m_Father: {fileID: 1091326710}
@@ -4007,7 +4007,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: adda3a521bc35bb4294ad8d969e31659, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93beb06f85cc17d42b98e1ea1b5dae2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4027,7 +4027,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1091326710}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Animations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4042,7 +4042,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091326709}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -886.14703, y: -490.87033, z: -889.8369}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5880898, y: 1.5880898, z: 1.5880898}
   m_Children:
   - {fileID: 652892228}
@@ -4104,7 +4104,7 @@ GameObject:
   - component: {fileID: 1137342665}
   - component: {fileID: 1137342667}
   - component: {fileID: 1137342666}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: fog3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4119,7 +4119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137342664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -681, y: 300, z: 560.3188}
+  m_LocalPosition: {x: -1239.1182, y: -10.123663, z: 560.3188}
   m_LocalScale: {x: 63.810238, y: 63.810238, z: 63.810238}
   m_Children: []
   m_Father: {fileID: 1091326710}
@@ -4340,7 +4340,7 @@ GameObject:
   - component: {fileID: 1299264820}
   - component: {fileID: 1299264822}
   - component: {fileID: 1299264821}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: firefly5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4355,7 +4355,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299264819}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 598.4402, y: 282.94, z: 560.31915}
+  m_LocalPosition: {x: 40.322014, y: -27.18366, z: 560.31915}
   m_LocalScale: {x: 84.44195, y: 84.44195, z: 93.824394}
   m_Children: []
   m_Father: {fileID: 1091326710}
@@ -4420,7 +4420,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec18537df73713d4a9f287ad38b939f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93beb06f85cc17d42b98e1ea1b5dae2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5266,7 +5266,7 @@ GameObject:
   - component: {fileID: 1554543557}
   - component: {fileID: 1554543559}
   - component: {fileID: 1554543558}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: fog1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5281,7 +5281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554543556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -662, y: 329, z: 560.3188}
+  m_LocalPosition: {x: -1220.1182, y: 18.876337, z: 560.3188}
   m_LocalScale: {x: 63.0244, y: 63.0244, z: 63.0244}
   m_Children: []
   m_Father: {fileID: 1091326710}
@@ -7213,7 +7213,7 @@ GameObject:
   - component: {fileID: 2045549145}
   - component: {fileID: 2045549147}
   - component: {fileID: 2045549146}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: firefly4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7228,7 +7228,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045549144}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 549.65186, y: 254.79233, z: 560.31915}
+  m_LocalPosition: {x: -8.466322, y: -55.331337, z: 560.31915}
   m_LocalScale: {x: 93.824394, y: 93.824394, z: 93.824394}
   m_Children: []
   m_Father: {fileID: 1091326710}
@@ -7293,7 +7293,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e86fc8e0814ecba498b813dc291f7bd7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93beb06f85cc17d42b98e1ea1b5dae2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
