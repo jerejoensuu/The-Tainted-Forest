@@ -25,6 +25,9 @@ public class DropManager : MonoBehaviour {
         //public int weight { get; set; }
         public int score { get; set; }
     }
+
+    // TEMP
+    Vector2 tempLocation = Vector2.zero;
     
     void Start() {
         GameObject ammoDrop = dropPrefabs[0];
@@ -76,19 +79,8 @@ public class DropManager : MonoBehaviour {
     }
 
     IEnumerator Spawn() {
-        Vector2 location;
-        GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];
         GameObject dropObject = GetRandomDrop();
-        
-        if (spawnPlatform.layer == 3) {
-            location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 + dropObject.transform.localScale.x/2,
-                                                    spawnPlatform.transform.position.x + spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 - dropObject.transform.localScale.x/2)
-                                       ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + dropObject.transform.localScale.y/2);
-        } else {
-            location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.transform.localScale.x/2 + dropObject.transform.localScale.x/2,
-                                                    spawnPlatform.transform.position.x + spawnPlatform.transform.localScale.x/2 - dropObject.transform.localScale.x/2)
-                                       ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + dropObject.transform.localScale.y/2);
-        }
+        Vector2 location = GetRandomSpawnLocation(dropObject);
         
         particleRays.transform.position = location;
         particleCircle.transform.position = location;
@@ -100,6 +92,38 @@ public class DropManager : MonoBehaviour {
         GameObject drop = Instantiate(dropObject, location, Quaternion.identity) as GameObject;
         drop.transform.parent = transform.root.transform;
 
+    }
+
+    Vector2 GetRandomSpawnLocation(GameObject dropObject) {
+        Vector2 location = Vector2.zero;
+        GameObject spawnPlatform = Spawns[Random.Range(0,Spawns.Count)];
+        int failsafe = 1000000;
+
+        while(true) {
+            if (spawnPlatform.layer == 3) {
+                location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 + dropObject.transform.localScale.x/2,
+                                                    spawnPlatform.transform.position.x + spawnPlatform.GetComponent<SpriteRenderer>().size.x/2 - dropObject.transform.localScale.x/2)
+                                       ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + dropObject.transform.localScale.y/2*1.1f);
+            
+            } else {
+                location = new Vector2(Random.Range(spawnPlatform.transform.position.x - spawnPlatform.transform.localScale.x/2 + dropObject.transform.localScale.x/2,
+                                                        spawnPlatform.transform.position.x + spawnPlatform.transform.localScale.x/2 - dropObject.transform.localScale.x/2)
+                                        ,spawnPlatform.transform.position.y + spawnPlatform.transform.localScale.y/2  + dropObject.transform.localScale.y/2*1.1f);
+            }
+
+            if (!Physics2D.BoxCast(location, new Vector3(1, 1, 1), 0, Vector2.zero, 0, 3) || failsafe == 0) {
+                tempLocation = location;
+                break;
+            }
+            failsafe--;
+        }
+        
+
+        return location;
+    }
+
+    void OnDrawGizmos() {
+        Gizmos.DrawWireCube(tempLocation, new Vector3(1, 1, 1));
     }
 
     public GameObject GetRandomDrop() {
