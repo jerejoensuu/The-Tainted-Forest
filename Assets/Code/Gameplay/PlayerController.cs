@@ -324,10 +324,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     bool IsGrounded() {
-        float extraHeight = 0.1f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(bc.bounds.center - bc.bounds.extents * 1.3f, bc.bounds.size * 0.05f, 0f, Vector2.down, extraHeight, layerMask);
+        Vector2 rayOrigin = bc.bounds.center - bc.bounds.extents + new Vector3(bc.bounds.extents.x, 0);
+        Vector2 raycastSize = new Vector2(bc.bounds.size.x, bc.bounds.size.y * 0.05f);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(rayOrigin, raycastSize, 0f, Vector2.zero, 0, layerMask);
 
-        /* DEBUG:
+        //DEBUG:
         Color rayColor;
         if (raycastHit.collider != null) {
             rayColor = Color.green;
@@ -335,10 +336,10 @@ public class PlayerController : MonoBehaviour {
             rayColor = Color.red;
         }
         
-        Debug.DrawRay(bc.bounds.center + new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, bc.bounds.extents.y + extraHeight), Vector2.right * (bc.bounds.extents.x * 2), rayColor);
-        */
+        Debug.DrawRay(new Vector2(rayOrigin.x - raycastSize.x/2, rayOrigin.y + raycastSize.y/2), new Vector3(raycastSize.x, 0), rayColor);  // top
+        Debug.DrawRay(new Vector2(rayOrigin.x - raycastSize.x/2, rayOrigin.y + raycastSize.y/2), new Vector3(0, -raycastSize.y), rayColor); // left
+        Debug.DrawRay(new Vector2(rayOrigin.x + raycastSize.x/2, rayOrigin.y + raycastSize.y/2), new Vector3(0, -raycastSize.y), rayColor); // right
+        Debug.DrawRay(new Vector2(rayOrigin.x - raycastSize.x/2, rayOrigin.y - raycastSize.y/2), new Vector3(raycastSize.x, 0), rayColor);  // bottom
         
         return raycastHit.collider != null;
     }
