@@ -257,7 +257,6 @@ public class PlayerController : MonoBehaviour {
                                 maxVines = 1;
                                 break;
             case "TimerBoost":  transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(Random.Range(10, 21));
-                                
                                 break;
         }
     }

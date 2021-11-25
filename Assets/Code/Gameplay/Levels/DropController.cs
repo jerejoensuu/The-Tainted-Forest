@@ -8,9 +8,9 @@ public class DropController : MonoBehaviour {
     public int score;
 
     void Start() {
-        spawnAnimation = GetComponent<Animation>();
+        // spawnAnimation = GetComponent<Animation>();
 
-        StartCoroutine(Spawn());
+        // StartCoroutine(Spawn());
     }
 
     IEnumerator Spawn() {
@@ -30,6 +30,7 @@ public class DropController : MonoBehaviour {
     void AddToScore() {
         if (score > 0) {
             transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (score).ToString(), transform.position);
+            GameObject.Find("PlayerUI").GetComponent<PlayerUI>().ChangeScore(score);
         }
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -506685667862967787}
   - component: {fileID: -6257623520507102212}
   - component: {fileID: 226877250837588283}
-  - component: {fileID: -4486128931638266583}
+  - component: {fileID: -3935074795771692890}
   m_Layer: 11
   m_Name: TimerBoost
   m_TagString: TimerBoost
@@ -147,22 +147,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
---- !u!111 &-4486128931638266583
-Animation:
+--- !u!95 &-3935074795771692890
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226877250837588279}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 51f7231bda60fee40895b26668f2c901, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 51f7231bda60fee40895b26668f2c901, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d5771af930dc71c49a5211eea49adfb4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1239117973101354738
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,6 +39,7 @@ public class TimerController : MonoBehaviour {
 
     public void AddToTimer(int secondsAdded) {
         seconds += secondsAdded;
+        SetTime();
     }
 
     void OutOfTime() {

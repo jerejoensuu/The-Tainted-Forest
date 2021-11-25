@@ -11,6 +11,8 @@ public class DropManager : MonoBehaviour {
     public List<GameObject> dropPrefabs;
     public List<int> dropWeights;
     public List<int> dropScores;
+    public List<GameObject> scoreItems;
+    public List<int> scoreItemPoints;
 
     public int time { get; private set;}
     [Tooltip("How may seconds should the script wait before attempting to spawn ammo drops again after spawning one.")] [SerializeField] private int cooldown;
@@ -132,15 +134,23 @@ public class DropManager : MonoBehaviour {
             drop = ammoDrop;
         } else {
             int failsafe = 100;
-            while(true) {
-                int index = Random.Range(0, dropPool.Count);
-                drop = dropPool[index].drop;
-                drop.GetComponent<DropController>().score = dropPool[index].score;
-                if (!transform.root.GetComponent<LevelManager>().FindDrops(drop) || failsafe == 0) {
-                    break;
+
+            if (Random.Range(0f, 1f) < 0.3f) { // 30% chance of spawning a score item
+                int index = Random.Range(0, scoreItems.Count);
+                drop = scoreItems[index];
+                drop.GetComponent<DropController>().score = scoreItemPoints[index];
+            } else {
+                while(true) {
+                    int index = Random.Range(0, dropPool.Count);
+                    drop = dropPool[index].drop;
+                    drop.GetComponent<DropController>().score = dropPool[index].score;
+                    if (!transform.root.GetComponent<LevelManager>().FindDrops(drop) || failsafe == 0) {
+                        break;
+                    }
+                    failsafe--;
                 }
-                failsafe--;
             }
+            
         }
         return drop;  
     }
