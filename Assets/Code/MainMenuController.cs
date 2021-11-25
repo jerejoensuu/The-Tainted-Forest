@@ -12,6 +12,10 @@ public class MainMenuController : MonoBehaviour {
     public GameObject[] panelActiveButtons; // The button that should be selected/active when a menu panel is opened
     public Slider[] volumeSliders;
 
+    void Awake() {
+        ChangePanel(0);
+    }
+
     void ChangePanel(int index) {
         for (int i = 0; i < mainMenuPanels.Length; i++) {
             if (index == i) {
@@ -58,7 +62,7 @@ public class MainMenuController : MonoBehaviour {
     }
 
     public void StartLevel(int levelNumber) {
-        string levelName = "Level " + levelNumber.ToString();
+        string levelName = levelNumber.ToString();
         SceneManager.LoadScene(levelName);
     }
 }
