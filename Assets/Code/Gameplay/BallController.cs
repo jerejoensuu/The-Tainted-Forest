@@ -120,7 +120,6 @@ public class BallController : MonoBehaviour {
 
     public void AddToScore() {
         int points = transform.root.Find("Player").GetComponent<PlayerController>().combo * pointsAward;
-        //"ScoreManager".AddToScore(100 * combo);
         transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (points).ToString(), transform.position);
         GameObject.Find("PlayerUI").GetComponent<PlayerUI>().ChangeScore(points);
     }
