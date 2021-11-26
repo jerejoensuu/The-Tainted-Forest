@@ -18,7 +18,7 @@ public class LevelStartTransition : MonoBehaviour {
 
         m_TextComponent = GetComponent<TextMeshProUGUI>();
         animator = transform.GetComponent<Animator>();
-        m_TextComponent.text = SceneManager.GetActiveScene().name;
+        m_TextComponent.text = "Level " + SceneManager.GetActiveScene().name;
     }
 
     

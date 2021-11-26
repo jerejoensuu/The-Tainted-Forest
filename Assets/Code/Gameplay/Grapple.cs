@@ -10,7 +10,7 @@ public class Grapple : MonoBehaviour {
     private BoxCollider2D boxCollider2D;
     float distanceMoved = 0;
     public bool stickyVines = false;
-    bool moving = true;
+    public bool moving = true;
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
 
     void Awake() {
@@ -42,8 +42,8 @@ public class Grapple : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Wall") {
-            if (stickyVines) {
+        if (col.gameObject.tag == "Wall" || col.gameObject.tag == "BreakableWall") {
+            if (stickyVines && col.gameObject.tag != "BreakableWall") {
                 moving = false;
             } else {
                 Destroy(transform.gameObject);

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9156831658289469137}
   m_Layer: 3
   m_Name: Vertical BreakableBlock
-  m_TagString: Wall
+  m_TagString: BreakableWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,7 +89,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.22, y: 0.19, z: 0.22, w: 0.28}
+    border: {x: 0.22, y: 0.19999999, z: 0.22, w: 0.29999998}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.09, y: 1.06}
     newSize: {x: 1, y: 2}

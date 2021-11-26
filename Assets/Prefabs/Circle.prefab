@@ -194,10 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22cc93b53e74e54f8dd8ccd5bae532d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 290
   size: 4
-  gravity: 15
   direction: 0
+  points: 50
+  moveSpeed: 290
+  gravity: 15
   circlePrefab: {fileID: 4032727282863226376}
 --- !u!82 &7173061738822332874
 AudioSource:

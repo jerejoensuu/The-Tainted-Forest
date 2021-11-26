@@ -19,6 +19,9 @@ TagManager:
   - StickyVines
   - LevelButton
   - RapidFire
+  - BreakableWall
+  - TimerBoost
+  - ScoreItem
   layers:
   - Default
   - TransparentFX

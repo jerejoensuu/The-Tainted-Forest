@@ -9,7 +9,9 @@ public class UIController : MonoBehaviour {
 
     public bool paused = false;
     public GameObject pauseMenu;
-    [Tooltip("Set selection to this button when game is paused")] public GameObject pauseMenuActiveButton;
+    public GameObject[] pauseMenuPanels;
+    public GameObject[] panelActiveButtons;
+    public Slider[] volumeSliders;
     [Tooltip("Set selection to this button when level is won")] public GameObject winScreenActiveButton;
     [Tooltip("Set selection to this button when level is lost")] public GameObject loseScreenActiveButton;
     
@@ -42,9 +44,8 @@ public class UIController : MonoBehaviour {
         Debug.Log("Game paused");
         paused = true;
         pauseMenu.SetActive(true);
+        ChangePanel(0);
         GetComponent<AudioSource>().Pause();
-        GetComponent<EventSystem>().SetSelectedGameObject(null);
-        GetComponent<EventSystem>().SetSelectedGameObject(pauseMenuActiveButton);
         Time.timeScale = 0;
     }
 
@@ -52,6 +53,7 @@ public class UIController : MonoBehaviour {
         Debug.Log("Game unpaused");
         paused = false;
         pauseMenu.SetActive(false);
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
         GetComponent<AudioSource>().UnPause();
         Time.timeScale = 1;
     }
@@ -60,8 +62,32 @@ public class UIController : MonoBehaviour {
         TogglePause();
     }
 
+    void ChangePanel(int index) {
+        for (int i = 0; i < pauseMenuPanels.Length; i++) {
+            if (index == i) {
+                pauseMenuPanels[i].SetActive(true);
+                GetComponent<EventSystem>().SetSelectedGameObject(null);
+                GetComponent<EventSystem>().SetSelectedGameObject(panelActiveButtons[i]);
+            }
+            else {
+                pauseMenuPanels[i].SetActive(false);
+            }
+        }
+    }
+
     public void OpenSettings() {
-        Debug.Log("Add settings");
+        ChangePanel(1);
+        volumeSliders[0].value = ApplicationSettings.GetMasterVolume();
+        volumeSliders[1].value = ApplicationSettings.GetSoundVolume();
+        volumeSliders[2].value = ApplicationSettings.GetMusicVolume();
+    }
+
+    public void ApplySettings() {
+        ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
+    }
+
+    public void ExitSettings() {
+        ChangePanel(0);
     }
 
     public void ReturnToMenu() {

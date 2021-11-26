@@ -27,18 +27,18 @@ public class RapidFireController : MonoBehaviour {
 
     void FixedUpdate() {
         speed *= 1.005f;
-        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + speed, 1);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + speed, 17);
         if (transform.localPosition.y - originalY < 1f) {
             if (side == "left") {
-                transform.localPosition = new Vector3(transform.localPosition.x - 0.025f, transform.localPosition.y, 1);
+                transform.localPosition = new Vector3(transform.localPosition.x - 0.025f, transform.localPosition.y, transform.localPosition.z);
             } else {
-                transform.localPosition = new Vector3(transform.localPosition.x + 0.025f, transform.localPosition.y, 1);
+                transform.localPosition = new Vector3(transform.localPosition.x + 0.025f, transform.localPosition.y, transform.localPosition.z);
             }
         }
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Wall") {
+        if (col.gameObject.tag == "Wall" || col.gameObject.tag == "BreakableWall") {
             Destroy(transform.gameObject);
         }
     }

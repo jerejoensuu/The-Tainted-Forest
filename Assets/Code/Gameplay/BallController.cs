@@ -6,11 +6,11 @@ public class BallController : MonoBehaviour {
 
     [Range(1, 4)] [SerializeField] [Tooltip("0.4, 0.7, 1.3, 2.25")] public int size;
     [Tooltip("-1 and 1 for left and right, 0 for random direction.")] [Range(-1, 1)] [SerializeField] int direction;
+    private int pointsAward = 100;
 
     public float moveSpeed;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
-    //bool isDestroyed = false;
     float momentum = 0;
     float lastMomentum = 0;
     float lastY = 0;
@@ -110,11 +110,18 @@ public class BallController : MonoBehaviour {
             }
             if (levelManager != null) {
                 levelManager.bubblesRemaining.Remove(this.gameObject);
+                AddToScore();
                 levelManager.CheckRemainingBubbles();
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
             Destroy(gameObject);
         }
+    }
+
+    public void AddToScore() {
+        int points = transform.root.Find("Player").GetComponent<PlayerController>().combo * pointsAward;
+        transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (points).ToString(), transform.position);
+        GameObject.Find("PlayerUI").GetComponent<PlayerUI>().ChangeScore(points);
     }
 
     void SpawnBalls(int direction, int newSize) {
@@ -135,13 +142,14 @@ public class BallController : MonoBehaviour {
                 GameObject drop = Instantiate(transform.root.Find("PlatformAndDropManager").GetComponent<DropManager>().GetRandomDrop(), transform.position, Quaternion.identity) as GameObject;
                 drop.transform.parent = transform.root.transform;
             }
+            transform.root.Find("Player").GetComponent<PlayerController>().combo = transform.root.Find("Player").GetComponent<PlayerController>().combo + 1;
             Destroy(col.gameObject);
             DestroyBall();
         }
     }
     void OnCollisionEnter2D(Collision2D col) {
 
-        if (col.collider.tag == "Wall") {
+        if (col.collider.tag == "Wall" || col.collider.tag == "BreakableWall") {
             Vector2 contactP = col.GetContact(0).point;
 
             float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour {
 
     public List<GameObject> bubblesRemaining = new List<GameObject>();
+
     private bool levelWon = false;
     private bool levelLost = false;
     [Range(1, 2)] [SerializeField] public int theme = 1;
@@ -106,9 +107,9 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    public void DestroyAllVines() {
+    public void DestroyUnmovingVines() {
         foreach (Transform child in transform) {
-            if (child.tag == "Vine") {
+            if (child.tag == "Vine" && !child.GetComponent<Grapple>().moving) {
                 Debug.Log("Destroyed");
                 Destroy(child.gameObject);
             }

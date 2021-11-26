@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerUI : MonoBehaviour {
@@ -8,19 +9,44 @@ public class PlayerUI : MonoBehaviour {
     public GameObject scoreCounter;
     public GameObject ammoCounter;
 
-    TextMeshProUGUI score;
-    TextMeshProUGUI ammo;
+    public GameObject[] healthContainers;
+    public Sprite[] healthIcons;
+
+    TextMeshProUGUI scoreText;
+    TextMeshProUGUI ammoText;
+
+    private int levelScore;
+
+    public void ChangeScore(int amount) {
+        levelScore += amount;
+        SetScore(levelScore);
+    }
+
+    public void EndScore() {
+        // Points for time remaining + ammo remaining + full health bonus?
+    }
 
     void Awake () {
-        score = scoreCounter.GetComponent<TextMeshProUGUI>();
-        ammo = ammoCounter.GetComponent<TextMeshProUGUI>();
+        scoreText = scoreCounter.GetComponent<TextMeshProUGUI>();
+        ammoText = ammoCounter.GetComponent<TextMeshProUGUI>();
     }
 
     public void SetScore(int amount) {
-        score.SetText(amount.ToString("#,000000"));
+        scoreText.SetText(amount.ToString("#,000000"));
     }
 
     public void SetAmmo(int amount) {
-        ammo.SetText(amount.ToString());
+        ammoText.SetText(amount.ToString());
+    }
+
+    public void SetHealth(int amount) {
+        for (int i = 0; i < healthContainers.Length; i++) {
+            if (amount - 1 < i) {
+                healthContainers[i].GetComponent<Image>().sprite = healthIcons[0];
+            }
+            else {
+                healthContainers[i].GetComponent<Image>().sprite = healthIcons[1];
+            }
+        }
     }
 }

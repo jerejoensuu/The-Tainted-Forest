@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour {
     public float climbingSpeed;
 
     [HideInInspector] public int ammoCount;
-    public int score = 0;
     [HideInInspector] public string projectileType = "Vine";
     float movementX = 0;
     float movementY = 0;
@@ -23,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     bool stickyVines = false;
     bool knockedFromLadder = false;
     bool canStep = true; //temp
+    public int combo = 0;
 
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float invincibilityDurationSeconds;
     [SerializeField] private float invincibilityDeltaTime = 0.15f;
 
-    GameObject hud;
+    private PlayerUI hud;
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -53,8 +53,10 @@ public class PlayerController : MonoBehaviour {
         audioSrc = GetComponent<AudioSource>();
         rapidFire = GetComponent<RapidFireManager>();
 
-        hud = GameObject.Find("PlayerUI");
-        hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
+        hud = GameObject.Find("PlayerUI").GetComponent<PlayerUI>();
+        hud.SetAmmo(ammoCount);
+        hud.SetHealth(health);
+
         SetActiveAnimation("Idle");
     }
 
@@ -89,10 +91,12 @@ public class PlayerController : MonoBehaviour {
 
             // Can player climb and are they trying to climb:
             if (canClimb && Input.GetAxisRaw("Vertical") != 0 && !isShooting) {
+
                 // Can player climb down, is the ladder below them and are they attempting to climb down:
-                if (canClimbDown && currentLadderY < transform.localPosition.y && Input.GetAxisRaw("Vertical") < 0) {
+                if (canClimbDown && currentLadderY < bc.bounds.min.y && Input.GetAxisRaw("Vertical") < 0) {
                     // Turn player into a semisolid able to go through platforms:
                     gameObject.layer = LayerMask.NameToLayer("SemisolidPlayer");
+
                 // Is the player on the ground or is the ladder they're climbing above them:
                 } else if (IsGrounded() || currentLadderY > transform.localPosition.y) {
                     // Turn player back into a solid object and disable canClimbDown:
@@ -100,9 +104,14 @@ public class PlayerController : MonoBehaviour {
                     gameObject.layer = LayerMask.NameToLayer("Player");
                 }
                 Climb();
+
             // If the player is unable to climb anymore, turn it's gravityScale back on:
+            } else if (canClimb && animator.GetBool("isClimbing") && !IsGrounded()) {
+                animator.speed = 0;
             } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
                 rb.gravityScale = 1;
+                animator.speed = 1;
+                animator.SetBool("isClimbing", false);
             }
         }
 
@@ -135,10 +144,13 @@ public class PlayerController : MonoBehaviour {
 
     void Climb() {
         if (!playerHit || !hitOffGroundOffset) {
+            animator.speed = 1;
+            animator.SetBool("isClimbing", true);
             rb.velocity = new Vector2(0, 0);
             rb.gravityScale = 0;
             movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
             transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
+            SetActiveAnimation("Climbing");
         }
     }
 
@@ -155,7 +167,7 @@ public class PlayerController : MonoBehaviour {
                     grappleObject.transform.parent = transform.parent;
                     grappleObject.GetComponent<Grapple>().stickyVines = stickyVines;
                 } else if (stickyVines) {
-                    transform.parent.GetComponent<LevelManager>().DestroyAllVines();
+                    transform.parent.GetComponent<LevelManager>().DestroyUnmovingVines();
                 }
                 break;
 
@@ -184,12 +196,12 @@ public class PlayerController : MonoBehaviour {
 
     void ChangeAmmoCount(int amount) {
         ammoCount += amount;
-        hud.GetComponent<PlayerUI>().SetAmmo(ammoCount);
+        hud.SetAmmo(ammoCount);
     }
 
-    void ChangeScore(int amount) {
-        score += amount;
-        hud.GetComponent<PlayerUI>().SetScore(score);
+    void ChangeHealth(int amount) {
+        health += amount;
+        hud.SetHealth(health);
     }
 
     void OnTriggerEnter2D(Collider2D col) {
@@ -197,31 +209,20 @@ public class PlayerController : MonoBehaviour {
         if (col.gameObject.tag == "Ladder") {
             canClimb = true;
             canClimbDown = col.gameObject.transform.localPosition.y < transform.localPosition.y;
-            currentLadderY = col.gameObject.transform.localPosition.y;
+            currentLadderY = col.bounds.center.y - col.bounds.extents.y;
         }
-
-        // Avoid double collisions:
-        // if (collisionCooldown) {
-        //     collisionCooldown = false;
-        //     return;
-        // }
 
         if (col.gameObject.tag == "Ball" && !playerHit) {
             HitPlayer(col.gameObject.transform.localPosition.x);
+            combo = 0;
         }
 
-        // Drops:
-        // if (col.gameObject.layer == 11) {
-        //     Debug.Log(col.gameObject.name);
-        //     HandleDrops(col.gameObject);
-        //     Destroy(col.gameObject);
-        // }
-
-        // if (col.gameObject.tag != "Platform") {
-        //     StartCoroutine(StartCollisionCooldown());
-        // }
-
     }
+
+    // Debug for ladders
+    // void OnDrawGizmos() {
+    //     Gizmos.DrawLine(new Vector2(0, currentLadderY), new Vector2(10, currentLadderY));
+    // }
 
     public void HandleDrops(GameObject gameObject) {
         Debug.Log("Drop collected");
@@ -255,6 +256,8 @@ public class PlayerController : MonoBehaviour {
                                 stickyVines = false;
                                 maxVines = 1;
                                 break;
+            case "TimerBoost":  transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(Random.Range(10, 21));
+                                break;
         }
     }
 
@@ -275,6 +278,8 @@ public class PlayerController : MonoBehaviour {
         if (col.gameObject.tag == "Ladder") {
             canClimb = false;
             canClimbDown = false;
+            SetActiveAnimation("Idle");
+            animator.SetBool("isClimbing", false);
         }
     }
 
@@ -289,7 +294,7 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
-        health--;
+        ChangeHealth(-1);
         knockedFromLadder = true;
         int dir = enemyX < transform.localPosition.x ? 1 : -1;
         rb.gravityScale = 0.5f;
@@ -309,10 +314,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     bool IsGrounded() {
-        float extraHeight = 0.1f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(bc.bounds.center - bc.bounds.extents * 1.3f, bc.bounds.size * 0.05f, 0f, Vector2.down, extraHeight, layerMask);
+        Vector2 rayOrigin = bc.bounds.center - bc.bounds.extents + new Vector3(bc.bounds.extents.x, 0);
+        Vector2 raycastSize = new Vector2(bc.bounds.size.x, bc.bounds.size.y * 0.05f);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(rayOrigin, raycastSize, 0f, Vector2.zero, 0, layerMask);
 
-        /* DEBUG:
+        //DEBUG:
         Color rayColor;
         if (raycastHit.collider != null) {
             rayColor = Color.green;
@@ -320,10 +326,10 @@ public class PlayerController : MonoBehaviour {
             rayColor = Color.red;
         }
         
-        Debug.DrawRay(bc.bounds.center + new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, bc.bounds.extents.y + extraHeight), Vector2.right * (bc.bounds.extents.x * 2), rayColor);
-        */
+        Debug.DrawRay(new Vector2(rayOrigin.x - raycastSize.x/2, rayOrigin.y + raycastSize.y/2), new Vector3(raycastSize.x, 0), rayColor);  // top
+        Debug.DrawRay(new Vector2(rayOrigin.x - raycastSize.x/2, rayOrigin.y + raycastSize.y/2), new Vector3(0, -raycastSize.y), rayColor); // left
+        Debug.DrawRay(new Vector2(rayOrigin.x + raycastSize.x/2, rayOrigin.y + raycastSize.y/2), new Vector3(0, -raycastSize.y), rayColor); // right
+        Debug.DrawRay(new Vector2(rayOrigin.x - raycastSize.x/2, rayOrigin.y - raycastSize.y/2), new Vector3(raycastSize.x, 0), rayColor);  // bottom
         
         return raycastHit.collider != null;
     }
@@ -365,6 +371,7 @@ public class PlayerController : MonoBehaviour {
         transform.Find("Idle").gameObject.SetActive(false);
         transform.Find("Hit").gameObject.SetActive(false);
         transform.Find("Shooting").gameObject.SetActive(false);
+        transform.Find("Climbing").gameObject.SetActive(false);
         
         activeAnimation = newAnimation;
         transform.Find(activeAnimation).gameObject.SetActive(true);
