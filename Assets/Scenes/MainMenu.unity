@@ -1039,6 +1039,7 @@ MonoBehaviour:
   - {fileID: 380399882}
   - {fileID: 618387272}
   - {fileID: 556181363}
+  blackScreen: {fileID: 8009379272308859602, guid: 1b1f1d3f26d23c34d8fcce51ccd22ff0, type: 3}
 --- !u!1 &380399880
 GameObject:
   m_ObjectHideFlags: 0
@@ -4993,6 +4994,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b3ac0a933053747ae6bab59e745031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levels:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  trueLevels: []
   levelNumberTextField: {fileID: 1375931566}
   levelScoreTextField: {fileID: 1861738625}
   levelStartButton: {fileID: 2146605303}

@@ -5176,6 +5176,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 988e7b293943dbe4c84cab9121088a6a, type: 3}
   - {fileID: 8300000, guid: 077f69b68cafdfc45b33547aa9cbe55c, type: 3}
   - {fileID: 8300000, guid: 4409c587bc42dd84a94ddd74bb1b2141, type: 3}
+  hitSound: {fileID: 8300000, guid: 62c6b160d964e7a46ac929105c27ef81, type: 3}
+  reloadSound: {fileID: 8300000, guid: f200c932fdfee6148bf23ff887627b43, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 9224

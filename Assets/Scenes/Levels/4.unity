@@ -156,6 +156,7 @@ MonoBehaviour:
   theme: 2
   taintLevel: 1
   time: 90
+  blackScreen: {fileID: 8009379272308859602, guid: 1b1f1d3f26d23c34d8fcce51ccd22ff0, type: 3}
 --- !u!4 &4670068
 Transform:
   m_ObjectHideFlags: 0
