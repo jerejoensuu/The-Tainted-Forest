@@ -13,6 +13,7 @@ public class LevelStartTransition : MonoBehaviour {
     public bool levelStarted = false;
     
     void Start() {
+        //StartCoroutine(Transition());
         transform.parent.parent.Find("UIController").GetComponent<UIController>().paused = true;
         Time.timeScale = 0;
 

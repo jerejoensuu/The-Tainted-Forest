@@ -138,6 +138,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a83f62c77c88b354eb9c40db01a9ab07, type: 3}
   - {fileID: 8300000, guid: b49a2eb968f24c24caa9a52330bb0cc6, type: 3}
   stickyVines: 0
+  moving: 1
   projectileOffset: 0.1
 --- !u!82 &4798339329462300588
 AudioSource:

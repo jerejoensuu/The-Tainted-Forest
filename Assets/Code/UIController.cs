@@ -21,7 +21,6 @@ public class UIController : MonoBehaviour {
     public GameObject endOverlay;
 
     void Start() {
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
         //UnpauseGame();
     }
 
@@ -41,20 +40,17 @@ public class UIController : MonoBehaviour {
     }
 
     void PauseGame() {
-        Debug.Log("Game paused");
         paused = true;
         pauseMenu.SetActive(true);
         ChangePanel(0);
-        GetComponent<AudioSource>().Pause();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(false);
         Time.timeScale = 0;
     }
 
     public void UnpauseGame() {
-        Debug.Log("Game unpaused");
         paused = false;
         pauseMenu.SetActive(false);
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
-        GetComponent<AudioSource>().UnPause();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(true);
         Time.timeScale = 1;
     }
 
@@ -116,7 +112,7 @@ public class UIController : MonoBehaviour {
         float change = 0.02f;
         for (float alpha = 0f; alpha < 1; alpha += change) 
         {
-            GetComponent<AudioSource>().volume -= change;
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().SetMusicVolume(GameObject.Find("LevelManager").GetComponent<LevelManager>().GetMusicVolume() - change);
             Color overlayColor = endOverlay.GetComponent<Image>().color;
             overlayColor.a = alpha;
             endOverlay.GetComponent<Image>().color = overlayColor;
