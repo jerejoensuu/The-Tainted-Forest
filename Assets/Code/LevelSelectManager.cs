@@ -7,7 +7,8 @@ using TaintedForest;
 
 public class LevelSelectManager : MonoBehaviour {
 
-    List<string> levels = new List<string>();
+    [Tooltip("File names of levels in desired order")] public List<string> levels = new List<string>();
+    public List<string> trueLevels = new List<string>();
     int rows = 3;
     int offset = 150;
 
@@ -16,7 +17,10 @@ public class LevelSelectManager : MonoBehaviour {
     public Button levelStartButton;
     
     void Awake() {
-        levels.AddRange(System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory() + "\\Assets\\Scenes\\Levels", "*.unity"));
+        trueLevels.AddRange(System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory() + "\\Assets\\Scenes\\Levels", "*.unity"));
+        if (trueLevels.Count > levels.Count) {
+            Debug.Log("All levels not set to the list in Mainmenu: Canvas\\LevelSelectContainer -> LevelSelectManager!");
+        }
 
         BuildButtons();
         SetContainerWidth();
