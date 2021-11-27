@@ -11,7 +11,7 @@ public class BreakableBlockController : MonoBehaviour {
     [SerializeField] Material mat2;
 
     void Awake() {
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.3f;
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.15f;
         try {
             bool test = transform.parent.name != "PlatformAndDropManager";
         }
@@ -51,7 +51,7 @@ public class BreakableBlockController : MonoBehaviour {
             }
         }
 
-        yield return new WaitForSeconds(particle.main.startLifetime.constantMax);
+        yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length);
         Destroy(gameObject);
     }
 }

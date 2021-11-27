@@ -112,7 +112,7 @@ public class UIController : MonoBehaviour {
         float change = 0.02f;
         for (float alpha = 0f; alpha < 1; alpha += change) 
         {
-            GetComponent<AudioSource>().volume -= change;
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().SetMusicVolume(GameObject.Find("LevelManager").GetComponent<LevelManager>().GetMusicVolume() - change);
             Color overlayColor = endOverlay.GetComponent<Image>().color;
             overlayColor.a = alpha;
             endOverlay.GetComponent<Image>().color = overlayColor;

@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
 
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
+    public AudioClip hitSound;
+    public AudioClip reloadSound;
 
     Rigidbody2D rb;
     BoxCollider2D bc;
@@ -124,16 +126,30 @@ public class PlayerController : MonoBehaviour {
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
 
             if (canStep) {
-                MakeFootstepSound();
+                PlayFootstepSound();
                 StartCoroutine(FootstepCooldown());
             }
         }
     }
 
-    void MakeFootstepSound() {
+    void PlayFootstepSound() {
         audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
         audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
         audioSrc.Play();
+    }
+
+    IEnumerator PlayHitSound() {
+        audioSrc.clip = hitSound;
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.175f;
+        audioSrc.Play();
+        yield return new WaitForSeconds(hitSound.length);;
+    }
+
+    IEnumerator PlayReloadSound() {
+        audioSrc.clip = reloadSound;
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
+        audioSrc.Play();
+        yield return new WaitForSeconds(reloadSound.length);
     }
 
     IEnumerator FootstepCooldown() { //temp
@@ -226,7 +242,8 @@ public class PlayerController : MonoBehaviour {
 
     public void HandleDrops(GameObject gameObject) {
         switch (gameObject.tag) {
-            case "AmmoDrop":    if (ammoCount > 5) {
+            case "AmmoDrop":    StartCoroutine(PlayReloadSound());
+                                if (ammoCount > 5) {
                                     ChangeAmmoCount(Random.Range(1, 4));
                                     break;
                                 } else if (ammoCount > 0) {
@@ -294,6 +311,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         ChangeHealth(-1);
+        StartCoroutine(PlayHitSound());
         knockedFromLadder = true;
         int dir = enemyX < transform.localPosition.x ? 1 : -1;
         rb.gravityScale = 0.5f;
@@ -367,6 +385,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void SetActiveAnimation(string newAnimation = "Idle") {
+        if (hitOffGroundOffset) { // return if being hit
+            return;
+        }
         transform.Find("Idle").gameObject.SetActive(false);
         transform.Find("Hit").gameObject.SetActive(false);
         transform.Find("Shooting").gameObject.SetActive(false);

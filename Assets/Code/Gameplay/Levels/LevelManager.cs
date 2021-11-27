@@ -144,4 +144,12 @@ public class LevelManager : MonoBehaviour {
             transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().Pause();
         }
     }
+
+    public void SetMusicVolume(float volume) {
+        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = volume;
+    }
+
+    public float GetMusicVolume() {
+        return transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume;
+    }
 }
