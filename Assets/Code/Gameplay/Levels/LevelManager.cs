@@ -164,12 +164,12 @@ public class LevelManager : MonoBehaviour {
             if (opacity <= 0) {
                 yield return null;
             } else {
-                opacity -= 0.003f;
+                opacity -= Time.unscaledDeltaTime;
                 Color c = transitionScreen.GetComponent<SpriteRenderer>().color;
                 transitionScreen.GetComponent<SpriteRenderer>().color = new Color(c.r, c.g, c.b, opacity);
                 
             }
-            yield return new WaitForSeconds(1/60);
+            yield return null;
         }
     }
 }
