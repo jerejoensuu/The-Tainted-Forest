@@ -40,20 +40,17 @@ public class UIController : MonoBehaviour {
     }
 
     void PauseGame() {
-        Debug.Log("Game paused");
         paused = true;
         pauseMenu.SetActive(true);
         ChangePanel(0);
-        GetComponent<AudioSource>().Pause();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(false);
         Time.timeScale = 0;
     }
 
     public void UnpauseGame() {
-        Debug.Log("Game unpaused");
         paused = false;
         pauseMenu.SetActive(false);
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
-        GetComponent<AudioSource>().UnPause();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(true);
         Time.timeScale = 1;
     }
 

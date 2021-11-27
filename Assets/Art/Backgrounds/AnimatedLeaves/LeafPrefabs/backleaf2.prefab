@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 3228467567185669147}
   - component: {fileID: 5056304470038442098}
   - component: {fileID: 451167240187880081}
-  - component: {fileID: 8633787092052864757}
   - component: {fileID: 4614546570343034514}
   m_Layer: 0
   m_Name: backleaf2
@@ -141,21 +140,6 @@ MonoBehaviour:
     m_Extent: {x: 0.56260514, y: 1.8007152, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
---- !u!111 &8633787092052864757
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3132386018738374416}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 0014a730edc268c4fa811e58281c48f5, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!95 &4614546570343034514
 Animator:
   serializedVersion: 3

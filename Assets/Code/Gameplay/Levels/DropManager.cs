@@ -66,7 +66,6 @@ public class DropManager : MonoBehaviour {
                 lowAmmo = true;
                 currentCooldown = 0 + Random.Range(3, 6);
             }
-            Debug.Log(currentCooldown);
             if (currentCooldown > 0) {
                 currentCooldown--;
             } else {

@@ -136,4 +136,12 @@ public class LevelManager : MonoBehaviour {
         transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).gameObject.SetActive(true);
         transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.5f;
     }
+
+    public void ToggleMusic(bool musicOn) {
+        if (musicOn) {
+            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().UnPause();
+        } else {
+            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().Pause();
+        }
+    }
 }

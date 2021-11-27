@@ -11,6 +11,7 @@ public class BreakableBlockController : MonoBehaviour {
     [SerializeField] Material mat2;
 
     void Awake() {
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.3f;
         try {
             bool test = transform.parent.name != "PlatformAndDropManager";
         }
@@ -43,6 +44,7 @@ public class BreakableBlockController : MonoBehaviour {
 
     IEnumerator Break() {
         particle.Play();
+        GetComponent<AudioSource>().Play();
         foreach (Transform child in transform) {
             if (child.tag == "Theme") {
                 child.GetComponent<SpriteRenderer>().enabled = false;

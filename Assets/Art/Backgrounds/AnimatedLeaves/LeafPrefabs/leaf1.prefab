@@ -227,7 +227,6 @@ GameObject:
   - component: {fileID: 8718347998397449571}
   - component: {fileID: 4595421458902584972}
   - component: {fileID: 3866734955842970111}
-  - component: {fileID: 1578713994336872668}
   - component: {fileID: 901703585968239124}
   m_Layer: 0
   m_Name: leaf1
@@ -329,21 +328,6 @@ MonoBehaviour:
     m_Extent: {x: 0.27995503, y: 0.5874951, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
---- !u!111 &1578713994336872668
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8280913151367707760}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 412d6a74ec23b8f45bf2f1a688badca9, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!95 &901703585968239124
 Animator:
   serializedVersion: 3
