@@ -897,6 +897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textObject: {fileID: 3675938067448464750}
   levelStarted: 0
+  blackScreen: {fileID: 8009379272308859602, guid: 1b1f1d3f26d23c34d8fcce51ccd22ff0, type: 3}
 --- !u!1 &3709991619037073232
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class Grapple : MonoBehaviour {
     public bool moving = true;
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
 
-    void Awake() {
+    void Start() {
         spriteMask = GetComponentInChildren<SpriteMask>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         audioSrc = GetComponent<AudioSource>();

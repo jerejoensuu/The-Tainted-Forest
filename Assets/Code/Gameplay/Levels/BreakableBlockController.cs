@@ -10,7 +10,7 @@ public class BreakableBlockController : MonoBehaviour {
     [SerializeField] Material mat1;
     [SerializeField] Material mat2;
 
-    void Awake() {
+    void Start() {
         GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.15f;
         try {
             bool test = transform.parent.name != "PlatformAndDropManager";

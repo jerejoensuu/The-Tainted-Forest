@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public string projectileType = "Vine";
     float movementX = 0;
     float movementY = 0;
-    bool collisionCooldown = false;
     bool shieldActive = false;
     string activeAnimation = "Idle";
     bool isShooting = false;
@@ -280,14 +279,6 @@ public class PlayerController : MonoBehaviour {
     void ActiveShield() {
         // turn blue here or something
         shieldActive = true;
-    }
-
-    //void 
-
-    IEnumerator StartCollisionCooldown() {
-        collisionCooldown = true;
-        yield return new WaitForSeconds(0.1f);
-        collisionCooldown = false;
     }
     
     void OnTriggerExit2D(Collider2D col) {

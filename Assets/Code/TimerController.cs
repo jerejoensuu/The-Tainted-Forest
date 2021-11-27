@@ -11,7 +11,7 @@ public class TimerController : MonoBehaviour {
     private TextMeshProUGUI m_TextComponent;
     private System.DateTime dateTime;
 
-    void Awake() {
+    void Start() {
         seconds = transform.root.GetComponent<LevelManager>().time;
         m_TextComponent = GetComponent<TextMeshProUGUI>();
         SetTime();

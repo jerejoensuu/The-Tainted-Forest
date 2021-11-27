@@ -30,7 +30,7 @@ public class PlayerUI : MonoBehaviour {
         // Points for time remaining + ammo remaining + full health bonus?
     }
 
-    void Awake () {
+    void Start () {
         scoreText = scoreCounter.GetComponent<TextMeshProUGUI>();
         ammoText = ammoCounter.GetComponent<TextMeshProUGUI>();
     }
