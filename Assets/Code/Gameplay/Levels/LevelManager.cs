@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour {
     [Range(10, 180)] [SerializeField] [Tooltip("In seconds")] public int time = 90;
     
     void Awake() {
+
         int bubbleCount = 0;
         foreach (Transform child in transform) {
 
@@ -133,5 +134,6 @@ public class LevelManager : MonoBehaviour {
 
         transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(true);
         transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).gameObject.SetActive(true);
+        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.5f;
     }
 }

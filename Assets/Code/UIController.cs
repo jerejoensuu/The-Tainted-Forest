@@ -21,7 +21,6 @@ public class UIController : MonoBehaviour {
     public GameObject endOverlay;
 
     void Start() {
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
         //UnpauseGame();
     }
 
