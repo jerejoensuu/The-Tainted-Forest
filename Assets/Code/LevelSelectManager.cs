@@ -23,6 +23,19 @@ public class LevelSelectManager : MonoBehaviour {
         DisplayLevelInfo(1);
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.X)) {
+            DebugUnlockAllLevels();
+        }
+    }
+
+    void DebugUnlockAllLevels() {
+        Button[] buttons = GetComponentsInChildren<Button>();
+        foreach (Button button in buttons) {
+            button.interactable = true;
+        }
+    }
+
     void BuildButtons() {
         bool firstButtonSet = false;
         foreach (string file in levels) {
@@ -36,6 +49,11 @@ public class LevelSelectManager : MonoBehaviour {
             button.transform.SetParent(transform, false);
             button.GetComponentInChildren<TextMeshProUGUI>().SetText((index+1).ToString());
             button.GetComponent<Button>().onClick.AddListener(() => DisplayLevelInfo(index + 1));
+
+            if (!LevelIsUnlocked(index + 1)) {
+                button.GetComponent<Button>().interactable = false;
+                //button.GetComponent<Image>().color = Color.gray;
+            }
 
         }
         transform.GetChild(0).gameObject.SetActive(false);
@@ -67,6 +85,23 @@ public class LevelSelectManager : MonoBehaviour {
         levelNumberTextField.SetText("Level " + levelNumber);
         levelScoreTextField.SetText("Highscore: " + GetLevelScore(levelNumber));
         levelStartButton.onClick.AddListener(() => OpenLevel(levelNumber));
+        
+        /*if (LevelIsUnlocked(levelNumber)) {
+            levelStartButton.interactable = true;
+        }
+        else {
+            levelStartButton.interactable = false;
+        }*/
+    }
+
+    public bool LevelIsUnlocked(int levelNumber) {
+        if (levelNumber == 1) {
+            return true;
+        }
+        else if (GetLevelScore(levelNumber - 1) > 0) {
+            return true;
+        }
+        return false;
     }
 
     public int GetLevelScore(int levelNumber) {
