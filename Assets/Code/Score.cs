@@ -34,15 +34,20 @@ namespace TaintedForest {
 
                 return highscore;
             }
+
+            public Entry GetEntry(int index) {
+                return scores[index];
+            }
         }
 
         [SerializeField]
         private ScoreArray scores;
         private string scoreFile;
+        public int scoreEntries = 14; // TODO: Get the number of levels automatically
 
         public Score(string path) {
             scoreFile = path;
-            scores = new ScoreArray(14); // TODO: Get the number of levels automatically
+            scores = new ScoreArray(scoreEntries);
             Load();
         }
 
@@ -68,6 +73,10 @@ namespace TaintedForest {
             string json = File.ReadAllText(scoreFile, System.Text.Encoding.UTF8);
             scores = JsonUtility.FromJson<ScoreArray>(json);
             return true;
+        }
+
+        public Entry GetEntry(int index) {
+            return scores.GetEntry(index);
         }
     }
 

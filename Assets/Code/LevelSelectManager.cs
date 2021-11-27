@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using TaintedForest;
 
 public class LevelSelectManager : MonoBehaviour {
 
     List<string> levels = new List<string>();
     int rows = 3;
     int offset = 150;
+
+    public TextMeshProUGUI levelNumberTextField;
+    public TextMeshProUGUI levelScoreTextField;
+    public Button levelStartButton;
     
     void Awake() {
         levels.AddRange(System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory() + "\\Assets\\Scenes\\Levels", "*.unity"));
 
         BuildButtons();
         SetContainerWidth();
+        DisplayLevelInfo(1);
     }
 
     void BuildButtons() {
@@ -29,7 +35,7 @@ public class LevelSelectManager : MonoBehaviour {
             }
             button.transform.SetParent(transform, false);
             button.GetComponentInChildren<TextMeshProUGUI>().SetText((index+1).ToString());
-            button.GetComponent<Button>().onClick.AddListener(() => OpenLevel(index+1));
+            button.GetComponent<Button>().onClick.AddListener(() => DisplayLevelInfo(index + 1));
 
         }
         transform.GetChild(0).gameObject.SetActive(false);
@@ -57,4 +63,16 @@ public class LevelSelectManager : MonoBehaviour {
         );
     }
 
+    public void DisplayLevelInfo(int levelNumber) {
+        levelNumberTextField.SetText("Level " + levelNumber);
+        levelScoreTextField.SetText("Highscore: " + GetLevelScore(levelNumber));
+        levelStartButton.onClick.AddListener(() => OpenLevel(levelNumber));
+    }
+
+    public int GetLevelScore(int levelNumber) {
+        int levelIndex = levelNumber - 1;
+        Score score = new Score(GameData.GetFilePath());
+        var scoreEntry = score.GetEntry(levelIndex);
+        return scoreEntry.Score;
+    }
 }
