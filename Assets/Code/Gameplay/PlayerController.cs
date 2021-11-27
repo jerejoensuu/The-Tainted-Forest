@@ -225,7 +225,6 @@ public class PlayerController : MonoBehaviour {
     // }
 
     public void HandleDrops(GameObject gameObject) {
-        Debug.Log("Drop collected");
         switch (gameObject.tag) {
             case "AmmoDrop":    if (ammoCount > 5) {
                                     ChangeAmmoCount(Random.Range(1, 4));

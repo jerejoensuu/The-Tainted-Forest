@@ -122,7 +122,6 @@ public class LevelManager : MonoBehaviour {
     public void DestroyUnmovingVines() {
         foreach (Transform child in transform) {
             if (child.tag == "Vine" && !child.GetComponent<Grapple>().moving) {
-                Debug.Log("Destroyed");
                 Destroy(child.gameObject);
             }
         }
