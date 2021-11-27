@@ -22,6 +22,10 @@ public class PlayerUI : MonoBehaviour {
         SetScore(levelScore);
     }
 
+    public int GetScore() {
+        return levelScore;
+    }
+
     public void EndScore() {
         // Points for time remaining + ammo remaining + full health bonus?
     }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TaintedForest;
 
 public class LevelManager : MonoBehaviour {
 
@@ -54,6 +56,15 @@ public class LevelManager : MonoBehaviour {
         return bubbleCount;
     }
 
+    public bool SubmitScore() {
+        Score scores = new Score(GameData.GetFilePath());
+        if (scores.Add(int.Parse(SceneManager.GetActiveScene().name) - 1, GameObject.Find("PlayerUI").GetComponent<PlayerUI>().GetScore())) {
+            scores.Save();
+            return true;
+        }
+        return false;
+    }
+
     public bool FindDrops(GameObject drop) {
         foreach (Transform child in transform) {
             if (child.tag == drop.tag) {
@@ -66,6 +77,7 @@ public class LevelManager : MonoBehaviour {
     public void LevelWin() {
         if (!levelWon && !levelLost) {
             levelWon = true;
+            SubmitScore();
             GameObject.Find("UIController").GetComponent<UIController>().LevelWin();
         }
     }
