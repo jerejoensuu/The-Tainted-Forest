@@ -1354,7 +1354,7 @@ MonoBehaviour:
   - {fileID: 1952003522}
   panelActiveButtons:
   - {fileID: 1502567102}
-  - {fileID: 321206107}
+  - {fileID: 0}
   - {fileID: 380399880}
   volumeSliders:
   - {fileID: 380399882}

@@ -42,7 +42,7 @@ namespace TaintedForest {
 
         public Score(string path) {
             scoreFile = path;
-            scores = new ScoreArray(14);
+            scores = new ScoreArray(14); // TODO: Get the number of levels automatically
             Load();
         }
 

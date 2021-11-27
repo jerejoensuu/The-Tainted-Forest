@@ -20,14 +20,19 @@ public class MainMenuController : MonoBehaviour {
         for (int i = 0; i < mainMenuPanels.Length; i++) {
             if (index == i) {
                 mainMenuPanels[i].SetActive(true);
-                GetComponent<EventSystem>().SetSelectedGameObject(null);
-                GetComponent<EventSystem>().SetSelectedGameObject(panelActiveButtons[i]);
+                SetButtonSelection(panelActiveButtons[i]);
             }
             else {
                 mainMenuPanels[i].SetActive(false);
             }
         }
     }
+
+    public void SetButtonSelection(GameObject button) {
+        GetComponent<EventSystem>().SetSelectedGameObject(null);
+        GetComponent<EventSystem>().SetSelectedGameObject(button);
+    }
+    
     public void NewGame() {
         SceneManager.LoadScene("Cutscene");
     }
