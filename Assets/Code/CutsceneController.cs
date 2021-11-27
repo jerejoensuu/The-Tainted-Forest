@@ -24,14 +24,14 @@ public class CutsceneController : MonoBehaviour {
 
         float maskSize = 1f;
         while (true) {
-            maskSize -= 0.001f;
+            maskSize -= Time.unscaledDeltaTime;
             if (maskSize <= 0) {
                 Destroy(transform.transform.gameObject);
                 break;
             } else {
                 transitionScreen.GetComponentInChildren<SpriteMask>().transform.localScale = new Vector2(maskSize,maskSize);
             }
-            yield return new WaitForSeconds(1/60);
+            yield return null;
         }
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("1");
