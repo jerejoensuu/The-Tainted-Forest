@@ -43,7 +43,7 @@ namespace TaintedForest {
         [SerializeField]
         private ScoreArray scores;
         private string scoreFile;
-        public int scoreEntries = 14; // TODO: Get the number of levels automatically
+        public int scoreEntries = 14; // Update this when changing number of levels
 
         public Score(string path) {
             scoreFile = path;
@@ -79,5 +79,4 @@ namespace TaintedForest {
             return scores.GetEntry(index);
         }
     }
-
 }

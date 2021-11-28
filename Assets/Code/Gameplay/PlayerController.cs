@@ -55,13 +55,14 @@ public class PlayerController : MonoBehaviour {
         rapidFire = GetComponent<RapidFireManager>();
 
         hud = GameObject.Find("PlayerUI").GetComponent<PlayerUI>();
-        hud.SetAmmo(ammoCount);
-        hud.SetHealth(health);
 
         SetActiveAnimation("Idle");
     }
 
     void Update() {
+        hud.SetAmmo(ammoCount);
+        hud.SetHealth(health);
+
         if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
 
             if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded() && projectileType == "RapidFire" && lastRoutine == null) {

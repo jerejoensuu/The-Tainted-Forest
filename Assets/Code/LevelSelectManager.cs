@@ -88,6 +88,7 @@ public class LevelSelectManager : MonoBehaviour {
     public void DisplayLevelInfo(int levelNumber) {
         levelNumberTextField.SetText("Level " + levelNumber);
         levelScoreTextField.SetText("Highscore: " + GetLevelScore(levelNumber));
+        levelStartButton.onClick.RemoveAllListeners();
         levelStartButton.onClick.AddListener(() => OpenLevel(levelNumber));
         
         /*if (LevelIsUnlocked(levelNumber)) {
