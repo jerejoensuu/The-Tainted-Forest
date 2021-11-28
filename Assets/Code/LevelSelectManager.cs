@@ -27,13 +27,7 @@ public class LevelSelectManager : MonoBehaviour {
         }
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.X)) {
-            DebugUnlockAllLevels();
-        }
-    }
-
-    void DebugUnlockAllLevels() {
+    public void DebugUnlockAllLevels() {
         Button[] buttons = GetComponentsInChildren<Button>();
         foreach (Button button in buttons) {
             button.interactable = true;
