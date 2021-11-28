@@ -27,13 +27,7 @@ public class LevelSelectManager : MonoBehaviour {
         }
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.X)) {
-            DebugUnlockAllLevels();
-        }
-    }
-
-    void DebugUnlockAllLevels() {
+    public void DebugUnlockAllLevels() {
         Button[] buttons = GetComponentsInChildren<Button>();
         foreach (Button button in buttons) {
             button.interactable = true;
@@ -88,6 +82,7 @@ public class LevelSelectManager : MonoBehaviour {
     public void DisplayLevelInfo(int levelNumber) {
         levelNumberTextField.SetText("Level " + levelNumber);
         levelScoreTextField.SetText("Highscore: " + GetLevelScore(levelNumber));
+        levelStartButton.onClick.RemoveAllListeners();
         levelStartButton.onClick.AddListener(() => OpenLevel(levelNumber));
         
         /*if (LevelIsUnlocked(levelNumber)) {
