@@ -21,10 +21,16 @@ public class LevelSelectManager : MonoBehaviour {
         SetContainerWidth();
         DisplayLevelInfo(1);
 
-        trueLevels.AddRange(System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory() + "\\Assets\\Scenes\\Levels", "*.unity"));
-        if (trueLevels.Count > levels.Count) {
-            Debug.Log("All levels not set to the list in Mainmenu: Canvas\\LevelSelectContainer -> LevelSelectManager!");
+        // for debug purposes:
+        try {
+            trueLevels.AddRange(System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory() + "\\Assets\\Scenes\\Levels", "*.unity"));
+            if (trueLevels.Count > levels.Count) {
+                Debug.Log("All levels not set to the list in Mainmenu: Canvas\\LevelSelectContainer -> LevelSelectManager!");
+            }
+        } catch (System.Exception) {
+            throw;
         }
+        
     }
 
     public void DebugUnlockAllLevels() {
