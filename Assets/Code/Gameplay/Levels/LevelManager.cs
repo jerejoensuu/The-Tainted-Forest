@@ -94,10 +94,15 @@ public class LevelManager : MonoBehaviour {
 
     public IEnumerator FreezeBubbles() {
 
-        for (float i = 0; i < 5; i += 0.01f) {
+        for (float i = 0; i < 7; i += 0.01f) {
             foreach (Transform child in transform) {
                 if (child.tag == "Ball") {
                     child.GetComponent<BallController>().Freeze();
+                    if (i >= 5) {
+                        child.transform.Find("Frost").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 * ((7 - i) / 2));
+                    } else if (i < 0.075f) {
+                        child.transform.Find("Frost").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 * (i / 0.075f));
+                    }
                 }
             }
             yield return new WaitForSeconds(0.01f);

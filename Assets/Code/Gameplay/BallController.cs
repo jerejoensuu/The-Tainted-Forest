@@ -9,12 +9,15 @@ public class BallController : MonoBehaviour {
     private int pointsAward = 100;
 
     public float moveSpeed;
+    float ogSpeed;
     private float freezeFactor = 1;
     public float gravity = 0.05f;
     float momentum = 0;
     float lastMomentum = 0;
     float lastY = 0;
+    float lastX = 0;
     int stationaryYCounter = 0;
+    int stationaryXCounter = 0;
     public GameObject circlePrefab;
     private SpriteRenderer sr;
 
@@ -24,6 +27,7 @@ public class BallController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        ogSpeed = moveSpeed;
         try {
             bool test = transform.parent.name != "LevelManager";
         }
@@ -51,18 +55,8 @@ public class BallController : MonoBehaviour {
             lastMomentum = momentum;
         }
         momentum -= gravity * freezeFactor;
-        
-        // Reset momentum if a ball is detected moving on a flat surface (ie. not bouncing)
-        if (lastY == gameObject.transform.localPosition.y && freezeFactor == 1) {
-            stationaryYCounter++;
-            if (stationaryYCounter > 3) {
-                momentum = 0;
-                stationaryYCounter = 0;
-            }
-        } else {
-            stationaryYCounter = 0;
-        }
-        lastY = gameObject.transform.localPosition.y;
+
+        CheckIfNotBouncing();
 
         // Destroy off-screen balloons
         if (transform.position.x > 11 || transform.position.x < -11) {
@@ -74,6 +68,38 @@ public class BallController : MonoBehaviour {
 
     Vector2 GetSize(int s) {
         return new Vector2(sizes[s-1], sizes[s-1]);
+    }
+
+    void CheckIfNotBouncing() {
+        // Reset momentum if a ball is detected moving on a flat surface (ie. not bouncing)
+        if (Mathf.Abs(lastY - gameObject.transform.localPosition.y) < 0.0001f && freezeFactor == 1) {
+            stationaryYCounter++;
+            if (stationaryYCounter > 3) {
+                momentum = 0;
+                stationaryYCounter = 0;
+            }
+
+        } else {
+            stationaryYCounter = 0;
+        }
+        if (GetComponent<Rigidbody2D>().velocity.y > 0.1f) {
+            moveSpeed = ogSpeed;
+        }
+
+        // Set horizontal speed to 0 if stuck
+        if (Mathf.Abs(lastX - gameObject.transform.localPosition.x) < 0.001f && freezeFactor == 1) {
+            stationaryXCounter++;
+            if (stationaryXCounter > 3) {
+                moveSpeed = 0;
+                stationaryXCounter = 0;
+            }
+
+        } else {
+            stationaryXCounter = 0;
+        }
+
+        lastY = gameObject.transform.localPosition.y;
+        lastX = gameObject.transform.localPosition.x;
     }
 
 
@@ -91,12 +117,10 @@ public class BallController : MonoBehaviour {
 
         // freezeFactor = 1;
 
-        freezeFactor = 0;
-        sr.color = Color.blue;        
+        freezeFactor = 0;    
     }
 
     public void UnFreeze() {
-        sr.color = Color.white;
         freezeFactor = 1;
     }
 
@@ -173,6 +197,10 @@ public class BallController : MonoBehaviour {
             }
         }
 
+    }
+
+    void Bounce() {
+        
     }
 
 }

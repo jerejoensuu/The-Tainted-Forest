@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour {
     SpriteRenderer[] spriteRenderers;
     [SerializeField] private LayerMask layerMask;
     public GameObject grapplePrefab;
-    public GameObject rapidFirePrefab;
+    public GameObject stickyVinePrefab;
     RapidFireManager rapidFire;
     Coroutine lastRoutine = null;
     private int health = 3;
@@ -179,7 +179,12 @@ public class PlayerController : MonoBehaviour {
                     SetActiveAnimation("Shooting");
                     animator.SetTrigger("shot");
                     ChangeAmmoCount(-1);
-                    grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
+                    if (stickyVines) {
+                        grappleObject = Instantiate(stickyVinePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
+                    } else {
+                        grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
+                    }
+                    
                     grappleObject.transform.parent = transform.parent;
                     grappleObject.GetComponent<Grapple>().stickyVines = stickyVines;
                 } else if (stickyVines) {
@@ -272,7 +277,9 @@ public class PlayerController : MonoBehaviour {
                                 stickyVines = false;
                                 maxVines = 1;
                                 break;
-            case "TimerBoost":  transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(Random.Range(10, 21));
+            case "TimerBoost":  int randTime = (int)Mathf.Round(Random.Range(10, 21) / 5f) * 5;
+                                transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(randTime);
+                                transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (randTime).ToString() + "s", transform.position);
                                 break;
         }
     }
