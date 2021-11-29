@@ -117,12 +117,10 @@ public class BallController : MonoBehaviour {
 
         // freezeFactor = 1;
 
-        freezeFactor = 0;
-        sr.color = Color.blue;        
+        freezeFactor = 0;    
     }
 
     public void UnFreeze() {
-        sr.color = Color.white;
         freezeFactor = 1;
     }
 
