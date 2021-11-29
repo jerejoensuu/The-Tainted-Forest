@@ -5,7 +5,17 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TaintedForest;
 
+
+public static class Levels {
+
+    public static int numberOfLevels;
+    public static bool isChecked = false;
+    public static void GetLevelNumber(int number) {
+        numberOfLevels = number;
+    }
+}
 public class MainMenuController : MonoBehaviour {
 
     public GameObject[] mainMenuPanels;
@@ -16,6 +26,15 @@ public class MainMenuController : MonoBehaviour {
 
     void Awake() {
         ChangePanel(0);
+    }
+
+    void Start() {
+        if (!Levels.isChecked) {
+            Levels.GetLevelNumber(mainMenuPanels[1].GetComponent<LevelSelectManager>().levels.Count);
+            Score score = new Score(GameData.GetFilePath());
+            score.FillScoreArray();
+            Levels.isChecked = true;
+        }
     }
 
     void ChangePanel(int index) {
