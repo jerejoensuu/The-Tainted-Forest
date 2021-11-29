@@ -5182,7 +5182,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9224
   grapplePrefab: {fileID: 6995751139742916582, guid: c979113742b4f2f41b4fcc0a33998985, type: 3}
-  rapidFirePrefab: {fileID: 0}
+  stickyVinePrefab: {fileID: 6995751139742916582, guid: 412693a6f45263e42923905566502365, type: 3}
   hitOffGroundOffset: 0
   invincibilityDurationSeconds: 2.5
   invincibilityDeltaTime: 0.3
