@@ -277,7 +277,9 @@ public class PlayerController : MonoBehaviour {
                                 stickyVines = false;
                                 maxVines = 1;
                                 break;
-            case "TimerBoost":  transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(Random.Range(10, 21));
+            case "TimerBoost":  int randTime = (int)Mathf.Round(Random.Range(10, 21) / 5f) * 5;
+                                transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(randTime);
+                                transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (randTime).ToString() + "s", transform.position);
                                 break;
         }
     }
