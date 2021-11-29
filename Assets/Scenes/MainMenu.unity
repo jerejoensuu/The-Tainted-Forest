@@ -1039,6 +1039,8 @@ MonoBehaviour:
   - {fileID: 380399882}
   - {fileID: 618387272}
   - {fileID: 556181363}
+  cursorTexture: {fileID: 2800000, guid: a7f1a5d8b8cec2c43bd3133004af0a68, type: 3}
+  cursorHotSpot: {x: 0, y: 0}
   blackScreen: {fileID: 8009379272308859602, guid: 1b1f1d3f26d23c34d8fcce51ccd22ff0, type: 3}
 --- !u!1 &380399880
 GameObject:

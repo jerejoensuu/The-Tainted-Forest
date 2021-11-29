@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour {
     public Slider[] volumeSliders;
     [Tooltip("Set selection to this button when level is won")] public GameObject winScreenActiveButton;
     [Tooltip("Set selection to this button when level is lost")] public GameObject loseScreenActiveButton;
+    public Texture2D cursorTexture;
     
 
     public GameObject winScreen;
@@ -21,7 +22,8 @@ public class UIController : MonoBehaviour {
     public GameObject endOverlay;
 
     void Start() {
-        //UnpauseGame();
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.visible = false;
     }
 
     void Update() {
@@ -45,6 +47,7 @@ public class UIController : MonoBehaviour {
         ChangePanel(0);
         GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(false);
         Time.timeScale = 0;
+        Cursor.visible = true;
     }
 
     public void UnpauseGame() {
@@ -52,6 +55,7 @@ public class UIController : MonoBehaviour {
         pauseMenu.SetActive(false);
         GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(true);
         Time.timeScale = 1;
+        Cursor.visible = false;
     }
 
     public void ResumeGame() {

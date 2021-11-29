@@ -22,6 +22,7 @@ public class MainMenuController : MonoBehaviour {
     public GameObject[] panelActiveButtons; // The button that should be selected/active when a menu panel is opened
     public Slider[] volumeSliders;
 
+    public Texture2D cursorTexture;
     public GameObject blackScreen;
 
     void Awake() {
@@ -29,6 +30,7 @@ public class MainMenuController : MonoBehaviour {
     }
 
     void Start() {
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
         if (!Levels.isChecked) {
             Levels.GetLevelNumber(mainMenuPanels[1].GetComponent<LevelSelectManager>().levels.Count);
             Score score = new Score(GameData.GetFilePath());

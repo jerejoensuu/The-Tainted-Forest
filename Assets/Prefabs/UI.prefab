@@ -897,7 +897,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textObject: {fileID: 3675938067448464750}
   levelStarted: 0
-  blackScreen: {fileID: 8009379272308859602, guid: 1b1f1d3f26d23c34d8fcce51ccd22ff0, type: 3}
 --- !u!1 &3709991619037073232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4733,6 +4732,7 @@ MonoBehaviour:
   - {fileID: 4985026549270222004}
   winScreenActiveButton: {fileID: 4998499863500617305}
   loseScreenActiveButton: {fileID: 4998499865345110188}
+  cursorTexture: {fileID: 2800000, guid: a7f1a5d8b8cec2c43bd3133004af0a68, type: 3}
   winScreen: {fileID: 4998499864270571583}
   loseScreen: {fileID: 4998499865390362961}
   endOverlay: {fileID: 4998499864562396865}
