@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 281198339430334891}
   - component: {fileID: 281198339430334868}
+  - component: {fileID: 3926056501199674651}
   m_Layer: 0
   m_Name: SplashScreen
   m_TagString: Untagged
@@ -52,6 +53,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3926056501199674651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281198339430334890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea84cb0b2b9d6c141a2cfa42f366f6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &281198339594758296
 GameObject:
   m_ObjectHideFlags: 0
