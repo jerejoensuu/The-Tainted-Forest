@@ -15,7 +15,9 @@ public class UIController : MonoBehaviour {
     [Tooltip("Set selection to this button when level is won")] public GameObject winScreenActiveButton;
     [Tooltip("Set selection to this button when level is lost")] public GameObject loseScreenActiveButton;
     public Texture2D cursorTexture;
-    
+    public AudioSource audioSrc;
+    public AudioClip failSound;
+
 
     public GameObject winScreen;
     public GameObject loseScreen;
@@ -136,6 +138,10 @@ public class UIController : MonoBehaviour {
             Time.timeScale = 0;
             GetComponent<EventSystem>().SetSelectedGameObject(null);
             GetComponent<EventSystem>().SetSelectedGameObject(loseScreenActiveButton);
+            
+            audioSrc.clip = failSound;
+            audioSrc.volume = ApplicationSettings.SoundVolume() * 0.3f;
+            audioSrc.Play();
         }
         yield return null;
     }
