@@ -13,12 +13,13 @@ public class LevelStartTransition : MonoBehaviour {
     public bool levelStarted = false;
     
     void Start() {
+        //StartCoroutine(Transition());
         transform.parent.parent.Find("UIController").GetComponent<UIController>().paused = true;
         Time.timeScale = 0;
 
         m_TextComponent = GetComponent<TextMeshProUGUI>();
         animator = transform.GetComponent<Animator>();
-        m_TextComponent.text = SceneManager.GetActiveScene().name;
+        m_TextComponent.text = "Level " + SceneManager.GetActiveScene().name;
     }
 
     

@@ -21,6 +21,7 @@ TagManager:
   - RapidFire
   - BreakableWall
   - TimerBoost
+  - ScoreItem
   layers:
   - Default
   - TransparentFX

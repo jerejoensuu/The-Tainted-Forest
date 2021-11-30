@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour {
     public Slider[] volumeSliders;
     [Tooltip("Set selection to this button when level is won")] public GameObject winScreenActiveButton;
     [Tooltip("Set selection to this button when level is lost")] public GameObject loseScreenActiveButton;
+    public Texture2D cursorTexture;
     
 
     public GameObject winScreen;
@@ -21,8 +22,8 @@ public class UIController : MonoBehaviour {
     public GameObject endOverlay;
 
     void Start() {
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
-        //UnpauseGame();
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.visible = false;
     }
 
     void Update() {
@@ -41,21 +42,20 @@ public class UIController : MonoBehaviour {
     }
 
     void PauseGame() {
-        Debug.Log("Game paused");
         paused = true;
         pauseMenu.SetActive(true);
         ChangePanel(0);
-        GetComponent<AudioSource>().Pause();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(false);
         Time.timeScale = 0;
+        Cursor.visible = true;
     }
 
     public void UnpauseGame() {
-        Debug.Log("Game unpaused");
         paused = false;
         pauseMenu.SetActive(false);
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume();
-        GetComponent<AudioSource>().UnPause();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(true);
         Time.timeScale = 1;
+        Cursor.visible = false;
     }
 
     public void ResumeGame() {
@@ -116,7 +116,7 @@ public class UIController : MonoBehaviour {
         float change = 0.02f;
         for (float alpha = 0f; alpha < 1; alpha += change) 
         {
-            GetComponent<AudioSource>().volume -= change;
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().SetMusicVolume(GameObject.Find("LevelManager").GetComponent<LevelManager>().GetMusicVolume() - change);
             Color overlayColor = endOverlay.GetComponent<Image>().color;
             overlayColor.a = alpha;
             endOverlay.GetComponent<Image>().color = overlayColor;

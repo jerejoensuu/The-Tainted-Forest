@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public string projectileType = "Vine";
     float movementX = 0;
     float movementY = 0;
-    bool collisionCooldown = false;
     bool shieldActive = false;
     string activeAnimation = "Idle";
     bool isShooting = false;
@@ -26,6 +25,8 @@ public class PlayerController : MonoBehaviour {
 
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
+    public AudioClip hitSound;
+    public AudioClip reloadSound;
 
     Rigidbody2D rb;
     BoxCollider2D bc;
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour {
     SpriteRenderer[] spriteRenderers;
     [SerializeField] private LayerMask layerMask;
     public GameObject grapplePrefab;
-    public GameObject rapidFirePrefab;
+    public GameObject stickyVinePrefab;
     RapidFireManager rapidFire;
     Coroutine lastRoutine = null;
     private int health = 3;
@@ -54,13 +55,14 @@ public class PlayerController : MonoBehaviour {
         rapidFire = GetComponent<RapidFireManager>();
 
         hud = GameObject.Find("PlayerUI").GetComponent<PlayerUI>();
-        hud.SetAmmo(ammoCount);
-        hud.SetHealth(health);
 
         SetActiveAnimation("Idle");
     }
 
     void Update() {
+        hud.SetAmmo(ammoCount);
+        hud.SetHealth(health);
+
         if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
 
             if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded() && projectileType == "RapidFire" && lastRoutine == null) {
@@ -124,16 +126,30 @@ public class PlayerController : MonoBehaviour {
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
 
             if (canStep) {
-                MakeFootstepSound();
+                PlayFootstepSound();
                 StartCoroutine(FootstepCooldown());
             }
         }
     }
 
-    void MakeFootstepSound() {
+    void PlayFootstepSound() {
         audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
         audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
         audioSrc.Play();
+    }
+
+    IEnumerator PlayHitSound() {
+        audioSrc.clip = hitSound;
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.175f;
+        audioSrc.Play();
+        yield return new WaitForSeconds(hitSound.length);;
+    }
+
+    IEnumerator PlayReloadSound() {
+        audioSrc.clip = reloadSound;
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
+        audioSrc.Play();
+        yield return new WaitForSeconds(reloadSound.length);
     }
 
     IEnumerator FootstepCooldown() { //temp
@@ -163,7 +179,12 @@ public class PlayerController : MonoBehaviour {
                     SetActiveAnimation("Shooting");
                     animator.SetTrigger("shot");
                     ChangeAmmoCount(-1);
-                    grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
+                    if (stickyVines) {
+                        grappleObject = Instantiate(stickyVinePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
+                    } else {
+                        grappleObject = Instantiate(grapplePrefab, new Vector3(transform.position.x, transform.position.y - (grapplePrefab.GetComponent<SpriteRenderer>().size.y/2), 0f), Quaternion.identity) as GameObject;
+                    }
+                    
                     grappleObject.transform.parent = transform.parent;
                     grappleObject.GetComponent<Grapple>().stickyVines = stickyVines;
                 } else if (stickyVines) {
@@ -225,9 +246,9 @@ public class PlayerController : MonoBehaviour {
     // }
 
     public void HandleDrops(GameObject gameObject) {
-        Debug.Log("Drop collected");
         switch (gameObject.tag) {
-            case "AmmoDrop":    if (ammoCount > 5) {
+            case "AmmoDrop":    StartCoroutine(PlayReloadSound());
+                                if (ammoCount > 5) {
                                     ChangeAmmoCount(Random.Range(1, 4));
                                     break;
                                 } else if (ammoCount > 0) {
@@ -256,8 +277,9 @@ public class PlayerController : MonoBehaviour {
                                 stickyVines = false;
                                 maxVines = 1;
                                 break;
-            case "TimerBoost":  transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(Random.Range(10, 21));
-                                
+            case "TimerBoost":  int randTime = (int)Mathf.Round(Random.Range(10, 21) / 5f) * 5;
+                                transform.root.Find("UI/Canvas/PlayerUI/Timer/Timertext").GetComponent<TimerController>().AddToTimer(randTime);
+                                transform.root.Find("UI/Canvas/PopupTextManager").GetComponent<PopupTextManager>().NewPopupText("+" + (randTime).ToString() + "s", transform.position);
                                 break;
         }
     }
@@ -265,14 +287,6 @@ public class PlayerController : MonoBehaviour {
     void ActiveShield() {
         // turn blue here or something
         shieldActive = true;
-    }
-
-    //void 
-
-    IEnumerator StartCollisionCooldown() {
-        collisionCooldown = true;
-        yield return new WaitForSeconds(0.1f);
-        collisionCooldown = false;
     }
     
     void OnTriggerExit2D(Collider2D col) {
@@ -296,6 +310,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         ChangeHealth(-1);
+        StartCoroutine(PlayHitSound());
         knockedFromLadder = true;
         int dir = enemyX < transform.localPosition.x ? 1 : -1;
         rb.gravityScale = 0.5f;
@@ -369,6 +384,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void SetActiveAnimation(string newAnimation = "Idle") {
+        if (hitOffGroundOffset) { // return if being hit
+            return;
+        }
         transform.Find("Idle").gameObject.SetActive(false);
         transform.Find("Hit").gameObject.SetActive(false);
         transform.Find("Shooting").gameObject.SetActive(false);

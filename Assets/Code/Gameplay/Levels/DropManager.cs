@@ -11,6 +11,8 @@ public class DropManager : MonoBehaviour {
     public List<GameObject> dropPrefabs;
     public List<int> dropWeights;
     public List<int> dropScores;
+    public List<GameObject> scoreItems;
+    public List<int> scoreItemPoints;
 
     public int time { get; private set;}
     [Tooltip("How may seconds should the script wait before attempting to spawn ammo drops again after spawning one.")] [SerializeField] private int cooldown;
@@ -18,6 +20,7 @@ public class DropManager : MonoBehaviour {
     [Tooltip("Change of a drop spawning per second as percentage.")] [SerializeField] private float changeOfSpawn;
     private ParticleSystem particleRays;
     private ParticleSystem particleCircle;
+    bool lowAmmo = false;
 
     private List<Drop> dropPool = new List<Drop>();
     public class Drop {
@@ -30,7 +33,7 @@ public class DropManager : MonoBehaviour {
     Vector2 tempLocation = Vector2.zero;
     
     void Start() {
-        GameObject ammoDrop = dropPrefabs[0];
+        ammoDrop = dropPrefabs[0];
 
         for (int i = 0; i < dropPrefabs.Count; i++) {
             for (int j = 0; j < dropWeights[i]; j++) {
@@ -54,12 +57,13 @@ public class DropManager : MonoBehaviour {
     }
 
     IEnumerator TrackTime() {
+        lowAmmo = false;
 
         while (true) {
             yield return new WaitForSeconds(1);
             time++;
-
-            if (transform.root.Find("Player").GetComponent<PlayerController>().ammoCount < 3 && transform.root.GetComponent<LevelManager>().FindDrops(ammoDrop)) {
+            if (transform.root.Find("Player").GetComponent<PlayerController>().ammoCount < 3 && !transform.root.GetComponent<LevelManager>().FindDrops(ammoDrop) && !lowAmmo) {
+                lowAmmo = true;
                 currentCooldown = 0 + Random.Range(3, 6);
             }
             if (currentCooldown > 0) {
@@ -72,7 +76,7 @@ public class DropManager : MonoBehaviour {
     }
 
     void AttemptSpawn() {
-        if (Random.Range(0, (int)(1 / changeOfSpawn)) == 0) {
+        if (Random.Range(0, (int)(1 / changeOfSpawn)) == 0 || lowAmmo) {
             StartCoroutine(Spawn());
             currentCooldown = cooldown + (int)particleCircle.main.startLifetime.constantMax;
         }
@@ -91,6 +95,7 @@ public class DropManager : MonoBehaviour {
       
         GameObject drop = Instantiate(dropObject, location, Quaternion.identity) as GameObject;
         drop.transform.parent = transform.root.transform;
+        lowAmmo = false;
 
     }
 
@@ -128,19 +133,27 @@ public class DropManager : MonoBehaviour {
 
     public GameObject GetRandomDrop() {
         GameObject drop;
-        if (transform.parent.transform.Find("Player").GetComponent<PlayerController>().ammoCount < 3) {
+        if (lowAmmo) {
             drop = ammoDrop;
         } else {
             int failsafe = 100;
-            while(true) {
-                int index = Random.Range(0, dropPool.Count);
-                drop = dropPool[index].drop;
-                drop.GetComponent<DropController>().score = dropPool[index].score;
-                if (!transform.root.GetComponent<LevelManager>().FindDrops(drop) || failsafe == 0) {
-                    break;
+
+            if (Random.Range(0f, 1f) < 0.3f) { // 30% chance of spawning a score item
+                int index = Random.Range(0, scoreItems.Count);
+                drop = scoreItems[index];
+                drop.GetComponent<DropController>().score = scoreItemPoints[index];
+            } else {
+                while(true) {
+                    int index = Random.Range(0, dropPool.Count);
+                    drop = dropPool[index].drop;
+                    drop.GetComponent<DropController>().score = dropPool[index].score;
+                    if (!transform.root.GetComponent<LevelManager>().FindDrops(drop) || failsafe == 0) {
+                        break;
+                    }
+                    failsafe--;
                 }
-                failsafe--;
             }
+            
         }
         return drop;  
     }

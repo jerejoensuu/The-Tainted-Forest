@@ -864,7 +864,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2453128086265052660}
-  - component: {fileID: 2988916347696635342}
   m_Layer: 0
   m_Name: Climbing
   m_TagString: Untagged
@@ -900,25 +899,6 @@ Transform:
   m_Father: {fileID: 583368529599782453}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2988916347696635342
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2230367678277831761}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2406949925036340339
 GameObject:
   m_ObjectHideFlags: 0
@@ -5176,11 +5156,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 988e7b293943dbe4c84cab9121088a6a, type: 3}
   - {fileID: 8300000, guid: 077f69b68cafdfc45b33547aa9cbe55c, type: 3}
   - {fileID: 8300000, guid: 4409c587bc42dd84a94ddd74bb1b2141, type: 3}
+  hitSound: {fileID: 8300000, guid: 62c6b160d964e7a46ac929105c27ef81, type: 3}
+  reloadSound: {fileID: 8300000, guid: f200c932fdfee6148bf23ff887627b43, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 9224
   grapplePrefab: {fileID: 6995751139742916582, guid: c979113742b4f2f41b4fcc0a33998985, type: 3}
-  rapidFirePrefab: {fileID: 0}
+  stickyVinePrefab: {fileID: 6995751139742916582, guid: 412693a6f45263e42923905566502365, type: 3}
   hitOffGroundOffset: 0
   invincibilityDurationSeconds: 2.5
   invincibilityDeltaTime: 0.3

@@ -6,10 +6,6 @@ public class RapidFireManager : MonoBehaviour {
     public GameObject bulletPrefab;
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
 
-    void Awake() {
-        
-    }
-
     public void Fire() {
         GameObject bullet1;
         bullet1 = Instantiate(bulletPrefab,
