@@ -23,6 +23,7 @@ public class MainMenuController : MonoBehaviour {
     public GameObject[] panelActiveButtons; // The button that should be selected/active when a menu panel is opened
     public Slider[] volumeSliders;
     public TMP_Dropdown resolutionDropdown;
+    public Toggle fullscreenToggle;
 
     public Texture2D cursorTexture;
     public GameObject blackScreen;
@@ -103,14 +104,20 @@ public class MainMenuController : MonoBehaviour {
         resolutionDropdown.AddOptions(list);
     }
 
-    public void OnResolutionChanged(TMP_Dropdown dd) {
-        SetResolution(dd.value);
+    public int resolutionIndex = 0;
+    public void OnResolutionChanged() {
+        resolutionIndex = resolutionDropdown.value;
     }
 
-    public void SetResolution(int index) {
+    public bool fullscreen = true;
+    public void OnFullScreenToggled() {
+        fullscreen = fullscreenToggle.isOn;
+    }
+
+    public void SetResolution() {
         ScreenResolutions sr = new ScreenResolutions();
-        Screen.SetResolution(sr.GetResolution(index)[0], sr.GetResolution(index)[1], false);
-        Debug.Log("Resolution set to " + sr.GetResolution(index)[0] + " x " + sr.GetResolution(index)[1]);
+        Screen.SetResolution(sr.GetResolution(resolutionIndex)[0], sr.GetResolution(resolutionIndex)[1], fullscreen);
+        Debug.Log("Resolution set to " + sr.GetResolution(resolutionIndex)[0] + " x " + sr.GetResolution(resolutionIndex)[1]);
     }
 
     IEnumerator LevelLoader(string levelName, bool transition = true) {
