@@ -6443,6 +6443,8 @@ MonoBehaviour:
   - 14
   - 15
   - 16
+  - 17
+  - 18
   trueLevels: []
   levelNumberTextField: {fileID: 1375931566}
   levelScoreTextField: {fileID: 1861738625}
