@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using TaintedForest;
 
 
@@ -21,12 +22,14 @@ public class MainMenuController : MonoBehaviour {
     public GameObject[] mainMenuPanels;
     public GameObject[] panelActiveButtons; // The button that should be selected/active when a menu panel is opened
     public Slider[] volumeSliders;
+    public TMP_Dropdown resolutionDropdown;
 
     public Texture2D cursorTexture;
     public GameObject blackScreen;
 
     void Awake() {
         ChangePanel(0);
+        FillResolutionDropdown();
     }
 
     void Start() {
@@ -37,6 +40,9 @@ public class MainMenuController : MonoBehaviour {
             score.FillScoreArray();
             Levels.isChecked = true;
         }
+
+        ScreenResolutions sr = new ScreenResolutions();
+        Screen.SetResolution(sr.GetResolution(1)[0], sr.GetResolution(1)[1], false);
     }
 
     void ChangePanel(int index) {
@@ -92,6 +98,22 @@ public class MainMenuController : MonoBehaviour {
     public void StartLevel(int levelNumber) {
         string levelName = levelNumber.ToString();
         StartCoroutine(LevelLoader(levelName));
+    }
+
+    void FillResolutionDropdown() {
+        ScreenResolutions sr = new ScreenResolutions();
+        List<string> list = sr.GetResolutionString();
+        resolutionDropdown.AddOptions(list);
+    }
+
+    public void OnResolutionChanged(TMP_Dropdown dd) {
+        SetResolution(dd.value);
+    }
+
+    public void SetResolution(int index) {
+        ScreenResolutions sr = new ScreenResolutions();
+        Screen.SetResolution(sr.GetResolution(index)[0], sr.GetResolution(index)[1], false);
+        Debug.Log("Resolution set to " + sr.GetResolution(index)[0] + " x " + sr.GetResolution(index)[1]);
     }
 
     IEnumerator LevelLoader(string levelName, bool transition = true) {
