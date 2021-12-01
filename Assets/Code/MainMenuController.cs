@@ -40,9 +40,6 @@ public class MainMenuController : MonoBehaviour {
             score.FillScoreArray();
             Levels.isChecked = true;
         }
-
-        ScreenResolutions sr = new ScreenResolutions();
-        Screen.SetResolution(sr.GetResolution(1)[0], sr.GetResolution(1)[1], false);
     }
 
     void ChangePanel(int index) {
