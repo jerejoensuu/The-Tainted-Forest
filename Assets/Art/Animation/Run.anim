@@ -44,7 +44,7 @@ AnimationClip:
     - time: 0.9166667
       value: {fileID: 7044943040743498161, guid: ccca651d28718304f92131c230bcd1f9, type: 3}
     attribute: m_Sprite
-    path: 
+    path: Running
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 12
@@ -55,7 +55,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 3768365299
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -100,14 +100,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.083333336
-    functionName: 
+    functionName: PlayFootstepSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.5833333
-    functionName: 
+    functionName: PlayFootstepSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
