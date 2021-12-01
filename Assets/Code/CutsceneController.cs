@@ -14,6 +14,13 @@ public class CutsceneController : MonoBehaviour {
         inputActions = new InputActions();
         inputActions.Disable();
         inputActions.UI.Submit.performed += SkipCutscene;
+        inputActions.UI.Navigate.performed += SkipCutscene;
+        inputActions.UI.Cancel.performed += SkipCutscene;
+        inputActions.UI.Click.performed += SkipCutscene;
+        inputActions.UI.RightClick.performed += SkipCutscene;
+        inputActions.UI.Pause.performed += SkipCutscene;
+        inputActions.Player.Move.performed += SkipCutscene;
+        inputActions.Player.Fire.performed += SkipCutscene;
     }
 
     void Update() {
@@ -55,6 +62,13 @@ public class CutsceneController : MonoBehaviour {
 
     void OnDisable() {
         inputActions.UI.Submit.performed -= SkipCutscene;
+        inputActions.UI.Navigate.performed -= SkipCutscene;
+        inputActions.UI.Cancel.performed -= SkipCutscene;
+        inputActions.UI.Click.performed -= SkipCutscene;
+        inputActions.UI.RightClick.performed -= SkipCutscene;
+        inputActions.UI.Pause.performed -= SkipCutscene;
+        inputActions.Player.Move.performed -= SkipCutscene;
+        inputActions.Player.Fire.performed -= SkipCutscene;
         inputActions.Disable();
     }
 }
