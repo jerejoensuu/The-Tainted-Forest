@@ -11,15 +11,10 @@ public class LevelManager : MonoBehaviour {
     private bool levelWon = false;
     private bool levelLost = false;
     [Range(1, 2)] [SerializeField] public int theme = 1;
-    [Range(1, 3)] [SerializeField] int taintLevel = 1;
+    [Range(1, 3)] [SerializeField] public int taintLevel = 1;
     [Range(10, 180)] [SerializeField] [Tooltip("In seconds")] public int time = 90;
     public GameObject blackScreen;
     public AudioSource audioSrc;
-    public float ambientVolumeMod = 0.7f;
-    public float musicVolumeMod = 0.15f;
-    float musicVolume = 1;
-
-
     
     void Awake() {
         audioSrc = GetComponent<AudioSource>();
@@ -34,10 +29,9 @@ public class LevelManager : MonoBehaviour {
         }
 
         transform.Find("PlatformAndDropManager").GetComponent<DropManager>().ApplyTheme(theme);
-        ApplyBackground();
+        //ApplyBackground();
 
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.2f);
-        ToggleMusic(true);
 
     }
 
@@ -142,52 +136,12 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    private void ApplyBackground() {
+    public void ApplyBackground() {
         transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(false);
         transform.Find("Backgrounds").GetChild(0).GetChild(0).gameObject.SetActive(false);
 
         transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(true);
         transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).gameObject.SetActive(true);
-    }
-
-    public void ToggleMusic(bool musicOn) {
-        if (musicOn) {
-            SetMusicVolume(1);
-        } else {
-            SetMusicVolume(0.35f);
-        }
-    }
-
-    public void SetMusicVolume(float volume) {
-        StopCoroutine(FadeMusicVolume(volume));
-        StartCoroutine(FadeMusicVolume(volume));
-    }
-
-    IEnumerator FadeMusicVolume(float newVolume) {
-        float originalAmbientVol = GetMusicVolume();
-        float originalMusicVol = GetMusicVolume();
-        float modifier = 0.01f;
-        if (originalMusicVol > newVolume) {
-            while (musicVolume >= newVolume) {
-                musicVolume -= modifier;
-                transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = musicVolume * ambientVolumeMod;
-                transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().volume = musicVolume * musicVolumeMod;
-                yield return null;
-            }
-
-        } else {
-            while (musicVolume <= newVolume) {
-                musicVolume += modifier;
-                transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = musicVolume * ambientVolumeMod;
-                transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().volume = musicVolume * musicVolumeMod;
-                yield return null;
-            }
-        }
-
-    }
-
-    public float GetMusicVolume() {
-        return musicVolume;
     }
 
     IEnumerator Transition() {

@@ -9,7 +9,6 @@ public class SplashScreenController : MonoBehaviour {
             Cursor.visible = false;
             GameObject.Find("GameController").GetComponent<GameController>().splashScreenPlayed = true;
         } else {
-            Debug.Log("Splash skipped");
             ActivateCursor();
         }
         
