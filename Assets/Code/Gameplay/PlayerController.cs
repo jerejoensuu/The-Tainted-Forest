@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour {
         if (canClimb && movementY != 0 && !isShooting) {
 
             // Can player climb down, is the ladder below them and are they attempting to climb down:
-            if (canClimbDown && currentLadderY < bc.bounds.min.y && Input.GetAxisRaw("Vertical") < 0) {
+            if (canClimbDown && currentLadderY < bc.bounds.min.y && y < 0) {
                 // Turn player into a semisolid able to go through platforms:
                 gameObject.layer = LayerMask.NameToLayer("SemisolidPlayer");
 
@@ -405,7 +405,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void TurnInvisible(bool boolean) {
-        Debug.Log(boolean);
         transform.Find(activeAnimation).gameObject.SetActive(boolean);
     }
 
