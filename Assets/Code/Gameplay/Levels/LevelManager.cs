@@ -183,7 +183,6 @@ public class LevelManager : MonoBehaviour {
                 yield return null;
             }
         }
-        Debug.Log(musicVolume);
 
     }
 
