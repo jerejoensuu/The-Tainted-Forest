@@ -14,9 +14,11 @@ public class LevelManager : MonoBehaviour {
     [Range(1, 3)] [SerializeField] int taintLevel = 1;
     [Range(10, 180)] [SerializeField] [Tooltip("In seconds")] public int time = 90;
     public GameObject blackScreen;
+    public AudioSource audioSrc;
+
     
     void Awake() {
-
+        audioSrc = GetComponent<AudioSource>();
         StartCoroutine(Transition());
         int bubbleCount = 0;
         foreach (Transform child in transform) {
@@ -31,7 +33,7 @@ public class LevelManager : MonoBehaviour {
         ApplyBackground();
 
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.2f);
-
+        SetMusicVolume(GetMusicVolume());
 
     }
 
@@ -93,11 +95,17 @@ public class LevelManager : MonoBehaviour {
     }
 
     public IEnumerator FreezeBubbles() {
-
-        for (float i = 0; i < 5; i += 0.01f) {
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.4f;
+        audioSrc.Play();
+        for (float i = 0; i < 7; i += 0.01f) {
             foreach (Transform child in transform) {
                 if (child.tag == "Ball") {
                     child.GetComponent<BallController>().Freeze();
+                    if (i >= 5) {
+                        child.transform.Find("Frost").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 * ((7 - i) / 2));
+                    } else if (i < 0.3f) {
+                        child.transform.Find("Frost").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 * (i / 0.3f));
+                    }
                 }
             }
             yield return new WaitForSeconds(0.01f);
@@ -142,13 +150,16 @@ public class LevelManager : MonoBehaviour {
     public void ToggleMusic(bool musicOn) {
         if (musicOn) {
             transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().UnPause();
+            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().UnPause();
         } else {
             transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().Pause();
+            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().Pause();
         }
     }
 
     public void SetMusicVolume(float volume) {
-        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = volume;
+        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = volume * 0.7f;
+        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().volume = volume * 0.15f;
     }
 
     public float GetMusicVolume() {

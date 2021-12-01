@@ -43,7 +43,7 @@ namespace TaintedForest {
         [SerializeField]
         private ScoreArray scores;
         private string scoreFile;
-        public int scoreEntries = 14; // Update this when changing number of levels
+        public int scoreEntries = Levels.numberOfLevels;
 
         public Score(string path) {
             scoreFile = path;
@@ -77,6 +77,26 @@ namespace TaintedForest {
 
         public Entry GetEntry(int index) {
             return scores.GetEntry(index);
+        }
+
+        public bool FillScoreArray() {
+            Score score = new Score(GameData.GetFilePath());
+            ScoreArray newScores = new ScoreArray(scoreEntries);
+            int originalLength = score.scores.scores.Length;
+
+            for (int i = 0; i < scoreEntries; i++) {
+                if (i < originalLength) {
+                    newScores.Add(i, score.scores.scores[i].Score);
+                }
+                else {
+                    newScores.Add(i, 0);
+                }
+            }
+
+            scores.scores = newScores.scores;
+            Save();
+
+            return true;
         }
     }
 }

@@ -5,17 +5,50 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
+using TaintedForest;
+using UnityEngine.InputSystem;
 
+
+public static class Levels {
+
+    public static int numberOfLevels;
+    public static bool isChecked = false;
+    public static void GetLevelNumber(int number) {
+        numberOfLevels = number;
+    }
+}
 public class MainMenuController : MonoBehaviour {
 
     public GameObject[] mainMenuPanels;
     public GameObject[] panelActiveButtons; // The button that should be selected/active when a menu panel is opened
     public Slider[] volumeSliders;
+    public TMP_Dropdown resolutionDropdown;
+    public Toggle fullscreenToggle;
 
+    public Texture2D cursorTexture;
     public GameObject blackScreen;
+    public InputActions inputActions;
 
     void Awake() {
+        Time.timeScale = 1;
         ChangePanel(0);
+        FillResolutionDropdown();
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f;
+
+        inputActions = new InputActions();
+        inputActions.Disable();
+        inputActions.UI.Cancel.performed += CancelSettings;
+    }
+
+    void Start() {
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        if (!Levels.isChecked) {
+            Levels.GetLevelNumber(mainMenuPanels[1].GetComponent<LevelSelectManager>().levels.Count);
+            Score score = new Score(GameData.GetFilePath());
+            score.FillScoreArray();
+            Levels.isChecked = true;
+        }
     }
 
     void ChangePanel(int index) {
@@ -54,8 +87,13 @@ public class MainMenuController : MonoBehaviour {
         ChangePanel(0);
     }
 
+    void CancelSettings(InputAction.CallbackContext context) {
+        ChangePanel(0);
+    }
+
     public void SaveAndExit() {
         ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f;
         BackToMain();
     }
 
@@ -73,8 +111,30 @@ public class MainMenuController : MonoBehaviour {
         StartCoroutine(LevelLoader(levelName));
     }
 
+    void FillResolutionDropdown() {
+        ScreenResolutions sr = new ScreenResolutions();
+        List<string> list = sr.GetResolutionString();
+        resolutionDropdown.AddOptions(list);
+    }
+
+    public int resolutionIndex = 0;
+    public void OnResolutionChanged() {
+        resolutionIndex = resolutionDropdown.value;
+    }
+
+    public bool fullscreen = true;
+    public void OnFullScreenToggled() {
+        fullscreen = fullscreenToggle.isOn;
+    }
+
+    public void SetResolution() {
+        ScreenResolutions sr = new ScreenResolutions();
+        Screen.SetResolution(sr.GetResolution(resolutionIndex)[0], sr.GetResolution(resolutionIndex)[1], fullscreen);
+        Debug.Log("Resolution set to " + sr.GetResolution(resolutionIndex)[0] + " x " + sr.GetResolution(resolutionIndex)[1]);
+    }
+
     IEnumerator LevelLoader(string levelName, bool transition = true) {
-        
+        inputActions.Disable();
         GameObject transitionScreen = Instantiate(blackScreen, Vector3.zero, Quaternion.identity) as GameObject;
 
         float maskSize = 1f;
@@ -85,6 +145,7 @@ public class MainMenuController : MonoBehaviour {
                 break;
             } else {
                 transitionScreen.GetComponentInChildren<SpriteMask>().transform.localScale = new Vector2(maskSize,maskSize);
+                GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f * maskSize;
             }
             yield return null;
         }
@@ -95,5 +156,10 @@ public class MainMenuController : MonoBehaviour {
             // do something
             //asyncLoad.allowSceneActivation = true;
         }
+    }
+
+    void OnDisable() {
+        inputActions.UI.Cancel.performed -= CancelSettings;
+        inputActions.Disable();
     }
 }

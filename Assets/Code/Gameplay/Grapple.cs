@@ -6,23 +6,32 @@ public class Grapple : MonoBehaviour {
     public float speed;
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
+    public AudioClip impactSound;
     private SpriteMask spriteMask;
     private BoxCollider2D boxCollider2D;
     float distanceMoved = 0;
     public bool stickyVines = false;
     public bool moving = true;
+    private ParticleSystem particle;
     [Tooltip("Adjust starting height of spawned projectiles.")] public float projectileOffset;
 
     void Start() {
+        particle = GetComponentInChildren<ParticleSystem>();
         spriteMask = GetComponentInChildren<SpriteMask>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         audioSrc = GetComponent<AudioSource>();
-        PlaySound();
+        PlayShootingSound();
     }
 
-    void PlaySound() {
+    void PlayShootingSound() {
         audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
-        audioSrc.volume = ApplicationSettings.SoundVolume();
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.7f;
+        audioSrc.Play();
+    }
+
+    void PlayImpactSound() {
+        audioSrc.clip = impactSound;
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
         audioSrc.Play();
     }
 
@@ -36,7 +45,7 @@ public class Grapple : MonoBehaviour {
             spriteMask.transform.position -= currentPosition;
             distanceMoved += currentPosition.y;
 
-            boxCollider2D.size = new Vector2(0.3f, distanceMoved);
+            boxCollider2D.size = new Vector2(0.3f, distanceMoved - projectileOffset);
             boxCollider2D.offset = new Vector2(0, GetComponent<SpriteRenderer>().size.y/2 - distanceMoved/2 + projectileOffset);
         }
     }
@@ -44,7 +53,10 @@ public class Grapple : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Wall" || col.gameObject.tag == "BreakableWall") {
             if (stickyVines && col.gameObject.tag != "BreakableWall") {
+                PlayImpactSound();
                 moving = false;
+                transform.Find("ImpactParticles").transform.SetPositionAndRotation(new Vector3(transform.position.x, GetComponent<BoxCollider2D>().bounds.max.y, -1), Quaternion.identity);
+                particle.Play();
             } else {
                 Destroy(transform.gameObject);
             }

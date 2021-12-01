@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class UIController : MonoBehaviour {
 
@@ -14,28 +15,37 @@ public class UIController : MonoBehaviour {
     public Slider[] volumeSliders;
     [Tooltip("Set selection to this button when level is won")] public GameObject winScreenActiveButton;
     [Tooltip("Set selection to this button when level is lost")] public GameObject loseScreenActiveButton;
-    
+    public Texture2D cursorTexture;
+    public AudioSource audioSrc;
+    public AudioClip failSound;
+
 
     public GameObject winScreen;
     public GameObject loseScreen;
     public GameObject endOverlay;
+    InputActions inputActions;
+
+    void Awake() {
+        inputActions = new InputActions();
+        inputActions.Enable();
+
+        inputActions.UI.Pause.performed += TogglePause;
+        inputActions.UI.Cancel.performed += CancelSettings;
+    }
 
     void Start() {
-        //UnpauseGame();
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.visible = false;
     }
 
-    void Update() {
-        if (Input.GetButtonDown("Pause") && transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted) { // Esc or start button
-            TogglePause();
-        }
-    }
-
-    void TogglePause() {
-        if (!paused) {
-            PauseGame();
-        }
-        else {
-            UnpauseGame();
+    void TogglePause(InputAction.CallbackContext context) {
+        if (transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted) {
+            if (!paused) {
+                PauseGame();
+            }
+            else {
+                UnpauseGame();
+            }
         }
     }
 
@@ -45,6 +55,7 @@ public class UIController : MonoBehaviour {
         ChangePanel(0);
         GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(false);
         Time.timeScale = 0;
+        Cursor.visible = true;
     }
 
     public void UnpauseGame() {
@@ -52,10 +63,7 @@ public class UIController : MonoBehaviour {
         pauseMenu.SetActive(false);
         GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(true);
         Time.timeScale = 1;
-    }
-
-    public void ResumeGame() {
-        TogglePause();
+        Cursor.visible = false;
     }
 
     void ChangePanel(int index) {
@@ -80,10 +88,17 @@ public class UIController : MonoBehaviour {
 
     public void ApplySettings() {
         ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().SetMusicVolume(ApplicationSettings.MusicVolume());
     }
 
     public void ExitSettings() {
         ChangePanel(0);
+    }
+
+    void CancelSettings(InputAction.CallbackContext context) {
+        if (pauseMenuPanels[1].activeSelf) {
+            ExitSettings();
+        }
     }
 
     public void ReturnToMenu() {
@@ -132,7 +147,17 @@ public class UIController : MonoBehaviour {
             Time.timeScale = 0;
             GetComponent<EventSystem>().SetSelectedGameObject(null);
             GetComponent<EventSystem>().SetSelectedGameObject(loseScreenActiveButton);
+            
+            audioSrc.clip = failSound;
+            audioSrc.volume = ApplicationSettings.SoundVolume() * 0.3f;
+            audioSrc.Play();
         }
         yield return null;
+    }
+
+    void OnDisable() {
+        inputActions.UI.Pause.performed -= TogglePause;
+        inputActions.UI.Cancel.performed -= CancelSettings;
+        inputActions.Disable();
     }
 }

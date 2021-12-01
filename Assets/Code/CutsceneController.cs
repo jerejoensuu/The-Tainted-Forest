@@ -2,21 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class CutsceneController : MonoBehaviour {
 
+    public InputActions inputActions;
     public GameObject blackScreen;
+    bool allowSkip = false;
 
-    // Start is called before the first frame update
-    void Start() {
-        
+    void Awake() {
+        inputActions = new InputActions();
+        inputActions.Disable();
+        inputActions.UI.Submit.performed += SkipCutscene;
     }
 
-    // Update is called once per frame
     void Update() {
-        if (Input.anyKeyDown) {
-            StartCoroutine(LoadLevelOne());
+        if (allowSkip) {
+            inputActions.Enable();
         }
+    }
+
+    void SkipCutscene(InputAction.CallbackContext context) {
+        StartCoroutine(LoadLevelOne());
+    }
+
+    public void AllowCutsceneSkip() {
+        allowSkip = true;
     }
 
     IEnumerator LoadLevelOne() {
@@ -40,5 +51,10 @@ public class CutsceneController : MonoBehaviour {
             // do something
             //asyncLoad.allowSceneActivation = true;
         }
+    }
+
+    void OnDisable() {
+        inputActions.UI.Submit.performed -= SkipCutscene;
+        inputActions.Disable();
     }
 }

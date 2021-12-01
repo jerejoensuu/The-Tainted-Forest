@@ -8,8 +8,10 @@ public class DropController : MonoBehaviour {
     public int score;
     int spawnTime;
     bool destroying = false;
+    public AudioSource audioSrc;
 
     void Start() {
+        audioSrc = GetComponent<AudioSource>();
         spawnTime = GameObject.Find("PlatformAndDropManager").GetComponent<DropManager>().time;
     }
 
@@ -30,8 +32,20 @@ public class DropController : MonoBehaviour {
             collected = true;
             transform.root.Find("Player").GetComponent<PlayerController>().HandleDrops(transform.gameObject);
             AddToScore();
-            Destroy(transform.gameObject);
+            StartCoroutine(Destroy());
         }
+    }
+
+    IEnumerator Destroy() {
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.1f;
+        audioSrc.Play();
+        if (transform.tag == "ScoreItem") {
+            transform.Find("lightbeam").gameObject.SetActive(false);
+        }
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        yield return new WaitForSeconds(audioSrc.clip.length);
+        Destroy(transform.gameObject);
     }
 
     void AddToScore() {
