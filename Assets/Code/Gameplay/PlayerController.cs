@@ -94,13 +94,14 @@ public class PlayerController : MonoBehaviour {
     void Move() {
         float x = inputActions.Player.Move.ReadValue<Vector2>().x;
         float y = inputActions.Player.Move.ReadValue<Vector2>().y;
+        Debug.Log(x + "    " +  y);
 
         if (Mathf.Abs(x) < Mathf.Abs(y)) {
             if (Mathf.Abs(y) > 0.2f) {
                 movementY = 1 * Mathf.Sign(y);
             }
             movementX = 0;
-        } else if (Mathf.Abs(x) > Mathf.Abs(y) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) {
+        } else if (Mathf.Abs(x) > Mathf.Abs(y) || (Mathf.Abs(x) == Mathf.Abs(y) && x != 0 && y != 0)) {
             if (Mathf.Abs(x) > 0.2f) {
                 movementX = 1 * Mathf.Sign(x);
             }
