@@ -31,7 +31,7 @@ public class Grapple : MonoBehaviour {
 
     void PlayImpactSound() {
         audioSrc.clip = impactSound;
-        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.15f;
         audioSrc.Play();
     }
 

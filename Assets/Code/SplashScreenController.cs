@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class SplashScreenController : MonoBehaviour {
     
-    void Awake() {
-        Cursor.visible = false;
+    void Start() {
+        if (GameObject.Find("GameController").GetComponent<GameController>().splashScreenPlayed == false) {
+            Cursor.visible = false;
+            GameObject.Find("GameController").GetComponent<GameController>().splashScreenPlayed = true;
+        } else {
+            ActivateCursor();
+        }
+        
     }
 
     public void ActivateCursor() {
         Cursor.visible = true;
         GameObject.Find("EventSystem").GetComponent<MainMenuController>().inputActions.Enable();
-        Destroy(GameObject.Find("Skip splash screen"));
-        Destroy(GameObject.Find("LOGO"));
-        Destroy(GameObject.Find("blackScreen"));
+        Destroy(gameObject);
         GameObject.Find("EventSystem").GetComponent<MainMenuController>().SetButtonSelection(GameObject.Find("New Game"));
     }
 
