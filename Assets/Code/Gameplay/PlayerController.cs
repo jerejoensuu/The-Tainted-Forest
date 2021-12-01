@@ -91,6 +91,12 @@ public class PlayerController : MonoBehaviour {
                 Walk();
             } else {
                 animator.SetBool("isRunning", false);
+                if (!isShooting) {
+                     SetActiveAnimation("Idle");
+                }
+            }
+            if (animator.GetCurrentAnimatorStateInfo(0).IsTag("idle") && !animator.GetBool("rapidFiring")) {
+                 SetActiveAnimation("Idle");
             }
 
             // Can player climb and are they trying to climb:
