@@ -324,6 +324,7 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(2.5f * dir, 3.25f), ForceMode2D.Impulse);
         SetActiveAnimation("Hit");
+        Flip();
 
 
         // Player dead:
@@ -383,9 +384,15 @@ public class PlayerController : MonoBehaviour {
     void Flip () {
         float oldX = Mathf.Abs(transform.localScale.x);
         float oldY = Mathf.Abs(transform.localScale.y);
-        if (movementX < 0 || rb.velocity.x < 0) {
+        Debug.Log(rb.velocity.x);
+        if (rb.velocity.x < 0) {
             transform.localScale = new Vector2(oldX, oldY);
-        } else if (movementX > 0 || rb.velocity.x > 0) {
+        } else if (rb.velocity.x > 0) {
+            transform.localScale = new Vector2(-oldX, oldY);
+        }
+        if (movementX < 0) {
+            transform.localScale = new Vector2(oldX, oldY);
+        } else if (movementX > 0) {
             transform.localScale = new Vector2(-oldX, oldY);
         }
     }
