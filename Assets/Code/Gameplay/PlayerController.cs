@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     bool knockedFromLadder = false;
     bool canStep = true; //temp
     public int combo = 0;
+    bool flash = false;
 
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour {
     RapidFireManager rapidFire;
     Coroutine lastRoutine = null;
     private int health = 3;
-    [SerializeField] public bool playerHit {get; set;}
+    [SerializeField] public bool iFramesActive {get; set;}
     // prevent gravityScale from turning back too soon:
     [SerializeField] private bool hitOffGroundOffset = false;
     [SerializeField] private float invincibilityDurationSeconds;
@@ -119,7 +120,7 @@ public class PlayerController : MonoBehaviour {
             // If the player is unable to climb anymore, turn it's gravityScale back on:
             } else if (canClimb && animator.GetBool("isClimbing") && !IsGrounded()) {
                 animator.speed = 0;
-            } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
+            } else if (!canClimb && !iFramesActive || (IsGrounded() && !hitOffGroundOffset)) {
                 rb.gravityScale = 1;
                 animator.speed = 1;
                 animator.SetBool("isClimbing", false);
@@ -130,7 +131,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Walk() {
-        if (!playerHit || !hitOffGroundOffset) {
+        if (!iFramesActive || !hitOffGroundOffset) {
             movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
 
@@ -166,7 +167,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Climb() {
-        if (!playerHit || !hitOffGroundOffset) {
+        if (!iFramesActive || !hitOffGroundOffset) {
             animator.speed = 1;
             animator.SetBool("isClimbing", true);
             rb.velocity = new Vector2(0, 0);
@@ -240,7 +241,7 @@ public class PlayerController : MonoBehaviour {
             currentLadderY = col.bounds.center.y - col.bounds.extents.y;
         }
 
-        if (col.gameObject.tag == "Ball" && !playerHit) {
+        if (col.gameObject.tag == "Ball" && !iFramesActive) {
             HitPlayer(col.gameObject.transform.localPosition.x);
             combo = 0;
         }
@@ -292,7 +293,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void ActiveShield() {
-        // turn blue here or something
+        transform.Find("Shield").gameObject.SetActive(true);
         shieldActive = true;
     }
     
@@ -306,11 +307,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void HitPlayer(float enemyX) {
-        if (playerHit) {
+        if (iFramesActive) {
             return;
         }
 
         if (shieldActive) {
+            transform.Find("Shield").gameObject.SetActive(false);
             shieldActive = false;
             StartCoroutine(CreateIFrames());
             return;
@@ -359,8 +361,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private IEnumerator CreateIFrames() {
-        playerHit = true;
-        bool flash = false;
+        iFramesActive = true;
         hitOffGroundOffset = true;
 
         for (float i = 0; i < invincibilityDurationSeconds; i += invincibilityDeltaTime) {
@@ -374,17 +375,17 @@ public class PlayerController : MonoBehaviour {
         }
 
         TurnInvisible(true);
-        playerHit = false;
+        iFramesActive = false;
     }
 
     private void TurnInvisible(bool boolean) {
+        Debug.Log(boolean);
         transform.Find(activeAnimation).gameObject.SetActive(boolean);
     }
 
     void Flip () {
         float oldX = Mathf.Abs(transform.localScale.x);
         float oldY = Mathf.Abs(transform.localScale.y);
-        Debug.Log(rb.velocity.x);
         if (rb.velocity.x < 0) {
             transform.localScale = new Vector2(oldX, oldY);
         } else if (rb.velocity.x > 0) {
