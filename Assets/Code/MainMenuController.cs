@@ -34,7 +34,6 @@ public class MainMenuController : MonoBehaviour {
         Time.timeScale = 1;
         ChangePanel(0);
         FillResolutionDropdown();
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f;
 
         inputActions = new InputActions();
         inputActions.Disable();
@@ -145,7 +144,7 @@ public class MainMenuController : MonoBehaviour {
                 break;
             } else {
                 transitionScreen.GetComponentInChildren<SpriteMask>().transform.localScale = new Vector2(maskSize,maskSize);
-                GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f * maskSize;
+                GameObject.Find("GameController").transform.Find("Music").GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f * maskSize;
             }
             yield return null;
         }

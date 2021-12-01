@@ -11,11 +11,10 @@ public class LevelManager : MonoBehaviour {
     private bool levelWon = false;
     private bool levelLost = false;
     [Range(1, 2)] [SerializeField] public int theme = 1;
-    [Range(1, 3)] [SerializeField] int taintLevel = 1;
+    [Range(1, 3)] [SerializeField] public int taintLevel = 1;
     [Range(10, 180)] [SerializeField] [Tooltip("In seconds")] public int time = 90;
     public GameObject blackScreen;
     public AudioSource audioSrc;
-
     
     void Awake() {
         audioSrc = GetComponent<AudioSource>();
@@ -30,10 +29,9 @@ public class LevelManager : MonoBehaviour {
         }
 
         transform.Find("PlatformAndDropManager").GetComponent<DropManager>().ApplyTheme(theme);
-        ApplyBackground();
+        //ApplyBackground();
 
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.2f);
-        SetMusicVolume(GetMusicVolume());
 
     }
 
@@ -138,32 +136,12 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    private void ApplyBackground() {
+    public void ApplyBackground() {
         transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(false);
         transform.Find("Backgrounds").GetChild(0).GetChild(0).gameObject.SetActive(false);
 
         transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(true);
         transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).gameObject.SetActive(true);
-        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.5f;
-    }
-
-    public void ToggleMusic(bool musicOn) {
-        if (musicOn) {
-            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().UnPause();
-            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().UnPause();
-        } else {
-            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().Pause();
-            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().Pause();
-        }
-    }
-
-    public void SetMusicVolume(float volume) {
-        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = volume * 0.7f;
-        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().volume = volume * 0.15f;
-    }
-
-    public float GetMusicVolume() {
-        return transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume;
     }
 
     IEnumerator Transition() {

@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
     // prevent gravityScale from turning back too soon:
     [SerializeField] private bool hitOffGroundOffset = false;
     [SerializeField] private float invincibilityDurationSeconds;
-    [SerializeField] private float invincibilityDeltaTime = 0.15f;
+    [SerializeField] private float invincibilityDeltaTime = 0.125f;
 
     private PlayerUI hud;
     InputActions inputActions;

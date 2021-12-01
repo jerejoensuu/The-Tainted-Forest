@@ -53,7 +53,7 @@ public class UIController : MonoBehaviour {
         paused = true;
         pauseMenu.SetActive(true);
         ChangePanel(0);
-        GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(false);
+        GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(false);
         Time.timeScale = 0;
         Cursor.visible = true;
     }
@@ -61,7 +61,7 @@ public class UIController : MonoBehaviour {
     public void UnpauseGame() {
         paused = false;
         pauseMenu.SetActive(false);
-        GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(true);
+        GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(true);
         Time.timeScale = 1;
         Cursor.visible = false;
     }
@@ -88,7 +88,7 @@ public class UIController : MonoBehaviour {
 
     public void ApplySettings() {
         ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
-        GameObject.Find("LevelManager").GetComponent<LevelManager>().SetMusicVolume(ApplicationSettings.MusicVolume());
+        GameObject.Find("GameController").GetComponent<GameController>().SetMusicVolume(ApplicationSettings.MusicVolume());
     }
 
     public void ExitSettings() {
@@ -114,11 +114,13 @@ public class UIController : MonoBehaviour {
     }
 
     public void LevelWin() {
+        Cursor.lockState = CursorLockMode.None;
         paused = true;
         StartCoroutine(ShowEndScreen(true));
     }
 
     public void LevelLose() {
+        Cursor.lockState = CursorLockMode.None;
         paused = true;
         StartCoroutine(ShowEndScreen(false));
     }
@@ -127,7 +129,7 @@ public class UIController : MonoBehaviour {
         float change = 0.02f;
         for (float alpha = 0f; alpha < 1; alpha += change) 
         {
-            GameObject.Find("LevelManager").GetComponent<LevelManager>().SetMusicVolume(GameObject.Find("LevelManager").GetComponent<LevelManager>().GetMusicVolume() - change);
+            //GameObject.Find("GameController").GetComponent<GameController>().SetMusicVolume(GameObject.Find("GameController").GetComponent<GameController>().GetMusicVolume() - change);
             Color overlayColor = endOverlay.GetComponent<Image>().color;
             overlayColor.a = alpha;
             endOverlay.GetComponent<Image>().color = overlayColor;
