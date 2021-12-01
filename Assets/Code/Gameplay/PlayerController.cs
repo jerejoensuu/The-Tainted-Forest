@@ -89,6 +89,14 @@ public class PlayerController : MonoBehaviour {
             // Horizontal movement:
             if (Input.GetAxisRaw("Horizontal") != 0 && !isShooting) {
                 Walk();
+            } else {
+                animator.SetBool("isRunning", false);
+                if (!isShooting) {
+                     SetActiveAnimation("Idle");
+                }
+            }
+            if (animator.GetCurrentAnimatorStateInfo(0).IsTag("idle") && !animator.GetBool("rapidFiring")) {
+                 SetActiveAnimation("Idle");
             }
 
             // Can player climb and are they trying to climb:
@@ -125,10 +133,8 @@ public class PlayerController : MonoBehaviour {
             movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
             transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
 
-            if (canStep) {
-                PlayFootstepSound();
-                StartCoroutine(FootstepCooldown());
-            }
+            animator.SetBool("isRunning", true);
+            SetActiveAnimation("Running");
         }
     }
 
@@ -391,6 +397,7 @@ public class PlayerController : MonoBehaviour {
         transform.Find("Hit").gameObject.SetActive(false);
         transform.Find("Shooting").gameObject.SetActive(false);
         transform.Find("Climbing").gameObject.SetActive(false);
+        transform.Find("Running").gameObject.SetActive(false);
         
         activeAnimation = newAnimation;
         transform.Find(activeAnimation).gameObject.SetActive(true);
