@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour {
         ApplyBackground();
 
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.2f);
-
+        SetMusicVolume(GetMusicVolume());
 
     }
 
@@ -150,13 +150,16 @@ public class LevelManager : MonoBehaviour {
     public void ToggleMusic(bool musicOn) {
         if (musicOn) {
             transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().UnPause();
+            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().UnPause();
         } else {
             transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().Pause();
+            transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().Pause();
         }
     }
 
     public void SetMusicVolume(float volume) {
-        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = volume;
+        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().volume = volume * 0.7f;
+        transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().volume = volume * 0.15f;
     }
 
     public float GetMusicVolume() {

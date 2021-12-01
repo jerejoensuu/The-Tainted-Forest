@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
     public float movementSpeed;
@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour {
     int maxVines = 1;
     bool stickyVines = false;
     bool knockedFromLadder = false;
-    bool canStep = true; //temp
     public int combo = 0;
+    bool flash = false;
 
     public AudioSource audioSrc;
     public AudioClip[] audioClips;
@@ -38,13 +38,22 @@ public class PlayerController : MonoBehaviour {
     RapidFireManager rapidFire;
     Coroutine lastRoutine = null;
     private int health = 3;
-    [SerializeField] public bool playerHit {get; set;}
+    [SerializeField] public bool iFramesActive {get; set;}
     // prevent gravityScale from turning back too soon:
     [SerializeField] private bool hitOffGroundOffset = false;
     [SerializeField] private float invincibilityDurationSeconds;
     [SerializeField] private float invincibilityDeltaTime = 0.15f;
 
     private PlayerUI hud;
+    InputActions inputActions;
+
+    void Awake() {
+        inputActions = new InputActions();
+        inputActions.Enable();
+
+        inputActions.Player.Fire.started += Fire;
+        inputActions.Player.Fire.canceled += Fire;
+    }
     
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -65,16 +74,6 @@ public class PlayerController : MonoBehaviour {
 
         if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
 
-            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded() && projectileType == "RapidFire" && lastRoutine == null) {
-                lastRoutine = StartCoroutine(HoldingAttack());
-            } else if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) && ammoCount > 0 && IsGrounded() && lastRoutine == null) {
-                Attack();
-            } else if ((Input.GetButtonUp("Fire1") || Input.GetButtonUp("Jump") || projectileType != "RapidFire") && lastRoutine != null && animator.GetBool("rapidFiring")) {
-                StopCoroutine(lastRoutine);
-                lastRoutine = null;
-                animator.SetBool("rapidFiring", false);
-            }
-
             if (knockedFromLadder) {
                 canClimb = false;
                 canClimbDown = false;
@@ -86,52 +85,88 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused && health >= 1) {
-            // Horizontal movement:
-            if (Input.GetAxisRaw("Horizontal") != 0 && !isShooting) {
-                Walk();
-            } else {
-                animator.SetBool("isRunning", false);
-                if (!isShooting) {
-                     SetActiveAnimation("Idle");
-                }
-            }
-            if (animator.GetCurrentAnimatorStateInfo(0).IsTag("idle") && !animator.GetBool("rapidFiring")) {
-                 SetActiveAnimation("Idle");
-            }
-
-            // Can player climb and are they trying to climb:
-            if (canClimb && Input.GetAxisRaw("Vertical") != 0 && !isShooting) {
-
-                // Can player climb down, is the ladder below them and are they attempting to climb down:
-                if (canClimbDown && currentLadderY < bc.bounds.min.y && Input.GetAxisRaw("Vertical") < 0) {
-                    // Turn player into a semisolid able to go through platforms:
-                    gameObject.layer = LayerMask.NameToLayer("SemisolidPlayer");
-
-                // Is the player on the ground or is the ladder they're climbing above them:
-                } else if (IsGrounded() || currentLadderY > transform.localPosition.y) {
-                    // Turn player back into a solid object and disable canClimbDown:
-                    canClimbDown = false;
-                    gameObject.layer = LayerMask.NameToLayer("Player");
-                }
-                Climb();
-
-            // If the player is unable to climb anymore, turn it's gravityScale back on:
-            } else if (canClimb && animator.GetBool("isClimbing") && !IsGrounded()) {
-                animator.speed = 0;
-            } else if (!canClimb && !playerHit || (IsGrounded() && !hitOffGroundOffset)) {
-                rb.gravityScale = 1;
-                animator.speed = 1;
-                animator.SetBool("isClimbing", false);
-            }
+            Move();
         }
-
+        
         Flip();
     }
 
+    void Move() {
+        float x = inputActions.Player.Move.ReadValue<Vector2>().x;
+        float y = inputActions.Player.Move.ReadValue<Vector2>().y;
+
+        if (Mathf.Abs(x) < Mathf.Abs(y)) {
+            if (Mathf.Abs(y) > 0.2f) {
+                movementY = 1 * Mathf.Sign(y);
+            }
+            movementX = 0;
+        } else if (Mathf.Abs(x) > Mathf.Abs(y) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) {
+            if (Mathf.Abs(x) > 0.2f) {
+                movementX = 1 * Mathf.Sign(x);
+            }
+            movementY = 0;
+        } else {
+            movementX = 0;
+            movementY = 0;
+        }
+        
+        // Horizontal movement:
+        if (movementX != 0 && !isShooting) {
+            Walk();
+        } else {
+            animator.SetBool("isRunning", false);
+            if (!isShooting) {
+                    SetActiveAnimation("Idle");
+            }
+        }
+        // if (animator.GetCurrentAnimatorStateInfo(0).IsTag("idle") && !animator.GetBool("rapidFiring")) {
+        //      SetActiveAnimation("Idle");
+        // }
+
+        // Can player climb and are they trying to climb:
+        if (canClimb && movementY != 0 && !isShooting) {
+
+            // Can player climb down, is the ladder below them and are they attempting to climb down:
+            if (canClimbDown && currentLadderY < bc.bounds.min.y && Input.GetAxisRaw("Vertical") < 0) {
+                // Turn player into a semisolid able to go through platforms:
+                gameObject.layer = LayerMask.NameToLayer("SemisolidPlayer");
+
+            // Is the player on the ground or is the ladder they're climbing above them:
+            } else if (IsGrounded() || currentLadderY > transform.localPosition.y) {
+                // Turn player back into a solid object and disable canClimbDown:
+                canClimbDown = false;
+                gameObject.layer = LayerMask.NameToLayer("Player");
+            }
+            Climb();
+
+        // If the player is unable to climb anymore, turn it's gravityScale back on:
+        } else if (canClimb && animator.GetBool("isClimbing") && !IsGrounded()) {
+            animator.speed = 0;
+        } else if (!canClimb && !iFramesActive || (IsGrounded() && !hitOffGroundOffset)) {
+            rb.gravityScale = 1;
+            animator.speed = 1;
+            animator.SetBool("isClimbing", false);
+        }
+    }
+
+    void Fire(InputAction.CallbackContext context) {
+        if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused) {
+            if (context.started && ammoCount > 0 && IsGrounded() && projectileType == "RapidFire" && lastRoutine == null) {
+                lastRoutine = StartCoroutine(HoldingAttack());
+            } else if (context.started && ammoCount > 0 && IsGrounded() && lastRoutine == null) {
+                Attack();
+            } else if ((context.canceled || projectileType != "RapidFire") && lastRoutine != null && animator.GetBool("rapidFiring")) {
+                StopCoroutine(lastRoutine);
+                lastRoutine = null;
+                DisableShooting();
+                animator.SetBool("rapidFiring", false);
+            }
+        }
+    }
+
     void Walk() {
-        if (!playerHit || !hitOffGroundOffset) {
-            movementX = Input.GetAxisRaw("Horizontal") * movementSpeed;
-            transform.position += new Vector3(movementX, 0, 0) * Time.deltaTime;
+        if (!iFramesActive || !hitOffGroundOffset) {
+            transform.position += new Vector3(movementX * movementSpeed, 0, 0) * Time.deltaTime;
 
             animator.SetBool("isRunning", true);
             SetActiveAnimation("Running");
@@ -158,20 +193,13 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(reloadSound.length);
     }
 
-    IEnumerator FootstepCooldown() { //temp
-        canStep = false;
-        yield return new WaitForSeconds(0.45f);
-        canStep = true;
-    }
-
     void Climb() {
-        if (!playerHit || !hitOffGroundOffset) {
+        if (!iFramesActive || !hitOffGroundOffset) {
             animator.speed = 1;
             animator.SetBool("isClimbing", true);
             rb.velocity = new Vector2(0, 0);
             rb.gravityScale = 0;
-            movementY = Input.GetAxisRaw("Vertical") * climbingSpeed;
-            transform.position += new Vector3(0, movementY, 0) * Time.deltaTime;
+            transform.position += new Vector3(0, movementY * climbingSpeed, 0) * Time.deltaTime;
             SetActiveAnimation("Climbing");
         }
     }
@@ -182,7 +210,7 @@ public class PlayerController : MonoBehaviour {
             case "Vine":
                 if (transform.parent.GetComponent<LevelManager>().CountVines() < maxVines && !isShooting) {
                     isShooting = true;
-                    SetActiveAnimation("Shooting");
+                    //SetActiveAnimation("Shooting");
                     animator.SetTrigger("shot");
                     ChangeAmmoCount(-1);
                     if (stickyVines) {
@@ -200,7 +228,7 @@ public class PlayerController : MonoBehaviour {
 
             case "RapidFire":
                 isShooting = true;
-                SetActiveAnimation("Shooting");
+                //SetActiveAnimation("Shooting");
                 animator.SetTrigger("shot fast");
                 animator.SetBool("rapidFiring", true);
                 rapidFire.Fire();
@@ -239,7 +267,7 @@ public class PlayerController : MonoBehaviour {
             currentLadderY = col.bounds.center.y - col.bounds.extents.y;
         }
 
-        if (col.gameObject.tag == "Ball" && !playerHit) {
+        if (col.gameObject.tag == "Ball" && !iFramesActive) {
             HitPlayer(col.gameObject.transform.localPosition.x);
             combo = 0;
         }
@@ -291,7 +319,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void ActiveShield() {
-        // turn blue here or something
+        transform.Find("Shield").gameObject.SetActive(true);
         shieldActive = true;
     }
     
@@ -305,11 +333,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void HitPlayer(float enemyX) {
-        if (playerHit) {
+        if (iFramesActive) {
             return;
         }
 
         if (shieldActive) {
+            transform.Find("Shield").gameObject.SetActive(false);
             shieldActive = false;
             StartCoroutine(CreateIFrames());
             return;
@@ -323,6 +352,7 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(2.5f * dir, 3.25f), ForceMode2D.Impulse);
         SetActiveAnimation("Hit");
+        Flip();
 
 
         // Player dead:
@@ -357,8 +387,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private IEnumerator CreateIFrames() {
-        playerHit = true;
-        bool flash = false;
+        iFramesActive = true;
         hitOffGroundOffset = true;
 
         for (float i = 0; i < invincibilityDurationSeconds; i += invincibilityDeltaTime) {
@@ -372,19 +401,25 @@ public class PlayerController : MonoBehaviour {
         }
 
         TurnInvisible(true);
-        playerHit = false;
+        iFramesActive = false;
     }
 
     private void TurnInvisible(bool boolean) {
+        Debug.Log(boolean);
         transform.Find(activeAnimation).gameObject.SetActive(boolean);
     }
 
     void Flip () {
         float oldX = Mathf.Abs(transform.localScale.x);
         float oldY = Mathf.Abs(transform.localScale.y);
-        if (movementX < 0 || rb.velocity.x < 0) {
+        if (rb.velocity.x < 0) {
             transform.localScale = new Vector2(oldX, oldY);
-        } else if (movementX > 0 || rb.velocity.x > 0) {
+        } else if (rb.velocity.x > 0) {
+            transform.localScale = new Vector2(-oldX, oldY);
+        }
+        if (movementX < 0) {
+            transform.localScale = new Vector2(oldX, oldY);
+        } else if (movementX > 0) {
             transform.localScale = new Vector2(-oldX, oldY);
         }
     }
@@ -401,9 +436,16 @@ public class PlayerController : MonoBehaviour {
         
         activeAnimation = newAnimation;
         transform.Find(activeAnimation).gameObject.SetActive(true);
-        if (newAnimation == "Idle") {
-            isShooting = false;
-        }
+    }
+
+    void DisableShooting() {
+        isShooting = false;
+    }
+
+    void OnDisable() {
+        inputActions.Player.Fire.started -= Fire;
+        inputActions.Player.Fire.canceled -= Fire;
+        inputActions.Disable();
     }
 
 }
