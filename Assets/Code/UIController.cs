@@ -114,11 +114,13 @@ public class UIController : MonoBehaviour {
     }
 
     public void LevelWin() {
+        Cursor.lockState = CursorLockMode.None;
         paused = true;
         StartCoroutine(ShowEndScreen(true));
     }
 
     public void LevelLose() {
+        Cursor.lockState = CursorLockMode.None;
         paused = true;
         StartCoroutine(ShowEndScreen(false));
     }
