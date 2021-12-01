@@ -2,21 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class CutsceneController : MonoBehaviour {
 
+    public InputActions inputActions;
     public GameObject blackScreen;
 
-    // Start is called before the first frame update
-    void Start() {
+    void Awake() {
+        inputActions = new InputActions();
+        inputActions.Enable();
+        inputActions.UI.Submit.performed += SkipCutscene;
+    }
+
+    void Update() {
         
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (Input.anyKeyDown) {
-            StartCoroutine(LoadLevelOne());
-        }
+    void SkipCutscene(InputAction.CallbackContext context) {
+        StartCoroutine(LoadLevelOne());
     }
 
     IEnumerator LoadLevelOne() {
