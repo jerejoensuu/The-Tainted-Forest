@@ -48,6 +48,7 @@ public class BreakableBlockController : MonoBehaviour {
         foreach (Transform child in transform) {
             if (child.tag == "Theme") {
                 child.GetComponent<SpriteRenderer>().enabled = false;
+                child.GetComponent<BoxCollider2D>().enabled = false;
             }
         }
 
