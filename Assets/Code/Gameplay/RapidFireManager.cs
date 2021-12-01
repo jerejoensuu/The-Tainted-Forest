@@ -23,8 +23,8 @@ public class RapidFireManager : MonoBehaviour {
     }
 
     public IEnumerator Activate() {
-        GetComponent<PlayerController>().projectileType = "RapidFire";
+        GetComponent<PlayerController>().ChangeProjectile("RapidFire");
         yield return new WaitForSeconds(5f);
-        GetComponent<PlayerController>().projectileType = "Vine";
+        GetComponent<PlayerController>().ChangeProjectile("Vine");
     }
 }

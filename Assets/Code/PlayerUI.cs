@@ -12,6 +12,9 @@ public class PlayerUI : MonoBehaviour {
     public GameObject[] healthContainers;
     public Sprite[] healthIcons;
 
+    public GameObject weaponImage;
+    public Sprite[] weaponIcons;
+
     TextMeshProUGUI scoreText;
     TextMeshProUGUI ammoText;
 
@@ -41,6 +44,26 @@ public class PlayerUI : MonoBehaviour {
 
     public void SetAmmo(int amount) {
         ammoText.SetText(amount.ToString());
+    }
+
+    public void SetWeapon(string type) {
+        switch (type) {
+            case "Vine":
+                            weaponImage.GetComponent<Image>().sprite = weaponIcons[0];
+                            break;
+            case "RapidFire":
+                            weaponImage.GetComponent<Image>().sprite = weaponIcons[1];
+                            break;
+            case "DoubleVines":
+                            weaponImage.GetComponent<Image>().sprite = weaponIcons[2];
+                            break;
+            case "StickyVines":
+                            weaponImage.GetComponent<Image>().sprite = weaponIcons[3];
+                            break;
+            default:
+                            Debug.Log("Invalid weapon type in UI");
+                            break;
+        }
     }
 
     public void SetHealth(int amount) {

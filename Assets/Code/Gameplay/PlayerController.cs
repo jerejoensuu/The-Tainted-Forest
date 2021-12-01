@@ -259,6 +259,23 @@ public class PlayerController : MonoBehaviour {
         hud.SetHealth(health);
     }
 
+    public void ChangeProjectile(string type) {
+        projectileType = type;
+
+        if (projectileType == "RapidFire") {
+            hud.SetWeapon(type);
+        }
+        else if (maxVines > 1) {
+            hud.SetWeapon("DoubleVines");
+        }
+        else if (stickyVines) {
+            hud.SetWeapon("StickyVines");
+        }
+        else {
+            hud.SetWeapon(type);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D col) {
 
         if (col.gameObject.tag == "Ladder") {
@@ -301,11 +318,11 @@ public class PlayerController : MonoBehaviour {
                                 break;
             case "DoubleVines": maxVines = 2;
                                 stickyVines = false;
-                                projectileType = "Vine";
+                                ChangeProjectile("Vine");
                                 break;
             case "StickyVines": stickyVines = true;
                                 maxVines = 1;
-                                projectileType = "Vine";
+                                ChangeProjectile("Vine");
                                 break;
             case "RapidFire":   StartCoroutine(rapidFire.Activate());
                                 stickyVines = false;
