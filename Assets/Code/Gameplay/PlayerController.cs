@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour {
             } else if ((Input.GetButtonUp("Fire1") || Input.GetButtonUp("Jump") || projectileType != "RapidFire") && lastRoutine != null && animator.GetBool("rapidFiring")) {
                 StopCoroutine(lastRoutine);
                 lastRoutine = null;
+                DisableShooting();
                 animator.SetBool("rapidFiring", false);
             }
 
@@ -95,9 +96,9 @@ public class PlayerController : MonoBehaviour {
                      SetActiveAnimation("Idle");
                 }
             }
-            if (animator.GetCurrentAnimatorStateInfo(0).IsTag("idle") && !animator.GetBool("rapidFiring")) {
-                 SetActiveAnimation("Idle");
-            }
+            // if (animator.GetCurrentAnimatorStateInfo(0).IsTag("idle") && !animator.GetBool("rapidFiring")) {
+            //      SetActiveAnimation("Idle");
+            // }
 
             // Can player climb and are they trying to climb:
             if (canClimb && Input.GetAxisRaw("Vertical") != 0 && !isShooting) {
@@ -182,7 +183,7 @@ public class PlayerController : MonoBehaviour {
             case "Vine":
                 if (transform.parent.GetComponent<LevelManager>().CountVines() < maxVines && !isShooting) {
                     isShooting = true;
-                    SetActiveAnimation("Shooting");
+                    //SetActiveAnimation("Shooting");
                     animator.SetTrigger("shot");
                     ChangeAmmoCount(-1);
                     if (stickyVines) {
@@ -200,7 +201,7 @@ public class PlayerController : MonoBehaviour {
 
             case "RapidFire":
                 isShooting = true;
-                SetActiveAnimation("Shooting");
+                //SetActiveAnimation("Shooting");
                 animator.SetTrigger("shot fast");
                 animator.SetBool("rapidFiring", true);
                 rapidFire.Fire();
@@ -401,9 +402,10 @@ public class PlayerController : MonoBehaviour {
         
         activeAnimation = newAnimation;
         transform.Find(activeAnimation).gameObject.SetActive(true);
-        if (newAnimation == "Idle") {
-            isShooting = false;
-        }
+    }
+
+    void DisableShooting() {
+        isShooting = false;
     }
 
 }
