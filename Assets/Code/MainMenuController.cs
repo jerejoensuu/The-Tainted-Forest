@@ -34,7 +34,7 @@ public class MainMenuController : MonoBehaviour {
         Time.timeScale = 1;
         ChangePanel(0);
         FillResolutionDropdown();
-        GetComponent<AudioSource>().volume = ApplicationSettings.SoundVolume() * 0.1f;
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f;
 
         inputActions = new InputActions();
         inputActions.Disable();
@@ -93,6 +93,7 @@ public class MainMenuController : MonoBehaviour {
 
     public void SaveAndExit() {
         ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
+        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f;
         BackToMain();
     }
 
@@ -144,7 +145,7 @@ public class MainMenuController : MonoBehaviour {
                 break;
             } else {
                 transitionScreen.GetComponentInChildren<SpriteMask>().transform.localScale = new Vector2(maskSize,maskSize);
-                GetComponent<AudioSource>().volume = ApplicationSettings.SoundVolume() * 0.1f * maskSize;
+                GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f * maskSize;
             }
             yield return null;
         }

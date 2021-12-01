@@ -88,6 +88,7 @@ public class UIController : MonoBehaviour {
 
     public void ApplySettings() {
         ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().SetMusicVolume(ApplicationSettings.MusicVolume());
     }
 
     public void ExitSettings() {
