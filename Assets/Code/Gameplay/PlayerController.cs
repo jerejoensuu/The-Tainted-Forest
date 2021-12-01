@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour {
     int maxVines = 1;
     bool stickyVines = false;
     bool knockedFromLadder = false;
-    bool canStep = true; //temp
     public int combo = 0;
     bool flash = false;
 
@@ -192,12 +191,6 @@ public class PlayerController : MonoBehaviour {
         audioSrc.volume = ApplicationSettings.SoundVolume() * 0.2f;
         audioSrc.Play();
         yield return new WaitForSeconds(reloadSound.length);
-    }
-
-    IEnumerator FootstepCooldown() { //temp
-        canStep = false;
-        yield return new WaitForSeconds(0.45f);
-        canStep = true;
     }
 
     void Climb() {
