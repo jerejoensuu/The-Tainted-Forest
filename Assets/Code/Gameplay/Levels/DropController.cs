@@ -39,6 +39,9 @@ public class DropController : MonoBehaviour {
     IEnumerator Destroy() {
         audioSrc.volume = ApplicationSettings.SoundVolume() * 0.1f;
         audioSrc.Play();
+        if (transform.tag == "ScoreItem") {
+            transform.Find("lightbeam").gameObject.SetActive(false);
+        }
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(audioSrc.clip.length);

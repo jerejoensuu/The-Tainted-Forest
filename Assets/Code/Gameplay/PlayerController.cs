@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour {
                 movementY = 1 * Mathf.Sign(y);
             }
             movementX = 0;
-        } else if (Mathf.Abs(x) > Mathf.Abs(y) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) {
+        } else if (Mathf.Abs(x) > Mathf.Abs(y) || (Mathf.Abs(x) == Mathf.Abs(y) && x != 0 && y != 0)) {
             if (Mathf.Abs(x) > 0.2f) {
                 movementX = 1 * Mathf.Sign(x);
             }
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour {
         if (canClimb && movementY != 0 && !isShooting) {
 
             // Can player climb down, is the ladder below them and are they attempting to climb down:
-            if (canClimbDown && currentLadderY < bc.bounds.min.y && Input.GetAxisRaw("Vertical") < 0) {
+            if (canClimbDown && currentLadderY < bc.bounds.min.y && y < 0) {
                 // Turn player into a semisolid able to go through platforms:
                 gameObject.layer = LayerMask.NameToLayer("SemisolidPlayer");
 
@@ -405,7 +405,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void TurnInvisible(bool boolean) {
-        Debug.Log(boolean);
         transform.Find(activeAnimation).gameObject.SetActive(boolean);
     }
 
