@@ -8,19 +8,26 @@ public class CutsceneController : MonoBehaviour {
 
     public InputActions inputActions;
     public GameObject blackScreen;
+    bool allowSkip = false;
 
     void Awake() {
         inputActions = new InputActions();
-        inputActions.Enable();
+        inputActions.Disable();
         inputActions.UI.Submit.performed += SkipCutscene;
     }
 
     void Update() {
-        
+        if (allowSkip) {
+            inputActions.Enable();
+        }
     }
 
     void SkipCutscene(InputAction.CallbackContext context) {
         StartCoroutine(LoadLevelOne());
+    }
+
+    public void AllowCutsceneSkip() {
+        allowSkip = true;
     }
 
     IEnumerator LoadLevelOne() {
