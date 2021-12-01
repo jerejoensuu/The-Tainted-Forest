@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class UIController : MonoBehaviour {
 
@@ -22,24 +23,29 @@ public class UIController : MonoBehaviour {
     public GameObject winScreen;
     public GameObject loseScreen;
     public GameObject endOverlay;
+    InputActions inputActions;
+
+    void Awake() {
+        inputActions = new InputActions();
+        inputActions.Enable();
+
+        inputActions.UI.Pause.performed += TogglePause;
+        inputActions.UI.Cancel.performed += CancelSettings;
+    }
 
     void Start() {
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
         Cursor.visible = false;
     }
 
-    void Update() {
-        if (Input.GetButtonDown("Pause") && transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted) { // Esc or start button
-            TogglePause();
-        }
-    }
-
-    void TogglePause() {
-        if (!paused) {
-            PauseGame();
-        }
-        else {
-            UnpauseGame();
+    void TogglePause(InputAction.CallbackContext context) {
+        if (transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted) {
+            if (!paused) {
+                PauseGame();
+            }
+            else {
+                UnpauseGame();
+            }
         }
     }
 
@@ -58,10 +64,6 @@ public class UIController : MonoBehaviour {
         GameObject.Find("LevelManager").GetComponent<LevelManager>().ToggleMusic(true);
         Time.timeScale = 1;
         Cursor.visible = false;
-    }
-
-    public void ResumeGame() {
-        TogglePause();
     }
 
     void ChangePanel(int index) {
@@ -90,6 +92,12 @@ public class UIController : MonoBehaviour {
 
     public void ExitSettings() {
         ChangePanel(0);
+    }
+
+    void CancelSettings(InputAction.CallbackContext context) {
+        if (pauseMenuPanels[1].activeSelf) {
+            ExitSettings();
+        }
     }
 
     public void ReturnToMenu() {
@@ -144,5 +152,11 @@ public class UIController : MonoBehaviour {
             audioSrc.Play();
         }
         yield return null;
+    }
+
+    void OnDisable() {
+        inputActions.UI.Pause.performed -= TogglePause;
+        inputActions.UI.Cancel.performed -= CancelSettings;
+        inputActions.Disable();
     }
 }

@@ -25,7 +25,7 @@ public class Grapple : MonoBehaviour {
 
     void PlayShootingSound() {
         audioSrc.clip = audioClips[Random.Range(0, audioClips.Length)];
-        audioSrc.volume = ApplicationSettings.SoundVolume();
+        audioSrc.volume = ApplicationSettings.SoundVolume() * 0.7f;
         audioSrc.Play();
     }
 
