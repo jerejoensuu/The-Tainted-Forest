@@ -153,4 +153,10 @@ public class UIController : MonoBehaviour {
         }
         yield return null;
     }
+
+    void OnDisable() {
+        inputActions.UI.Pause.performed -= TogglePause;
+        inputActions.UI.Cancel.performed -= CancelSettings;
+        inputActions.Disable();
+    }
 }

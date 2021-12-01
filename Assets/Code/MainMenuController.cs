@@ -31,8 +31,10 @@ public class MainMenuController : MonoBehaviour {
     public InputActions inputActions;
 
     void Awake() {
+        Time.timeScale = 1;
         ChangePanel(0);
         FillResolutionDropdown();
+        GetComponent<AudioSource>().volume = ApplicationSettings.SoundVolume() * 0.1f;
 
         inputActions = new InputActions();
         inputActions.Disable();
@@ -131,7 +133,7 @@ public class MainMenuController : MonoBehaviour {
     }
 
     IEnumerator LevelLoader(string levelName, bool transition = true) {
-        
+        inputActions.Disable();
         GameObject transitionScreen = Instantiate(blackScreen, Vector3.zero, Quaternion.identity) as GameObject;
 
         float maskSize = 1f;
@@ -142,6 +144,7 @@ public class MainMenuController : MonoBehaviour {
                 break;
             } else {
                 transitionScreen.GetComponentInChildren<SpriteMask>().transform.localScale = new Vector2(maskSize,maskSize);
+                GetComponent<AudioSource>().volume = ApplicationSettings.SoundVolume() * 0.1f * maskSize;
             }
             yield return null;
         }
@@ -152,5 +155,10 @@ public class MainMenuController : MonoBehaviour {
             // do something
             //asyncLoad.allowSceneActivation = true;
         }
+    }
+
+    void OnDisable() {
+        inputActions.UI.Cancel.performed -= CancelSettings;
+        inputActions.Disable();
     }
 }

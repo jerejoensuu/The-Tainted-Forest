@@ -151,15 +151,17 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Fire(InputAction.CallbackContext context) {
-        if (context.started && ammoCount > 0 && IsGrounded() && projectileType == "RapidFire" && lastRoutine == null) {
-            lastRoutine = StartCoroutine(HoldingAttack());
-        } else if (context.started && ammoCount > 0 && IsGrounded() && lastRoutine == null) {
-            Attack();
-        } else if ((context.canceled || projectileType != "RapidFire") && lastRoutine != null && animator.GetBool("rapidFiring")) {
-            StopCoroutine(lastRoutine);
-            lastRoutine = null;
-            DisableShooting();
-            animator.SetBool("rapidFiring", false);
+        if (!transform.root.Find("UI").Find("UIController").GetComponent<UIController>().paused) {
+            if (context.started && ammoCount > 0 && IsGrounded() && projectileType == "RapidFire" && lastRoutine == null) {
+                lastRoutine = StartCoroutine(HoldingAttack());
+            } else if (context.started && ammoCount > 0 && IsGrounded() && lastRoutine == null) {
+                Attack();
+            } else if ((context.canceled || projectileType != "RapidFire") && lastRoutine != null && animator.GetBool("rapidFiring")) {
+                StopCoroutine(lastRoutine);
+                lastRoutine = null;
+                DisableShooting();
+                animator.SetBool("rapidFiring", false);
+            }
         }
     }
 
@@ -445,6 +447,12 @@ public class PlayerController : MonoBehaviour {
 
     void DisableShooting() {
         isShooting = false;
+    }
+
+    void OnDisable() {
+        inputActions.Player.Fire.started -= Fire;
+        inputActions.Player.Fire.canceled -= Fire;
+        inputActions.Disable();
     }
 
 }

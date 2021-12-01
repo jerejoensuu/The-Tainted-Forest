@@ -52,4 +52,9 @@ public class CutsceneController : MonoBehaviour {
             //asyncLoad.allowSceneActivation = true;
         }
     }
+
+    void OnDisable() {
+        inputActions.UI.Submit.performed -= SkipCutscene;
+        inputActions.Disable();
+    }
 }
