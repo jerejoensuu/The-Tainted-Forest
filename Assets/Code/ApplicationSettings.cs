@@ -36,6 +36,4 @@ public static class ApplicationSettings {
         float vol = GetMasterVolume() * GetMusicVolume();
         return vol;
     }
-
-
 }
