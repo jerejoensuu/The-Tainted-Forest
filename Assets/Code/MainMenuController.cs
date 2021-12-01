@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using TaintedForest;
+using UnityEngine.InputSystem;
 
 
 public static class Levels {
@@ -27,10 +28,15 @@ public class MainMenuController : MonoBehaviour {
 
     public Texture2D cursorTexture;
     public GameObject blackScreen;
+    public InputActions inputActions;
 
     void Awake() {
         ChangePanel(0);
         FillResolutionDropdown();
+
+        inputActions = new InputActions();
+        inputActions.Disable();
+        inputActions.UI.Cancel.performed += CancelSettings;
     }
 
     void Start() {
@@ -76,6 +82,10 @@ public class MainMenuController : MonoBehaviour {
     }
 
     public void BackToMain() {
+        ChangePanel(0);
+    }
+
+    void CancelSettings(InputAction.CallbackContext context) {
         ChangePanel(0);
     }
 

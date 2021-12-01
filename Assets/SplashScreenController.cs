@@ -10,6 +10,7 @@ public class SplashScreenController : MonoBehaviour {
 
     public void ActivateCursor() {
         Cursor.lockState = CursorLockMode.None;
+        GameObject.Find("EventSystem").GetComponent<MainMenuController>().inputActions.Enable();
     }
 
 }
