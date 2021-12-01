@@ -1415,8 +1415,8 @@ MonoBehaviour:
   - {fileID: 1691563250}
   - {fileID: 1952003522}
   panelActiveButtons:
+  - {fileID: 1798807455}
   - {fileID: 1502567102}
-  - {fileID: 0}
   - {fileID: 380399880}
   volumeSliders:
   - {fileID: 380399882}
@@ -2974,7 +2974,7 @@ RectTransform:
   m_Children:
   - {fileID: 1702032093}
   m_Father: {fileID: 1852090014}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3745,7 +3745,7 @@ RectTransform:
   m_Children:
   - {fileID: 964199196}
   m_Father: {fileID: 1852090014}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -5582,7 +5582,7 @@ RectTransform:
   m_Children:
   - {fileID: 274021320}
   m_Father: {fileID: 1852090014}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -6915,7 +6915,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1852090014}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -7255,12 +7255,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 194950178}
+  - {fileID: 1798807456}
   - {fileID: 1502567103}
   - {fileID: 717854140}
   - {fileID: 2050119685}
   - {fileID: 906352017}
   - {fileID: 1571340976}
-  - {fileID: 1798807456}
   m_Father: {fileID: 1418633346}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8193,7 +8193,7 @@ RectTransform:
   m_Children:
   - {fileID: 2013978216}
   m_Father: {fileID: 1852090014}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -8877,7 +8877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 281198339430334891, guid: b4d3f592a46169645888308867e5d20a, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 281198339430334891, guid: b4d3f592a46169645888308867e5d20a, type: 3}
       propertyPath: m_LocalScale.x

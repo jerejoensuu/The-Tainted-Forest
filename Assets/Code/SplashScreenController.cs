@@ -14,6 +14,7 @@ public class SplashScreenController : MonoBehaviour {
         Destroy(GameObject.Find("Skip splash screen"));
         Destroy(GameObject.Find("LOGO"));
         Destroy(GameObject.Find("blackScreen"));
+        GameObject.Find("EventSystem").GetComponent<MainMenuController>().SetButtonSelection(GameObject.Find("New Game"));
     }
 
 }
