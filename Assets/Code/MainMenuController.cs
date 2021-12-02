@@ -92,7 +92,7 @@ public class MainMenuController : MonoBehaviour {
 
     public void SaveAndExit() {
         ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
-        GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f;
+        GameObject.Find("GameController").GetComponent<GameController>().SetMusicVolume(ApplicationSettings.MusicVolume());
         BackToMain();
     }
 
