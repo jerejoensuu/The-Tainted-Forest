@@ -32,21 +32,27 @@ public class LevelManager : MonoBehaviour {
         //ApplyBackground();
 
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.2f);
+        StartCoroutine(CheckRemainingBubbles());
 
     }
 
-    public void CheckRemainingBubbles() {
-        StartCoroutine(ICheckRemainingBubbles());
-    }
-
-    IEnumerator ICheckRemainingBubbles() { // Delay the check by small amount because spawning seems to be slow!
+    IEnumerator CheckRemainingBubbles() {
         float delay = 0.5f;
+        bool loop = true;
 
-        yield return new WaitForSeconds(delay);
+        while (loop) {
+            loop = false;
+            foreach (Transform child in transform) {
+                if (child.tag == "Ball") {
+                    loop = true;
+                }
+            }
 
-        if (bubblesRemaining.Count == 0) {
-            LevelWin();
+            yield return new WaitForSeconds(delay);
         }
+
+        LevelWin();
+        
     }
 
     public int CountVines() { 
