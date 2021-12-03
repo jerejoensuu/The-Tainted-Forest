@@ -53,17 +53,23 @@ public class UIController : MonoBehaviour {
         paused = true;
         pauseMenu.SetActive(true);
         ChangePanel(0);
-        GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(false);
         Time.timeScale = 0;
         Cursor.visible = true;
+
+        if (GameObject.Find("GameController") != null) {
+            GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(false);
+        }
     }
 
     public void UnpauseGame() {
         paused = false;
         pauseMenu.SetActive(false);
-        GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(true);
         Time.timeScale = 1;
         Cursor.visible = false;
+
+        if (GameObject.Find("GameController") != null) {
+            GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(true);
+        }
     }
 
     void ChangePanel(int index) {
