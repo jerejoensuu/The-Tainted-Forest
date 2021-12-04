@@ -3832,6 +3832,7 @@ GameObject:
   - component: {fileID: 4998499864640527486}
   - component: {fileID: 4998499864640527487}
   - component: {fileID: 4998499864640527485}
+  - component: {fileID: 5525317296744843257}
   m_Layer: 5
   m_Name: Timertext
   m_TagString: Untagged
@@ -3968,6 +3969,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   formatTime: 1
+--- !u!95 &5525317296744843257
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998499864640527361}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0dabb19daa9904f459b5cba297077cfe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4998499864649709709
 GameObject:
   m_ObjectHideFlags: 0
