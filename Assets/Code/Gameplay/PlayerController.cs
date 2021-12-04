@@ -369,7 +369,7 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(2.5f * dir, 3.25f), ForceMode2D.Impulse);
         SetActiveAnimation("Hit");
-        animator.StopPlayback();
+        //animator.StopPlayback();
         Flip();
 
 
@@ -417,7 +417,7 @@ public class PlayerController : MonoBehaviour {
             if (IsGrounded()) {
                 hitOffGroundOffset = false;
                 SetActiveAnimation("Idle");
-                animator.StartPlayback();
+                //animator.StartPlayback();
             }
         }
 
