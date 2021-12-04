@@ -369,6 +369,7 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(2.5f * dir, 3.25f), ForceMode2D.Impulse);
         SetActiveAnimation("Hit");
+        animator.StopPlayback();
         Flip();
 
 
@@ -376,10 +377,12 @@ public class PlayerController : MonoBehaviour {
         if (health <= 0) {
             Debug.Log("Player dead");
             GameObject.Find("LevelManager").GetComponent<LevelManager>().LevelLose();
+            animator.SetBool("isDead", true);
             //GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
+        } else {
+            StartCoroutine(CreateIFrames());
         }
-
-        StartCoroutine(CreateIFrames());
+        
     }
 
     bool IsGrounded() {
@@ -414,6 +417,7 @@ public class PlayerController : MonoBehaviour {
             if (IsGrounded()) {
                 hitOffGroundOffset = false;
                 SetActiveAnimation("Idle");
+                animator.StartPlayback();
             }
         }
 

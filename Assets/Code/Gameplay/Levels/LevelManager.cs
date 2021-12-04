@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour {
     [Range(1, 3)] [SerializeField] public int taintLevel = 1;
     [Range(10, 180)] [SerializeField] [Tooltip("In seconds")] public int time = 90;
     public GameObject blackScreen;
+    public GameObject freezeEffect;
     public AudioSource audioSrc;
     
     void Awake() {
@@ -101,12 +102,16 @@ public class LevelManager : MonoBehaviour {
     public IEnumerator FreezeBubbles() {
         audioSrc.volume = ApplicationSettings.SoundVolume() * 0.4f;
         audioSrc.Play();
+        GameObject freeze = Instantiate(freezeEffect, Vector3.zero, Quaternion.identity) as GameObject;
+        Animator animator = freeze.GetComponent<Animator>();
+        freeze.transform.parent = transform;
         for (float i = 0; i < 7; i += 0.01f) {
             foreach (Transform child in transform) {
                 if (child.tag == "Ball") {
                     child.GetComponent<BallController>().Freeze();
                     if (i >= 5) {
                         child.transform.Find("Frost").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 * ((7 - i) / 2));
+                        animator.SetBool("Unfreeze", true);
                     } else if (i < 0.3f) {
                         child.transform.Find("Frost").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 * (i / 0.3f));
                     }
@@ -120,6 +125,7 @@ public class LevelManager : MonoBehaviour {
                 child.GetComponent<BallController>().UnFreeze();
             }
         }
+        Destroy(freeze);
     }
 
     public void DamageAllBubbles() {

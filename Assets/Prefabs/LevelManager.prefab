@@ -85,6 +85,8 @@ MonoBehaviour:
   taintLevel: 3
   time: 90
   blackScreen: {fileID: 8009379272308859602, guid: 1b1f1d3f26d23c34d8fcce51ccd22ff0, type: 3}
+  freezeEffect: {fileID: 3903348264694553015, guid: 87235def86bf2ee42bd883387ba1d9d8, type: 3}
+  audioSrc: {fileID: 0}
 --- !u!82 &2649481939831997979
 AudioSource:
   m_ObjectHideFlags: 0
