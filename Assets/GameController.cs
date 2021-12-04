@@ -38,24 +38,29 @@ public class GameController : MonoBehaviour {
     IEnumerator SwitchMusic() {
         theme = GameObject.Find("LevelManager").GetComponent<LevelManager>().theme;
         taintLevel = GameObject.Find("LevelManager").GetComponent<LevelManager>().taintLevel;
+        Debug.Log("1");
 
         StartCoroutine(FadeMusicVolume(0, 0.3f));
         while(musicVolume != 0) {
             yield return null;
         }
+        Debug.Log("2");
 
         transform.Find("Music").GetComponent<AudioSource>().clip = GameObject.Find("Backgrounds").transform.GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().clip;
         transform.Find("Music").GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * musicVolumeMod;
         transform.Find("Music").GetComponent<AudioSource>().Play();
+        Debug.Log("3");
 
         transform.Find("AmbientSound").GetComponent<AudioSource>().clip = GameObject.Find("Backgrounds").transform.GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().clip;
         transform.Find("AmbientSound").GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * ambientVolumeMod;
         transform.Find("AmbientSound").GetComponent<AudioSource>().Play();
+        Debug.Log("4");
 
         StartCoroutine(FadeMusicVolume(1, 0.3f));
         while(musicVolume != 1) {
             yield return null;
         }
+        Debug.Log("5");
     }
 
     public void ToggleMusic(bool musicOn) {
@@ -74,18 +79,18 @@ public class GameController : MonoBehaviour {
     IEnumerator FadeMusicVolume(float newVolume, float speed = 1f) {
         float originalAmbientVol = GetMusicVolume();
         float originalMusicVol = GetMusicVolume();
-        float modifier = 0.01f * speed;
+        float modifier = 7.5f * speed;
         if (originalMusicVol > newVolume) {
-            while (musicVolume >= newVolume) {
-                musicVolume -= modifier;
+            while (musicVolume - newVolume > 0.1f) {
+                musicVolume -= modifier * Time.unscaledDeltaTime;
                 transform.Find("AmbientSound").GetComponent<AudioSource>().volume = musicVolume * ambientVolumeMod;
                 transform.Find("Music").GetComponent<AudioSource>().volume = musicVolume * musicVolumeMod;
                 yield return null;
             }
 
         } else {
-            while (musicVolume <= newVolume) {
-                musicVolume += modifier;
+            while (newVolume - musicVolume > 0.1f) {
+                musicVolume += modifier * Time.unscaledDeltaTime;
                 transform.Find("AmbientSound").GetComponent<AudioSource>().volume = musicVolume * ambientVolumeMod;
                 transform.Find("Music").GetComponent<AudioSource>().volume = musicVolume * musicVolumeMod;
                 yield return null;
