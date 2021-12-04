@@ -132,6 +132,7 @@ public class UIController : MonoBehaviour {
     }
 
     IEnumerator ShowEndScreen(bool hasWon) {
+        RemovePopups();
         float change = 0.02f;
         for (float alpha = 0f; alpha < 1; alpha += change) 
         {
@@ -161,6 +162,12 @@ public class UIController : MonoBehaviour {
             audioSrc.Play();
         }
         yield return null;
+    }
+
+    void RemovePopups() {
+        for (int i = 1; i < GameObject.Find("PopupTextManager").transform.childCount; i++) {
+            GameObject.Find("PopupTextManager").transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     void OnDisable() {
