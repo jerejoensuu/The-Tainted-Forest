@@ -8,8 +8,8 @@ public class LevelManager : MonoBehaviour {
 
     public List<GameObject> bubblesRemaining = new List<GameObject>();
 
-    private bool levelWon = false;
-    private bool levelLost = false;
+    public bool levelWon = false;
+    public bool levelLost = false;
     [Range(1, 2)] [SerializeField] public int theme = 1;
     [Range(1, 3)] [SerializeField] public int taintLevel = 1;
     [Range(10, 180)] [SerializeField] [Tooltip("In seconds")] public int time = 90;

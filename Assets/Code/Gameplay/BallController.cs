@@ -67,7 +67,12 @@ public class BallController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         
-        GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum, 0) * freezeFactor * Time.deltaTime;
+        if (!isDestroyed) {
+            GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum, 0) * freezeFactor * Time.deltaTime;
+        } else {
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+            GetComponent<Collider2D>().enabled = false;
+        }
         if (freezeFactor == 1) {
             lastMomentum = momentum;
         }
@@ -164,8 +169,12 @@ public class BallController : MonoBehaviour {
                 AddToScore();
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
-            Destroy(gameObject);
+            GetComponent<Animator>().SetTrigger("Burst");
         }
+    }
+
+    void PopBubble() {
+        Destroy(gameObject);
     }
 
     public void AddToScore() {
