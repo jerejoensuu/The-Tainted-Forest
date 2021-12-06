@@ -63,7 +63,7 @@ public class LevelSelectManager : MonoBehaviour {
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    void OpenLevel(int levelNumber) {
+    public void OpenLevel(int levelNumber) {
         GameObject.Find("EventSystem").GetComponent<MainMenuController>().StartLevel(levelNumber);
     }
 
@@ -103,7 +103,7 @@ public class LevelSelectManager : MonoBehaviour {
         if (levelNumber == 1) {
             return true;
         }
-        else if (GetLevelScore(levelNumber - 1) > 0) {
+        else if (GetLevelScore(levelNumber - 1) > 0 || GetLevelScore(levelNumber) > 0) {
             return true;
         }
         return false;

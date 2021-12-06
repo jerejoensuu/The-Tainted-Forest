@@ -42,12 +42,38 @@ public class MainMenuController : MonoBehaviour {
 
     void Start() {
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+
+        Levels.GetLevelNumber(mainMenuPanels[1].GetComponent<LevelSelectManager>().levels.Count);
+        Score score = new Score(GameData.GetFilePath());
+
         if (!Levels.isChecked) {
-            Levels.GetLevelNumber(mainMenuPanels[1].GetComponent<LevelSelectManager>().levels.Count);
-            Score score = new Score(GameData.GetFilePath());
             score.FillScoreArray();
             Levels.isChecked = true;
         }
+
+
+        bool uncleared = false;
+        int firstUncleared = 0;
+        for (int i = 0; i < Levels.numberOfLevels; i++) {
+            if (score.GetEntry(i).Score == 0 && !uncleared) {
+                uncleared = true;
+                firstUncleared = i;
+            }
+        }
+
+        if (firstUncleared > 0) {
+            ReplaceNewGameButton(firstUncleared);
+        }
+        else {
+            panelActiveButtons[0].GetComponent<Button>().onClick.RemoveAllListeners();
+            panelActiveButtons[0].GetComponent<Button>().onClick.AddListener(() => NewGame());
+        }
+    }
+
+    void ReplaceNewGameButton (int levelIndex) {
+        panelActiveButtons[0].GetComponent<Button>().onClick.RemoveAllListeners();
+        panelActiveButtons[0].GetComponent<Button>().onClick.AddListener(() => mainMenuPanels[1].GetComponent<LevelSelectManager>().OpenLevel(levelIndex + 1));
+        panelActiveButtons[0].GetComponentInChildren<TMP_Text>().text = "Continue";
     }
 
     void ChangePanel(int index) {
