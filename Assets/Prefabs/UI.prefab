@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 3434176289818064959}
   - component: {fileID: 1409091031486572080}
   m_Layer: 5
-  m_Name: NextLevelButton
+  m_Name: ResumeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -786,7 +786,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4998499865042813745}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: NextLevel
+        m_MethodName: UnpauseGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2734,7 +2734,7 @@ GameObject:
   - component: {fileID: 8552059253415706519}
   - component: {fileID: 5466657802335191650}
   m_Layer: 5
-  m_Name: Nextlevel text
+  m_Name: Resume text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2787,7 +2787,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next level
+  m_text: Resume game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b405ca315fb7a74cb0a6304dcd73910, type: 2}
   m_sharedMaterial: {fileID: -83444648794411503, guid: 5b405ca315fb7a74cb0a6304dcd73910, type: 2}
@@ -5301,7 +5301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4998499865186619023
 RectTransform:
   m_ObjectHideFlags: 0
