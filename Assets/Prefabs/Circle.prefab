@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 3455459337198782473}
   - component: {fileID: -3708285950826091245}
   - component: {fileID: 6979297676006586673}
+  - component: {fileID: 1226649346765964943}
   m_Layer: 7
   m_Name: Circle
   m_TagString: Ball
@@ -200,6 +201,11 @@ MonoBehaviour:
   moveSpeed: 290
   gravity: 15
   circlePrefab: {fileID: 4032727282863226376}
+  contactPY: {x: 0, y: 0}
+  yCompression: 0
+  yCompressing: 0
+  yCompressed: 0
+  yDecompressing: 0
 --- !u!212 &4032727282863226381
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -240,7 +246,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 47bde29061f409e448e7b518426de694, type: 3}
+  m_Sprite: {fileID: 7193096698218091293, guid: 13323fd83a97f8e44b7db0f53abe57ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.84313726}
   m_FlipX: 0
   m_FlipY: 0
@@ -443,6 +449,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1226649346765964943
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032727282863226376}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cfda1f1d60bb90049b5422d74a01f129, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4325174424021039834
 GameObject:
   m_ObjectHideFlags: 0
