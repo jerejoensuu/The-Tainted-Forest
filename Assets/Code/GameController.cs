@@ -38,29 +38,24 @@ public class GameController : MonoBehaviour {
     IEnumerator SwitchMusic() {
         theme = GameObject.Find("LevelManager").GetComponent<LevelManager>().theme;
         taintLevel = GameObject.Find("LevelManager").GetComponent<LevelManager>().taintLevel;
-        Debug.Log("1");
 
         StartCoroutine(FadeMusicVolume(0, 0.3f));
         while(musicVolume != 0) {
             yield return null;
         }
-        Debug.Log("2");
 
         transform.Find("Music").GetComponent<AudioSource>().clip = GameObject.Find("Backgrounds").transform.GetChild(theme-1).GetChild(taintLevel-1).Find("MusicContainer").GetComponent<AudioSource>().clip;
         transform.Find("Music").GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * musicVolumeMod;
         transform.Find("Music").GetComponent<AudioSource>().Play();
-        Debug.Log("3");
 
         transform.Find("AmbientSound").GetComponent<AudioSource>().clip = GameObject.Find("Backgrounds").transform.GetChild(theme-1).GetChild(taintLevel-1).GetComponent<AudioSource>().clip;
         transform.Find("AmbientSound").GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * ambientVolumeMod;
         transform.Find("AmbientSound").GetComponent<AudioSource>().Play();
-        Debug.Log("4");
 
         StartCoroutine(FadeMusicVolume(1, 0.3f));
         while(musicVolume != 1) {
             yield return null;
         }
-        Debug.Log("5");
     }
 
     public void ToggleMusic(bool musicOn) {

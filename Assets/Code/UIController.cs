@@ -39,7 +39,9 @@ public class UIController : MonoBehaviour {
     }
 
     void TogglePause(InputAction.CallbackContext context) {
-        if (transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted) {
+        if (transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted
+            && !GameObject.Find("LevelManager").GetComponent<LevelManager>().levelLost
+            && !GameObject.Find("LevelManager").GetComponent<LevelManager>().levelWon) {
             if (!paused) {
                 PauseGame();
             }

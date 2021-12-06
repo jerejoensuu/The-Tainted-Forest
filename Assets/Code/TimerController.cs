@@ -40,8 +40,17 @@ public class TimerController : MonoBehaviour {
         }
     }
 
+    public int GetTime() {
+        return seconds;
+    }
+
     public void AddToTimer(int secondsAdded) {
         StartCoroutine(AnimateTimerBoost(secondsAdded));
+    }
+
+    public void RemoveFromTimer(int secondsRemoved) {
+        seconds -= secondsRemoved;
+        SetTime();
     }
 
     IEnumerator AnimateTimerBoost(int secondsAdded) {
