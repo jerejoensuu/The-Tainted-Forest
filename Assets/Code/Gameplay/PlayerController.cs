@@ -426,7 +426,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void TurnInvisible(bool boolean) {
-        transform.Find(activeAnimation).gameObject.SetActive(boolean);
+        transform.Find("Animations").gameObject.SetActive(boolean);
     }
 
     void Flip () {
@@ -448,14 +448,14 @@ public class PlayerController : MonoBehaviour {
         if (hitOffGroundOffset) { // return if being hit
             return;
         }
-        transform.Find("Idle").gameObject.SetActive(false);
-        transform.Find("Hit").gameObject.SetActive(false);
-        transform.Find("Shooting").gameObject.SetActive(false);
-        transform.Find("Climbing").gameObject.SetActive(false);
-        transform.Find("Running").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Idle").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Hit").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Shooting").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Climbing").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Running").gameObject.SetActive(false);
         
         activeAnimation = newAnimation;
-        transform.Find(activeAnimation).gameObject.SetActive(true);
+        transform.Find("Animations").Find(activeAnimation).gameObject.SetActive(true);
     }
 
     void DisableShooting() {

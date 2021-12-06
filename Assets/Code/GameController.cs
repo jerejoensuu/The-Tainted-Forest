@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
     public bool splashScreenPlayed = false;
 
     public AudioClip mainTheme;
+    public AudioClip cutsceneTheme;
     public float ambientVolumeMod = 0.7f;
     public float musicVolumeMod = 0.15f;
     float musicVolume = 1;
@@ -30,6 +31,10 @@ public class GameController : MonoBehaviour {
             
         } else if (next.name == "MainMenu") {
             transform.Find("Music").GetComponent<AudioSource>().clip = mainTheme;
+            transform.Find("Music").GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f;
+            transform.Find("Music").GetComponent<AudioSource>().Play();
+        } else if (next.name == "Cutscene") {
+            transform.Find("Music").GetComponent<AudioSource>().clip = cutsceneTheme;
             transform.Find("Music").GetComponent<AudioSource>().volume = ApplicationSettings.MusicVolume() * 0.1f;
             transform.Find("Music").GetComponent<AudioSource>().Play();
         }
