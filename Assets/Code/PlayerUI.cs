@@ -26,7 +26,7 @@ public class PlayerUI : MonoBehaviour {
     }
 
     public int GetScore() {
-        return levelScore;
+        return levelScore + GameObject.Find("Timertext").GetComponent<TimerController>().GetTime();
     }
 
     public void EndScore() {
