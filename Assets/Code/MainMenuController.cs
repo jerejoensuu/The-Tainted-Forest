@@ -135,6 +135,11 @@ public class MainMenuController : MonoBehaviour {
         SetResolution();
     }
 
+    public void SettingsClearScores() {
+        Score score = new Score(GameData.GetFilePath());
+        score.Clear();
+    }
+
     public void QuitGame() {
         Debug.Log("Quit game");
         Application.Quit();
