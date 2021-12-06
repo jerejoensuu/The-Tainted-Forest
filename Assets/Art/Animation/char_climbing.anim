@@ -65,7 +65,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_14
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -117,7 +117,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14/bone_15
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -169,7 +169,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2
+    path: Animations/Climbing/bone_1/bone_2
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -212,7 +212,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_3
+    path: Animations/Climbing/bone_1/bone_2/bone_3
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -255,7 +255,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_4
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -298,7 +298,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_5
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -341,7 +341,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -384,7 +384,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -427,7 +427,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_7
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -470,7 +470,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
   m_PositionCurves:
   - curve:
       serializedVersion: 2
@@ -523,7 +523,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_10
+    path: Animations/Climbing/bone_1/bone_10
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -575,7 +575,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_10/bone_11
+    path: Animations/Climbing/bone_1/bone_10/bone_11
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -609,7 +609,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_14
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -634,7 +634,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14/bone_15
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -686,7 +686,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -720,7 +720,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -772,7 +772,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_7
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -806,7 +806,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -858,7 +858,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_8
+    path: Animations/Climbing/bone_1/bone_8
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -910,7 +910,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Climbing/bone_1/bone_8/bone_9
+    path: Animations/Climbing/bone_1/bone_8/bone_9
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -922,140 +922,140 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1911207877
+      path: 868482084
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3734971950
+      path: 3581508997
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1988588508
+      path: 883832893
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2216604475
+      path: 2415454352
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2563416427
+      path: 3302340878
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2838543312
+      path: 1785287970
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4023226877
+      path: 3016919448
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3377241861
+      path: 169177591
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 763659510
+      path: 3059157471
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2578817074
+      path: 3316299863
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1988588508
+      path: 883832893
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2216604475
+      path: 2415454352
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3444665832
+      path: 1451417793
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3902821860
+      path: 3032436097
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3153398034
+      path: 4002765551
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3438426500
+      path: 2576509561
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2563416427
+      path: 3302340878
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2838543312
+      path: 1785287970
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4023226877
+      path: 3016919448
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3377241861
+      path: 169177591
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -1135,7 +1135,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_10
+    path: Animations/Climbing/bone_1/bone_10
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1190,7 +1190,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_10
+    path: Animations/Climbing/bone_1/bone_10
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1245,7 +1245,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_10
+    path: Animations/Climbing/bone_1/bone_10
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1300,7 +1300,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_10/bone_11
+    path: Animations/Climbing/bone_1/bone_10/bone_11
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1355,7 +1355,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_10/bone_11
+    path: Animations/Climbing/bone_1/bone_10/bone_11
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1410,7 +1410,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_10/bone_11
+    path: Animations/Climbing/bone_1/bone_10/bone_11
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1447,7 +1447,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1484,7 +1484,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1521,7 +1521,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1576,7 +1576,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1631,7 +1631,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1686,7 +1686,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1714,7 +1714,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1742,7 +1742,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1770,7 +1770,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1825,7 +1825,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1880,7 +1880,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1935,7 +1935,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1990,7 +1990,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_2
+    path: Animations/Climbing/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2045,7 +2045,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_2
+    path: Animations/Climbing/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2100,7 +2100,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_2
+    path: Animations/Climbing/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2146,7 +2146,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_2/bone_3
+    path: Animations/Climbing/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2192,7 +2192,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_2/bone_3
+    path: Animations/Climbing/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2238,7 +2238,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_2/bone_3
+    path: Animations/Climbing/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2284,7 +2284,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2330,7 +2330,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2376,7 +2376,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2422,7 +2422,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2468,7 +2468,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2514,7 +2514,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2569,7 +2569,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2624,7 +2624,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2679,7 +2679,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2725,7 +2725,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2771,7 +2771,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2817,7 +2817,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2854,7 +2854,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2891,7 +2891,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2928,7 +2928,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2974,7 +2974,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3020,7 +3020,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3066,7 +3066,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3121,7 +3121,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3176,7 +3176,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3231,7 +3231,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3277,7 +3277,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3323,7 +3323,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3369,7 +3369,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3406,7 +3406,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3443,7 +3443,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3480,7 +3480,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3526,7 +3526,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3572,7 +3572,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3618,7 +3618,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3673,7 +3673,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_8
+    path: Animations/Climbing/bone_1/bone_8
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3728,7 +3728,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_8
+    path: Animations/Climbing/bone_1/bone_8
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3783,7 +3783,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_8
+    path: Animations/Climbing/bone_1/bone_8
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3838,7 +3838,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Climbing/bone_1/bone_8/bone_9
+    path: Animations/Climbing/bone_1/bone_8/bone_9
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3893,7 +3893,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Climbing/bone_1/bone_8/bone_9
+    path: Animations/Climbing/bone_1/bone_8/bone_9
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3948,7 +3948,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Climbing/bone_1/bone_8/bone_9
+    path: Animations/Climbing/bone_1/bone_8/bone_9
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -3959,7 +3959,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3969,7 +3969,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3979,7 +3979,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_14
+    path: Animations/Climbing/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3989,7 +3989,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Climbing/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3999,7 +3999,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Climbing/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4009,7 +4009,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Climbing/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4019,7 +4019,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4029,7 +4029,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4039,7 +4039,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4049,7 +4049,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4059,7 +4059,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4069,7 +4069,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_2/bone_6/bone_13
+    path: Animations/Climbing/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4079,7 +4079,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4089,7 +4089,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4099,7 +4099,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_2/bone_6
+    path: Animations/Climbing/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4109,7 +4109,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4119,7 +4119,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4129,7 +4129,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_14/bone_15
+    path: Animations/Climbing/bone_1/bone_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4139,7 +4139,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_2
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4149,7 +4149,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_2
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4159,7 +4159,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_2
+    path: Animations/Climbing/bone_1/bone_14/bone_15
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4169,7 +4169,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_2/bone_3
+    path: Animations/Climbing/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4179,7 +4179,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_2/bone_3
+    path: Animations/Climbing/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4189,7 +4189,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_2/bone_3
+    path: Animations/Climbing/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4199,7 +4199,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4209,7 +4209,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4219,7 +4219,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_2/bone_7
+    path: Animations/Climbing/bone_1/bone_2/bone_6/bone_13
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4229,7 +4229,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4239,7 +4239,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4249,7 +4249,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Climbing/bone_1/bone_2/bone_7/bone_12
+    path: Animations/Climbing/bone_1/bone_2/bone_7/bone_12
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
