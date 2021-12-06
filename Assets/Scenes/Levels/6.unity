@@ -614,6 +614,10 @@ PrefabInstance:
       propertyPath: m_Bounds.m_Extent.y
       value: 0.51999986
       objectReference: {fileID: 0}
+    - target: {fileID: 7235263022713526151, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8409010722850747089, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
       propertyPath: m_Bounds.m_Center.x
       value: 0.20453614
