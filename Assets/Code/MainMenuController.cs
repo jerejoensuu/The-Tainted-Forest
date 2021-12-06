@@ -34,6 +34,7 @@ public class MainMenuController : MonoBehaviour {
         Time.timeScale = 1;
         ChangePanel(0);
         FillResolutionDropdown();
+        SetResolution();
 
         inputActions = new InputActions();
         inputActions.Disable();
@@ -102,6 +103,8 @@ public class MainMenuController : MonoBehaviour {
         volumeSliders[0].value = ApplicationSettings.GetMasterVolume();
         volumeSliders[1].value = ApplicationSettings.GetSoundVolume();
         volumeSliders[2].value = ApplicationSettings.GetMusicVolume();
+        resolutionDropdown.value = ApplicationSettings.GetResolutionIndex();
+        fullscreenToggle.isOn = ApplicationSettings.GetFullscreen();
     }
 
     public void OpenLevelSelect() {
@@ -116,14 +119,20 @@ public class MainMenuController : MonoBehaviour {
         ChangePanel(0);
     }
 
-    public void SaveAndExit() {
-        ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
-        GameObject.Find("GameController").GetComponent<GameController>().SetMusicVolume(ApplicationSettings.MusicVolume());
+    public void SettingsOk() {
+        SettingsApply();
         BackToMain();
     }
 
-    public void ExitWithoutSaving() {
+    public void SettingsCancel() {
         BackToMain();
+    }
+
+    public void SettingsApply() {
+        ApplicationSettings.ChangeVolumeSettings(volumeSliders[0].value, volumeSliders[1].value, volumeSliders[2].value);
+        ApplicationSettings.ChangeResolutionSettings(resolutionIndex, BoolToInt(fullscreen));
+        GameObject.Find("GameController").GetComponent<GameController>().SetMusicVolume(ApplicationSettings.MusicVolume());
+        SetResolution();
     }
 
     public void QuitGame() {
@@ -152,10 +161,19 @@ public class MainMenuController : MonoBehaviour {
         fullscreen = fullscreenToggle.isOn;
     }
 
+    private int BoolToInt(bool value) {
+        if (value) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
     public void SetResolution() {
         ScreenResolutions sr = new ScreenResolutions();
-        Screen.SetResolution(sr.GetResolution(resolutionIndex)[0], sr.GetResolution(resolutionIndex)[1], fullscreen);
-        Debug.Log("Resolution set to " + sr.GetResolution(resolutionIndex)[0] + " x " + sr.GetResolution(resolutionIndex)[1]);
+        Screen.SetResolution(sr.GetResolution(ApplicationSettings.GetResolutionIndex())[0], sr.GetResolution(ApplicationSettings.GetResolutionIndex())[1], ApplicationSettings.GetFullscreen());
+        Debug.Log("Resolution set to " + sr.GetResolution(ApplicationSettings.GetResolutionIndex())[0] + " x " + sr.GetResolution(ApplicationSettings.GetResolutionIndex())[1]);
     }
 
     IEnumerator LevelLoader(string levelName, bool transition = true) {
