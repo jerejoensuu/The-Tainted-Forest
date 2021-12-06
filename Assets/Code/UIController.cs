@@ -77,7 +77,7 @@ public class UIController : MonoBehaviour {
             if (index == i) {
                 pauseMenuPanels[i].SetActive(true);
                 GetComponent<EventSystem>().SetSelectedGameObject(null);
-                GetComponent<EventSystem>().SetSelectedGameObject(panelActiveButtons[i]);
+                GetComponent<EventSystem>().SetSelectedGameObject(panelActiveButtons[0]);
             }
             else {
                 pauseMenuPanels[i].SetActive(false);
@@ -134,7 +134,7 @@ public class UIController : MonoBehaviour {
     IEnumerator ShowEndScreen(bool hasWon) {
         RemovePopups();
         float change = 0.02f;
-        for (float alpha = 0f; alpha < 1; alpha += change) 
+        for (float alpha = 0f; alpha < 0.5f; alpha += change) 
         {
             //GameObject.Find("GameController").GetComponent<GameController>().SetMusicVolume(GameObject.Find("GameController").GetComponent<GameController>().GetMusicVolume() - change);
             Color overlayColor = endOverlay.GetComponent<Image>().color;
