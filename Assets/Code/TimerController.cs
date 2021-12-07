@@ -22,6 +22,9 @@ public class TimerController : MonoBehaviour {
         while (seconds > 0) {
             yield return new WaitForSeconds(1);
             seconds--;
+            if (seconds <= 10) {
+                GetComponent<Animator>().SetTrigger("Flash");
+            }
             SetTime();
         }
         OutOfTime();
@@ -37,9 +40,32 @@ public class TimerController : MonoBehaviour {
         }
     }
 
+    public int GetTime() {
+        return seconds;
+    }
+
     public void AddToTimer(int secondsAdded) {
-        seconds += secondsAdded;
+        StartCoroutine(AnimateTimerBoost(secondsAdded));
+    }
+
+    public void RemoveFromTimer(int secondsRemoved) {
+        seconds -= secondsRemoved;
         SetTime();
+    }
+
+    IEnumerator AnimateTimerBoost(int secondsAdded) {
+        GetComponent<Animator>().SetBool("TimerBoost", true);
+        float interval = 0.05f;
+        while(secondsAdded > 0) {
+            seconds++;
+            secondsAdded--;
+            SetTime();
+            yield return new WaitForSeconds(interval);
+            interval += 0.005f;
+            if (secondsAdded <= 5) {
+                GetComponent<Animator>().SetBool("TimerBoost", false);
+            }
+        }
     }
 
     void OutOfTime() {

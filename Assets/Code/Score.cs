@@ -79,6 +79,11 @@ namespace TaintedForest {
             return scores.GetEntry(index);
         }
 
+        public void Clear() {
+            scores = new ScoreArray(scoreEntries);
+            Save();
+        }
+
         public bool FillScoreArray() {
             Score score = new Score(GameData.GetFilePath());
             ScoreArray newScores = new ScoreArray(scoreEntries);

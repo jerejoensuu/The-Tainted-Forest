@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void ActiveShield() {
-        transform.Find("Shield").gameObject.SetActive(true);
+        transform.Find("Animations").Find("Shield").gameObject.SetActive(true);
         shieldActive = true;
     }
     
@@ -355,7 +355,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (shieldActive) {
-            transform.Find("Shield").gameObject.SetActive(false);
+            transform.Find("Animations").Find("Shield").gameObject.SetActive(false);
             shieldActive = false;
             StartCoroutine(CreateIFrames());
             return;
@@ -369,6 +369,7 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(2.5f * dir, 3.25f), ForceMode2D.Impulse);
         SetActiveAnimation("Hit");
+        //animator.StopPlayback();
         Flip();
 
 
@@ -376,10 +377,12 @@ public class PlayerController : MonoBehaviour {
         if (health <= 0) {
             Debug.Log("Player dead");
             GameObject.Find("LevelManager").GetComponent<LevelManager>().LevelLose();
+            animator.SetBool("isDead", true);
             //GetComponentInChildren<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f, 1f);
+        } else {
+            StartCoroutine(CreateIFrames());
         }
-
-        StartCoroutine(CreateIFrames());
+        
     }
 
     bool IsGrounded() {
@@ -414,6 +417,7 @@ public class PlayerController : MonoBehaviour {
             if (IsGrounded()) {
                 hitOffGroundOffset = false;
                 SetActiveAnimation("Idle");
+                //animator.StartPlayback();
             }
         }
 
@@ -422,7 +426,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void TurnInvisible(bool boolean) {
-        transform.Find(activeAnimation).gameObject.SetActive(boolean);
+        transform.Find("Animations").gameObject.SetActive(boolean);
     }
 
     void Flip () {
@@ -444,14 +448,14 @@ public class PlayerController : MonoBehaviour {
         if (hitOffGroundOffset) { // return if being hit
             return;
         }
-        transform.Find("Idle").gameObject.SetActive(false);
-        transform.Find("Hit").gameObject.SetActive(false);
-        transform.Find("Shooting").gameObject.SetActive(false);
-        transform.Find("Climbing").gameObject.SetActive(false);
-        transform.Find("Running").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Idle").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Hit").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Shooting").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Climbing").gameObject.SetActive(false);
+        transform.Find("Animations").Find("Running").gameObject.SetActive(false);
         
         activeAnimation = newAnimation;
-        transform.Find(activeAnimation).gameObject.SetActive(true);
+        transform.Find("Animations").Find(activeAnimation).gameObject.SetActive(true);
     }
 
     void DisableShooting() {

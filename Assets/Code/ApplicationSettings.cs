@@ -9,6 +9,29 @@ public static class ApplicationSettings {
     public static float defaultSoundVolume = 1f;
     public static float defaultMusicVolume = 1f;
 
+    public static int defaultResolutionIndex = 0;
+    public static int defaultFullscreen = 1;
+
+    public static void ChangeResolutionSettings(int resolutionIndex, int fullscreen) {
+        PlayerPrefs.SetInt("ResolutionIndex", resolutionIndex);
+        PlayerPrefs.SetInt("Fullscreen", fullscreen);
+    }
+
+    public static int GetResolutionIndex() {
+        return PlayerPrefs.GetInt("ResolutionIndex", defaultResolutionIndex);
+    }
+
+    public static bool GetFullscreen() {
+        int f = PlayerPrefs.GetInt("Fullscreen", defaultFullscreen);
+
+        if (f > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public static void ChangeVolumeSettings(float master, float sound, float music) {
         PlayerPrefs.SetFloat("MasterVolume", Mathf.Clamp(master, 0f, 1f));
         PlayerPrefs.SetFloat("SoundVolume", Mathf.Clamp(sound, 0f, 1f));

@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TaintedForest;
+using UnityEngine.SceneManagement;
+using System;
 
 public class UIController : MonoBehaviour {
 
@@ -39,7 +42,9 @@ public class UIController : MonoBehaviour {
     }
 
     void TogglePause(InputAction.CallbackContext context) {
-        if (transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted) {
+        if (transform.parent.Find("Canvas").Find("LevelText").GetComponent<LevelStartTransition>().levelStarted
+            && !GameObject.Find("LevelManager").GetComponent<LevelManager>().levelLost
+            && !GameObject.Find("LevelManager").GetComponent<LevelManager>().levelWon) {
             if (!paused) {
                 PauseGame();
             }
@@ -53,17 +58,31 @@ public class UIController : MonoBehaviour {
         paused = true;
         pauseMenu.SetActive(true);
         ChangePanel(0);
-        GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(false);
         Time.timeScale = 0;
         Cursor.visible = true;
+
+        if (GameObject.Find("GameController") != null) {
+            GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(false);
+        }
+        SetPopups(false);
     }
 
     public void UnpauseGame() {
         paused = false;
         pauseMenu.SetActive(false);
-        GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(true);
         Time.timeScale = 1;
         Cursor.visible = false;
+
+        if (GameObject.Find("GameController") != null) {
+            GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(true);
+        }
+        SetPopups(true);
+    }
+
+    void SetPopups(bool shown) {
+        foreach (Transform child in GameObject.Find("PopupTextManager").transform) {
+            child.gameObject.SetActive(shown);
+        }
     }
 
     void ChangePanel(int index) {
@@ -71,7 +90,7 @@ public class UIController : MonoBehaviour {
             if (index == i) {
                 pauseMenuPanels[i].SetActive(true);
                 GetComponent<EventSystem>().SetSelectedGameObject(null);
-                GetComponent<EventSystem>().SetSelectedGameObject(panelActiveButtons[i]);
+                GetComponent<EventSystem>().SetSelectedGameObject(panelActiveButtons[0]);
             }
             else {
                 pauseMenuPanels[i].SetActive(false);
@@ -126,8 +145,9 @@ public class UIController : MonoBehaviour {
     }
 
     IEnumerator ShowEndScreen(bool hasWon) {
+        RemovePopups();
         float change = 0.02f;
-        for (float alpha = 0f; alpha < 1; alpha += change) 
+        for (float alpha = 0f; alpha < 0f; alpha += change) 
         {
             //GameObject.Find("GameController").GetComponent<GameController>().SetMusicVolume(GameObject.Find("GameController").GetComponent<GameController>().GetMusicVolume() - change);
             Color overlayColor = endOverlay.GetComponent<Image>().color;
@@ -143,6 +163,7 @@ public class UIController : MonoBehaviour {
             Time.timeScale = 0;
             GetComponent<EventSystem>().SetSelectedGameObject(null);
             GetComponent<EventSystem>().SetSelectedGameObject(winScreenActiveButton);
+
         }
         else {
             loseScreen.SetActive(true);
@@ -153,8 +174,23 @@ public class UIController : MonoBehaviour {
             audioSrc.clip = failSound;
             audioSrc.volume = ApplicationSettings.SoundVolume() * 0.3f;
             audioSrc.Play();
+
+            GameObject.Find("NextLevelButton").GetComponent<Button>().interactable = CheckNextLevelAvailability();
         }
         yield return null;
+    }
+
+    bool CheckNextLevelAvailability() {
+        Score score = new Score(GameData.GetFilePath());
+        Scene scene = SceneManager.GetActiveScene();
+        var scoreEntry = score.GetEntry(Int16.Parse(scene.name) - 1);
+        return scoreEntry.Score > 0 ? true : false;
+    }
+
+    void RemovePopups() {
+        for (int i = 1; i < GameObject.Find("PopupTextManager").transform.childCount; i++) {
+            GameObject.Find("PopupTextManager").transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     void OnDisable() {

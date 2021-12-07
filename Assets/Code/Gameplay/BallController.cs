@@ -21,6 +21,20 @@ public class BallController : MonoBehaviour {
     public GameObject circlePrefab;
     private SpriteRenderer sr;
 
+    // Bounce compression:
+    float maxYCompression = 0.7f;
+    public Vector2 contactPY;
+    public float yCompression;
+    public bool yCompressing = false;
+    public bool yCompressed = false;
+    public bool yDecompressing = false;
+    float maxXCompression = 0.85f;
+    Vector2 contactPX;
+    float xCompression;
+    bool xCompressing = false;
+    bool xCompressed = false;
+    bool xDecompressing = false;
+
     private List<float> sizes = new List<float>{ 0.4f, 0.7f, 1.3f, 2.25f };
 
     private LevelManager levelManager;
@@ -28,6 +42,9 @@ public class BallController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         ogSpeed = moveSpeed;
+        xCompression = GetSize(size).x;
+        yCompression = GetSize(size).y;
+
         try {
             bool test = transform.parent.name != "LevelManager";
         }
@@ -50,13 +67,29 @@ public class BallController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         
-        GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum, 0) * freezeFactor * Time.deltaTime;
+        if (!isDestroyed) {
+            GetComponent<Rigidbody2D>().velocity = new Vector3(direction * moveSpeed, momentum, 0) * freezeFactor * Time.deltaTime;
+        } else {
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+            GetComponent<Collider2D>().enabled = false;
+        }
         if (freezeFactor == 1) {
             lastMomentum = momentum;
         }
         momentum -= gravity * freezeFactor;
 
         CheckIfNotBouncing();
+
+        if (yCompressing) {
+            Compress("y");
+        } else if (yDecompressing) {
+            Decompress("y");
+        }
+        if (xCompressing) {
+            Compress("x");
+        } else if (xDecompressing) {
+            Decompress("x");
+        }
 
         // Destroy off-screen balloons
         if (transform.position.x > 11 || transform.position.x < -11) {
@@ -133,13 +166,15 @@ public class BallController : MonoBehaviour {
                 SpawnBalls(1, size - 1);
             }
             if (levelManager != null) {
-                levelManager.bubblesRemaining.Remove(this.gameObject);
                 AddToScore();
-                levelManager.CheckRemainingBubbles();
             }
             GetComponentInChildren<BallDestroyAudio>().PlaySound();
-            Destroy(gameObject);
+            GetComponent<Animator>().SetTrigger("Burst");
         }
+    }
+
+    void PopBubble() {
+        Destroy(gameObject);
     }
 
     public void AddToScore() {
@@ -170,37 +205,119 @@ public class BallController : MonoBehaviour {
             Destroy(col.gameObject);
             DestroyBall();
         }
-    }
-    void OnCollisionEnter2D(Collision2D col) {
+        
+        if (col.tag == "Wall" || col.tag == "BreakableWall") {
+            float deltaX = transform.position.x - col.ClosestPoint(transform.position).x;
+            float deltaY = transform.position.y - col.ClosestPoint(transform.position).y;
 
-        if (col.collider.tag == "Wall" || col.collider.tag == "BreakableWall") {
-            Vector2 contactP = col.GetContact(0).point;
-
-            float deltaX = col.GetContact(0).otherCollider.transform.position.x - contactP.x;
-            float deltaY = col.GetContact(0).otherCollider.transform.position.y - contactP.y;
-
-            //place debugDot to show collision point
-            //Instantiate(debugDot, contactP, Quaternion.identity);
-
-            if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY)) {
-                if (deltaY > 0) {
-                    momentum = Mathf.Abs(lastMomentum + gravity);
-                } else {
-                    momentum = Mathf.Abs(lastMomentum + gravity) * -1;
+            if (Mathf.Abs(deltaX) < Mathf.Abs(deltaY) && !yDecompressing) {
+                if (Mathf.Sign(deltaY) != Mathf.Sign(momentum)) {
+                    maxYCompression = 1 - Mathf.Abs(momentum / 10000) * 1.3f;
+                    yCompressing = true;
                 }
-            } else  {
-                if (deltaX > 0) {
+                contactPY = col.ClosestPoint(transform.position);
+                Bounce("y");
+            } else if (Mathf.Abs(deltaX) > Mathf.Abs(deltaY) && !xDecompressing) {
+                if (Mathf.Sign(deltaX) != Mathf.Sign(direction)) {
+                    xCompressing = true;
+                }
+                contactPX = col.ClosestPoint(transform.position);
+                Bounce("x");
+            }
+            
+        }
+    }
+
+    void Bounce(string axis) {
+
+        //place debugDot to show collision point
+        //Instantiate(debugDot, contactP, Quaternion.identity);
+
+        if (axis == "y") {
+
+            if (!yCompressing) {
+                if (momentum < 0) {
+                    momentum = Mathf.Abs(lastMomentum);
+                } else {
+                    momentum = Mathf.Abs(lastMomentum) * -1;
+                }
+            } else if (yCompressing) {
+                Compress("y");
+            }
+
+        } else if (axis == "x") {
+
+            if (!xCompressing) {
+                if (contactPX.x < transform.position.x) {
                     direction = 1;
                 } else {
                     direction = -1;
                 }
+            } else if (xCompressing) {
+                Compress("x");
             }
+
         }
+        
+    }
+
+    void Compress(string axis) {
+
+        if (axis == "y") {
+            yCompression = Mathf.Abs(GetComponent<Collider2D>().bounds.center.y - contactPY.y) * 2;
+        } else {
+            xCompression = Mathf.Abs(GetComponent<Collider2D>().bounds.center.x - contactPX.x) * 2;
+        }
+
+        if (yCompression / GetSize(size).y <= maxYCompression && yCompressing) {
+            yCompression = GetSize(size).y * maxYCompression;
+            yCompressing = false;
+            yCompressed = true;
+            yDecompressing = true;
+        }
+
+        if (xCompression / GetSize(size).x <= maxXCompression && xCompressing) {
+            xCompression = GetSize(size).x * maxXCompression;
+            xCompressing = false;
+            xCompressed = true;
+            xDecompressing = true;
+            Bounce("x");
+        }
+
+        transform.localScale = new Vector3(xCompression, yCompression);
 
     }
 
-    void Bounce() {
-        
+    void Decompress(string axis) {
+        if (yCompressed) {
+            yCompressed = false;
+            Bounce("y");
+        }
+        if (xCompressed) {
+            xCompressed = false;
+            Bounce("x");
+        }
+
+        if (axis == "y") {
+            yCompression = Mathf.Abs(GetComponent<Collider2D>().bounds.center.y - contactPY.y) * 2;
+        } else {
+            xCompression = Mathf.Abs(GetComponent<Collider2D>().bounds.center.x - contactPX.x) * 2;
+        }
+
+        //float distance = Mathf.Abs(Vector3.Distance(new Vector3(contactPY.x, contactPY.y), GetComponent<Collider2D>().bounds.center));
+        float distance = Mathf.Abs(GetComponent<Collider2D>().bounds.center.y - contactPY.y) * 1.9f;
+        if (yCompression >= GetSize(size).y && yDecompressing && distance >= GetSize(size).y) {
+            yCompression = GetSize(size).y;
+            yDecompressing = false;
+        }
+
+        if (xCompression >= GetSize(size).x && xDecompressing) {
+            xCompression = GetSize(size).x;
+            xDecompressing = false;
+        }
+
+        transform.localScale = new Vector3(xCompression, yCompression);
+
     }
 
 }

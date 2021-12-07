@@ -56,7 +56,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_4
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -99,7 +99,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_5
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -133,7 +133,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -167,7 +167,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
   m_PositionCurves:
   - curve:
       serializedVersion: 2
@@ -202,7 +202,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1
+    path: Animations/Shooting/bone_1
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -236,7 +236,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_10
+    path: Animations/Shooting/bone_1/bone_10
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -270,7 +270,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_10/bone_11
+    path: Animations/Shooting/bone_1/bone_10/bone_11
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -304,7 +304,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_2
+    path: Animations/Shooting/bone_1/bone_2
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -338,7 +338,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_2/bone_3
+    path: Animations/Shooting/bone_1/bone_2/bone_3
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -372,7 +372,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -406,7 +406,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -440,7 +440,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_8
+    path: Animations/Shooting/bone_1/bone_8
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -474,7 +474,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Shooting/bone_1/bone_8/bone_9
+    path: Animations/Shooting/bone_1/bone_8/bone_9
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -486,91 +486,91 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 935580188
+      path: 4144508190
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2656362970
+      path: 3699223099
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2974153519
+      path: 3131285636
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2786547883
+      path: 1036309890
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4066406901
+      path: 2927585680
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2181727610
+      path: 3725958431
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4111316460
+      path: 2836573577
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1187164597
+      path: 3708894364
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2205516835
+      path: 3748305990
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 818972264
+      path: 1706087829
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1205319422
+      path: 314041603
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2181727610
+      path: 3725958431
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4111316460
+      path: 2836573577
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -632,7 +632,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1
+    path: Animations/Shooting/bone_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -669,7 +669,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1
+    path: Animations/Shooting/bone_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -706,7 +706,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1
+    path: Animations/Shooting/bone_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -743,7 +743,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1/bone_10
+    path: Animations/Shooting/bone_1/bone_10
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -780,7 +780,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1/bone_10
+    path: Animations/Shooting/bone_1/bone_10
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -817,7 +817,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1/bone_10
+    path: Animations/Shooting/bone_1/bone_10
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -854,7 +854,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1/bone_10/bone_11
+    path: Animations/Shooting/bone_1/bone_10/bone_11
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -891,7 +891,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1/bone_10/bone_11
+    path: Animations/Shooting/bone_1/bone_10/bone_11
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -928,7 +928,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1/bone_10/bone_11
+    path: Animations/Shooting/bone_1/bone_10/bone_11
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -965,7 +965,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1/bone_2
+    path: Animations/Shooting/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1002,7 +1002,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1/bone_2
+    path: Animations/Shooting/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1039,7 +1039,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1/bone_2
+    path: Animations/Shooting/bone_1/bone_2
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1076,7 +1076,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1/bone_2/bone_3
+    path: Animations/Shooting/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1113,7 +1113,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1/bone_2/bone_3
+    path: Animations/Shooting/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1150,7 +1150,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1/bone_2/bone_3
+    path: Animations/Shooting/bone_1/bone_2/bone_3
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1196,7 +1196,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Shooting/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1242,7 +1242,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Shooting/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1288,7 +1288,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Shooting/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1334,7 +1334,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Shooting/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1380,7 +1380,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Shooting/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1426,7 +1426,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Shooting/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1463,7 +1463,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1500,7 +1500,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1537,7 +1537,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1574,7 +1574,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1611,7 +1611,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1648,7 +1648,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1685,7 +1685,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1722,7 +1722,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1759,7 +1759,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1796,7 +1796,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1833,7 +1833,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1870,7 +1870,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1907,7 +1907,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1/bone_8
+    path: Animations/Shooting/bone_1/bone_8
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1944,7 +1944,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1/bone_8
+    path: Animations/Shooting/bone_1/bone_8
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1981,7 +1981,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1/bone_8
+    path: Animations/Shooting/bone_1/bone_8
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2018,7 +2018,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Shooting/bone_1/bone_8/bone_9
+    path: Animations/Shooting/bone_1/bone_8/bone_9
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2055,7 +2055,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Shooting/bone_1/bone_8/bone_9
+    path: Animations/Shooting/bone_1/bone_8/bone_9
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2092,7 +2092,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Shooting/bone_1/bone_8/bone_9
+    path: Animations/Shooting/bone_1/bone_8/bone_9
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -2103,7 +2103,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2113,7 +2113,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2123,7 +2123,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Shooting/bone_1/bone_2/bone_6
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_5
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2133,7 +2133,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Shooting/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2143,7 +2143,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Shooting/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2153,7 +2153,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Shooting/bone_1/bone_2/bone_3/bone_4
+    path: Animations/Shooting/bone_1/bone_2/bone_6
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2163,7 +2163,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Shooting/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2173,7 +2173,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Shooting/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2183,7 +2183,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Shooting/bone_1/bone_2/bone_3/bone_5
+    path: Animations/Shooting/bone_1/bone_2/bone_3/bone_4
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2193,7 +2193,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2203,7 +2203,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2213,7 +2213,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Shooting/bone_1/bone_2/bone_7
+    path: Animations/Shooting/bone_1/bone_2/bone_7
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
