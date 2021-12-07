@@ -13,9 +13,9 @@ public class PopupTextManager : MonoBehaviour {
         if (Time.timeScale != 0) {
             for (int i = 1; i <= transform.childCount-1; i++) {
                 transform.GetChild(i).transform.localPosition = new Vector3(transform.GetChild(i).transform.localPosition.x,
-                                                                            transform.GetChild(i).transform.localPosition.y + 0.15f);
+                                                                            transform.GetChild(i).transform.localPosition.y + (13f * Time.deltaTime));
 
-                transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = new Color(255, 255, 255, transform.GetChild(i).GetComponent<TextMeshProUGUI>().color.a - 0.0025f);
+                transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = new Color(255, 255, 255, transform.GetChild(i).GetComponent<TextMeshProUGUI>().color.a - 1.25f * Time.deltaTime);
 
                 if (transform.GetChild(i).GetComponent<TextMeshProUGUI>().color.a <= 0) {
                     toDestroy = transform.GetChild(i).gameObject;
