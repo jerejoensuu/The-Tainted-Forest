@@ -5155,7 +5155,7 @@ MonoBehaviour:
   - {fileID: 6603545698305630777}
   - {fileID: 4985026549270222004}
   winScreenActiveButton: {fileID: 4998499863500617305}
-  loseScreenActiveButton: {fileID: 3759556747528054512}
+  loseScreenActiveButton: {fileID: 5455154720862673706}
   cursorTexture: {fileID: 2800000, guid: a7f1a5d8b8cec2c43bd3133004af0a68, type: 3}
   audioSrc: {fileID: 2635807779662372105}
   failSound: {fileID: 8300000, guid: 9848a48458461224e9fe9b6b9a1222ad, type: 3}

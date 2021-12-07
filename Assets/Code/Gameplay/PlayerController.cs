@@ -355,7 +355,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (shieldActive) {
-            transform.Find("Shield").gameObject.SetActive(false);
+            transform.Find("Animations").Find("Shield").gameObject.SetActive(false);
             shieldActive = false;
             StartCoroutine(CreateIFrames());
             return;

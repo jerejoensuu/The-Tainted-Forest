@@ -64,6 +64,7 @@ public class UIController : MonoBehaviour {
         if (GameObject.Find("GameController") != null) {
             GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(false);
         }
+        SetPopups(false);
     }
 
     public void UnpauseGame() {
@@ -74,6 +75,13 @@ public class UIController : MonoBehaviour {
 
         if (GameObject.Find("GameController") != null) {
             GameObject.Find("GameController").GetComponent<GameController>().ToggleMusic(true);
+        }
+        SetPopups(true);
+    }
+
+    void SetPopups(bool shown) {
+        foreach (Transform child in GameObject.Find("PopupTextManager").transform) {
+            child.gameObject.SetActive(shown);
         }
     }
 
@@ -139,7 +147,7 @@ public class UIController : MonoBehaviour {
     IEnumerator ShowEndScreen(bool hasWon) {
         RemovePopups();
         float change = 0.02f;
-        for (float alpha = 0f; alpha < 0.5f; alpha += change) 
+        for (float alpha = 0f; alpha < 0f; alpha += change) 
         {
             //GameObject.Find("GameController").GetComponent<GameController>().SetMusicVolume(GameObject.Find("GameController").GetComponent<GameController>().GetMusicVolume() - change);
             Color overlayColor = endOverlay.GetComponent<Image>().color;
@@ -167,7 +175,7 @@ public class UIController : MonoBehaviour {
             audioSrc.volume = ApplicationSettings.SoundVolume() * 0.3f;
             audioSrc.Play();
 
-            GameObject.Find("NextLevelButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("NextLevelButton").GetComponent<Button>().interactable = CheckNextLevelAvailability();
         }
         yield return null;
     }
