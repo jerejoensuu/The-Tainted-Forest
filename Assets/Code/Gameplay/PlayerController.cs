@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void ActiveShield() {
-        transform.Find("Shield").gameObject.SetActive(true);
+        transform.Find("Animations").Find("Shield").gameObject.SetActive(true);
         shieldActive = true;
     }
     

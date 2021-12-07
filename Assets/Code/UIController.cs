@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TaintedForest;
+using UnityEngine.SceneManagement;
+using System;
 
 public class UIController : MonoBehaviour {
 
@@ -152,6 +155,7 @@ public class UIController : MonoBehaviour {
             Time.timeScale = 0;
             GetComponent<EventSystem>().SetSelectedGameObject(null);
             GetComponent<EventSystem>().SetSelectedGameObject(winScreenActiveButton);
+
         }
         else {
             loseScreen.SetActive(true);
@@ -162,8 +166,17 @@ public class UIController : MonoBehaviour {
             audioSrc.clip = failSound;
             audioSrc.volume = ApplicationSettings.SoundVolume() * 0.3f;
             audioSrc.Play();
+
+            GameObject.Find("NextLevelButton").GetComponent<Button>().interactable = false;
         }
         yield return null;
+    }
+
+    bool CheckNextLevelAvailability() {
+        Score score = new Score(GameData.GetFilePath());
+        Scene scene = SceneManager.GetActiveScene();
+        var scoreEntry = score.GetEntry(Int16.Parse(scene.name) - 1);
+        return scoreEntry.Score > 0 ? true : false;
     }
 
     void RemovePopups() {
