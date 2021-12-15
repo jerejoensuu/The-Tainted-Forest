@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TaintedForest;
-using UnityEngine.SceneManagement;
 using System;
 
 public class UIController : MonoBehaviour {
