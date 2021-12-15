@@ -111,6 +111,10 @@ public class MainMenuController : MonoBehaviour {
         ChangePanel(1);
     }
 
+    public void OpenCredits() {
+        ChangePanel(3);
+    }
+
     public void BackToMain() {
         ChangePanel(0);
     }
