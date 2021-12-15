@@ -1455,8 +1455,8 @@ MonoBehaviour:
   - {fileID: 0}
   volumeSliders:
   - {fileID: 380399882}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1457949494}
+  - {fileID: 1932455924}
   resolutionDropdown: {fileID: 390749590}
   fullscreenToggle: {fileID: 18263217}
   cursorTexture: {fileID: 2800000, guid: a7f1a5d8b8cec2c43bd3133004af0a68, type: 3}
