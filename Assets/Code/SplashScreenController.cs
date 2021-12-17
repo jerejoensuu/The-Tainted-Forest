@@ -16,9 +16,10 @@ public class SplashScreenController : MonoBehaviour {
 
     public void ActivateCursor() {
         Cursor.visible = true;
-        GameObject.Find("EventSystem").GetComponent<MainMenuController>().inputActions.Enable();
+        MainMenuController mmc = GameObject.Find("EventSystem").GetComponent<MainMenuController>();
+        mmc.inputActions.Enable();
         Destroy(gameObject);
-        GameObject.Find("EventSystem").GetComponent<MainMenuController>().SetButtonSelection(GameObject.Find("New Game"));
+        mmc.ChangePanel(0);
     }
 
 }
