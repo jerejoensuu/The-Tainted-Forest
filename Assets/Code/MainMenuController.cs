@@ -22,6 +22,7 @@ public class MainMenuController : MonoBehaviour {
 
     public GameObject[] mainMenuPanels;
     public GameObject[] panelActiveButtons; // The button that should be selected/active when a menu panel is opened
+    public GameObject continueButton;
     public Slider[] volumeSliders;
     public TMP_Dropdown resolutionDropdown;
     public Toggle fullscreenToggle;
@@ -52,7 +53,11 @@ public class MainMenuController : MonoBehaviour {
             Levels.isChecked = true;
         }
 
+        CheckLevelProgress();
+    }
 
+    int CheckLevelProgress() {
+        Score score = new Score(GameData.GetFilePath());
         bool uncleared = false;
         int firstUncleared = 0;
         for (int i = 0; i < Levels.numberOfLevels; i++) {
@@ -62,26 +67,32 @@ public class MainMenuController : MonoBehaviour {
             }
         }
 
-        if (firstUncleared > 0) {
-            ReplaceNewGameButton(firstUncleared);
+        SetContinueButton(firstUncleared);
+
+        return firstUncleared;
+    }
+
+    void SetContinueButton (int levelIndex) {
+        if (levelIndex > 0) {
+            continueButton.SetActive(true);
+            continueButton.GetComponent<Button>().onClick.RemoveAllListeners();
+            continueButton.GetComponent<Button>().onClick.AddListener(() => mainMenuPanels[1].GetComponent<LevelSelectManager>().OpenLevel(levelIndex + 1));
         }
         else {
-            panelActiveButtons[0].GetComponent<Button>().onClick.RemoveAllListeners();
-            panelActiveButtons[0].GetComponent<Button>().onClick.AddListener(() => NewGame());
+            continueButton.SetActive(false);
         }
     }
 
-    void ReplaceNewGameButton (int levelIndex) {
-        panelActiveButtons[0].GetComponent<Button>().onClick.RemoveAllListeners();
-        panelActiveButtons[0].GetComponent<Button>().onClick.AddListener(() => mainMenuPanels[1].GetComponent<LevelSelectManager>().OpenLevel(levelIndex + 1));
-        panelActiveButtons[0].GetComponentInChildren<TMP_Text>().text = "Continue";
-    }
-
-    void ChangePanel(int index) {
+    public void ChangePanel(int index) {
         for (int i = 0; i < mainMenuPanels.Length; i++) {
             if (index == i) {
                 mainMenuPanels[i].SetActive(true);
-                SetButtonSelection(panelActiveButtons[i]);
+                if (i == 0 && CheckLevelProgress() > 0) {
+                    SetButtonSelection(continueButton);
+                }
+                else {
+                    SetButtonSelection(panelActiveButtons[i]);
+                }
             }
             else {
                 mainMenuPanels[i].SetActive(false);
@@ -142,6 +153,7 @@ public class MainMenuController : MonoBehaviour {
     public void SettingsClearScores() {
         Score score = new Score(GameData.GetFilePath());
         score.Clear();
+        CheckLevelProgress();
     }
 
     public void QuitGame() {
