@@ -143,6 +143,10 @@ PrefabInstance:
       value: LevelManager
       objectReference: {fileID: 0}
     - target: {fileID: 2463774870667863537, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: time
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463774870667863537, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
       propertyPath: taintLevel
       value: 1
       objectReference: {fileID: 0}
@@ -194,10 +198,38 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 1.11
       objectReference: {fileID: 0}
+    - target: {fileID: 4144715793612286162, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.9999695
+      objectReference: {fileID: 0}
     - target: {fileID: 5712300779089459692, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1685528072}
+    - target: {fileID: 5712300780152573722, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 37.600006
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712300780152573797, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712300780152573797, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292006655
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712300780330423089, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.5332985
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402999191138812192, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -54.109985
+      objectReference: {fileID: 0}
+    - target: {fileID: 6708286330608040074, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.56629944
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f6c53ae2ed6e554aa6fcefe4bab9b50, type: 3}
 --- !u!1 &1685528071
