@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
     }
 
     void ChangedActiveScene(Scene current, Scene next) {
+        Debug.Log(current);
         if (GameObject.Find("LevelManager") != null) {
             GameObject.Find("LevelManager").GetComponent<LevelManager>().ApplyBackground();
             if (theme != GameObject.Find("LevelManager").GetComponent<LevelManager>().theme || taintLevel != GameObject.Find("LevelManager").GetComponent<LevelManager>().taintLevel) {
