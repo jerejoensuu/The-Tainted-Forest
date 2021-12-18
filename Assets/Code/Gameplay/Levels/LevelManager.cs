@@ -157,9 +157,9 @@ public class LevelManager : MonoBehaviour {
 
         // ladders:
         foreach (Transform child in transform.Find("Ladders")) {
-            child.GetComponent<SpriteRenderer>().enabled = false;
-            child.GetChild(theme-1).GetComponent<SpriteRenderer>().enabled = true;
-            child.GetChild(theme-1).GetComponent<SpriteRenderer>().size = child.GetComponent<SpriteRenderer>().size;
+            // child.GetComponent<SpriteRenderer>().enabled = false;
+            // child.GetChild(theme-1).GetComponent<SpriteRenderer>().enabled = true;
+            // child.GetChild(theme-1).GetComponent<SpriteRenderer>().size = child.GetComponent<SpriteRenderer>().size;
         }
     }
 
