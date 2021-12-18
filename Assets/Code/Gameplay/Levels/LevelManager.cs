@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour {
         }
 
         transform.Find("PlatformAndDropManager").GetComponent<DropManager>().ApplyTheme(theme);
-        //ApplyBackground();
+        ApplyBackground();
 
         transform.Find("Player").GetComponent<PlayerController>().ammoCount = (int)(bubbleCount * 1.2f);
         StartCoroutine(CheckRemainingBubbles());
@@ -149,11 +149,18 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void ApplyBackground() {
-        transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(false);
+        transform.Find("Backgrounds").GetChild(0).gameObject.SetActive(false);
         transform.Find("Backgrounds").GetChild(0).GetChild(0).gameObject.SetActive(false);
 
         transform.Find("Backgrounds").GetChild(theme-1).gameObject.SetActive(true);
         transform.Find("Backgrounds").GetChild(theme-1).GetChild(taintLevel-1).gameObject.SetActive(true);
+
+        // ladders:
+        foreach (Transform child in transform.Find("Ladders")) {
+            child.GetComponent<SpriteRenderer>().enabled = false;
+            child.GetChild(theme-1).GetComponent<SpriteRenderer>().enabled = true;
+            child.GetChild(theme-1).GetComponent<SpriteRenderer>().size = child.GetComponent<SpriteRenderer>().size;
+        }
     }
 
     IEnumerator Transition() {

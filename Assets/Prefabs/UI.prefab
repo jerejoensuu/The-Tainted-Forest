@@ -5159,6 +5159,7 @@ MonoBehaviour:
   cursorTexture: {fileID: 2800000, guid: a7f1a5d8b8cec2c43bd3133004af0a68, type: 3}
   audioSrc: {fileID: 2635807779662372105}
   failSound: {fileID: 8300000, guid: 9848a48458461224e9fe9b6b9a1222ad, type: 3}
+  winSound: {fileID: 8300000, guid: 2e3fcbd850e19c74c9ce774eaeb94c8e, type: 3}
   winScreen: {fileID: 4998499864270571583}
   loseScreen: {fileID: 4998499865390362961}
   endOverlay: {fileID: 4998499864562396865}
