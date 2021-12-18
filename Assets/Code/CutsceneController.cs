@@ -9,6 +9,7 @@ public class CutsceneController : MonoBehaviour {
     public InputActions inputActions;
     public GameObject blackScreen;
     bool allowSkip = false;
+    bool skipped = false;
 
     void Awake() {
         inputActions = new InputActions();
@@ -26,6 +27,10 @@ public class CutsceneController : MonoBehaviour {
     void Update() {
         if (allowSkip) {
             inputActions.Enable();
+        }
+        if ((Keyboard.current.anyKey.isPressed || Mouse.current.leftButton.isPressed || Mouse.current.rightButton.isPressed || Mouse.current.middleButton.isPressed) && !skipped && allowSkip) {
+            skipped = true;
+            StartCoroutine(LoadLevelOne());
         }
     }
 

@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour {
     public Texture2D cursorTexture;
     public AudioSource audioSrc;
     public AudioClip failSound;
+    public AudioClip winSound;
 
 
     public GameObject winScreen;
@@ -162,6 +163,10 @@ public class UIController : MonoBehaviour {
             Time.timeScale = 0;
             GetComponent<EventSystem>().SetSelectedGameObject(null);
             GetComponent<EventSystem>().SetSelectedGameObject(winScreenActiveButton);
+
+            audioSrc.clip = winSound;
+            audioSrc.volume = ApplicationSettings.SoundVolume() * 0.3f;
+            audioSrc.Play();
 
         }
         else {
