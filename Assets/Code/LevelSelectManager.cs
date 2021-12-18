@@ -18,7 +18,7 @@ public class LevelSelectManager : MonoBehaviour {
     
     void Awake() {
         BuildButtons();
-        SetContainerWidth();
+        //SetContainerWidth();
         DisplayLevelInfo(1);
 
         // for debug purposes:
@@ -45,12 +45,12 @@ public class LevelSelectManager : MonoBehaviour {
         foreach (string file in levels) {
             
             int index  = levels.IndexOf(file);
-            GameObject button = Instantiate(transform.GetChild(0).gameObject, GetButtonPosition(index), Quaternion.identity) as GameObject;
+            GameObject button = Instantiate(GameObject.Find("ButtonTemplate").gameObject, GetButtonPosition(index), Quaternion.identity) as GameObject;
             if (!firstButtonSet) {
                 GameObject.Find("EventSystem").GetComponent<MainMenuController>().panelActiveButtons[1] = button;
                 firstButtonSet = true;
             }
-            button.transform.SetParent(transform, false);
+            button.transform.SetParent(transform.GetChild(0), false);
             button.GetComponentInChildren<TextMeshProUGUI>().SetText((index+1).ToString());
             button.GetComponent<Button>().onClick.AddListener(() => DisplayLevelInfo(index + 1));
 
@@ -60,7 +60,7 @@ public class LevelSelectManager : MonoBehaviour {
             }
 
         }
-        transform.GetChild(0).gameObject.SetActive(false);
+        GameObject.Find("ButtonTemplate").transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void OpenLevel(int levelNumber) {
@@ -72,6 +72,19 @@ public class LevelSelectManager : MonoBehaviour {
 
         int x = offset * (int)(index/rows);
         int y = -offset * (index % rows);
+
+        // int y;
+        // switch (index) {
+        //     case int expression when index <= 6:   y = 0;
+        //                 break;
+        //     case int expression when index<= 12:  y = 1;
+        //                 break;
+        //     default:    y = 2;
+        //                 break;
+        // }
+
+        // int x = offset * (index - 1 - (y * 6));
+
         position = new Vector2(x, y);
 
         return position;
