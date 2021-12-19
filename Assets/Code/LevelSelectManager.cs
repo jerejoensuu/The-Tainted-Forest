@@ -9,8 +9,6 @@ public class LevelSelectManager : MonoBehaviour {
 
     [Tooltip("File names of levels in desired order")] public List<string> levels = new List<string>();
     public List<string> trueLevels = new List<string>();
-    int rows = 3;
-    int offset = 150;
 
     public TextMeshProUGUI levelNumberTextField;
     public TextMeshProUGUI levelScoreTextField;
@@ -56,7 +54,6 @@ public class LevelSelectManager : MonoBehaviour {
 
             if (!LevelIsUnlocked(index + 1)) {
                 button.GetComponent<Button>().interactable = false;
-                //button.GetComponent<Image>().color = Color.gray;
             }
 
         }
@@ -69,27 +66,18 @@ public class LevelSelectManager : MonoBehaviour {
 
     Vector2 GetButtonPosition(int index) {
         Vector2 position;
+        int columns = 6;
+        int buttonOffset = 150;
 
-        int x = offset * (int)(index/rows);
-        int y = -offset * (index % rows);
-
-        // int y;
-        // switch (index) {
-        //     case int expression when index <= 6:   y = 0;
-        //                 break;
-        //     case int expression when index<= 12:  y = 1;
-        //                 break;
-        //     default:    y = 2;
-        //                 break;
-        // }
-
-        // int x = offset * (index - 1 - (y * 6));
+        int x = buttonOffset * (index % columns);
+        int y = -buttonOffset * (int)(index/columns);
 
         position = new Vector2(x, y);
 
         return position;
     }
 
+    /*
     void SetContainerWidth() {
         int buttonWidth = (int)transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta.x;
         gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2 (
@@ -97,19 +85,13 @@ public class LevelSelectManager : MonoBehaviour {
             gameObject.GetComponent<RectTransform>().sizeDelta.y
         );
     }
+    */
 
     public void DisplayLevelInfo(int levelNumber) {
         levelNumberTextField.SetText("Level " + levelNumber);
         levelScoreTextField.SetText("Highscore: " + GetLevelScore(levelNumber));
         levelStartButton.onClick.RemoveAllListeners();
         levelStartButton.onClick.AddListener(() => OpenLevel(levelNumber));
-        
-        /*if (LevelIsUnlocked(levelNumber)) {
-            levelStartButton.interactable = true;
-        }
-        else {
-            levelStartButton.interactable = false;
-        }*/
     }
 
     public bool LevelIsUnlocked(int levelNumber) {
