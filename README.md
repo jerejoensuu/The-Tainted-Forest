@@ -1,11 +1,47 @@
-# Pang
+<br />
+<p align="center">
+  <a href="https://github.com/jerejoensuu/bloom-or-gloom">
+    <img src="./images/banner.gif" alt="Banner">
+  </a>
+
+  <h1 align="center">Pang: The Tainted Forest</h3>
+  <h4 align="center">A mirror for portfolio purposes</h3>
+
+</p>
+<br />
+<br />
+
+## My part in the project
+- Responsible for the majority of the game's code
+- Acted as the unofficial lead programmer and made sure the code portion of the project met set deadlines
+- Coded / created:
+  - The character and it's various functionalities
+  - Easier level making tools (suchs as dynamic sprite loading depending on level type)
+  - Level elements
+  - Bubbles and their various mechanics
+  - Power-ups and other item drops
+  - Created animations for UI elements and implemented animations for character and power-ups
+  - Handles controls/inputs
+  - Other smaller things
+
+<br />
+<br />
+
+# Original README:
 
 ## Description
-A recreation of the old arcade game, Pang.
+The Tainted Forest is a recreation of the old arcade game, [Pang](https://en.wikipedia.org/wiki/Buster_Bros.). It's a simple 2D game in which the goal is to pop all the taint bubbles to advance to the next level. The game features 18 unique levels, power-ups, beautiful hand-drawn graphics and custom music.
 
-## Badges?
+## Screenshots
+<p>
+  <img src="./images/ss1.png" alt="Screenshot" width="49%" >
+  <img src="./images/ss2.png" alt="Screenshot" width="49%" >
+<p/>
 
-## Visuals
+<p>
+  <img src="./images/ss3.png" alt="Screenshot" width="49%" >
+  <img src="./images/ss4.png" alt="Screenshot" width="49%" >
+<p/>
 
 ## Installation
 
@@ -23,7 +59,17 @@ KB:
 Controller:
 
 ## Authors and acknowledgment
+Programmers
+- Jere Joensuu
+- Joni Nevala
 
-## License?
+Artists
+- Janina Korpela
+- Niina Lahti
+- Nina Lahti
+- Aura Solja
+- Mona Westman
 
-## Project status
+Sound & music
+- Deniz Kirci
+- Akseli Koskinen
