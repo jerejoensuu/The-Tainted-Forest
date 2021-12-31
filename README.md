@@ -32,6 +32,7 @@
 ## Description
 The Tainted Forest is a recreation of the old arcade game, [Pang](https://en.wikipedia.org/wiki/Buster_Bros.). It's a simple 2D game in which the goal is to pop all the taint bubbles to advance to the next level. The game features 18 unique levels, power-ups, beautiful hand-drawn graphics and custom music.
 
+
 ## Screenshots
 <p align="center">
   <img src="./images/ss1.png" alt="Screenshot" width="49%" >
@@ -43,10 +44,11 @@ The Tainted Forest is a recreation of the old arcade game, [Pang](https://en.wik
   <img src="./images/ss4.png" alt="Screenshot" width="49%" >
 <p/>
 
-## Installation
 
+## Installation
 Download the latest release from [itch.io](https://gamma-rats.itch.io/pang-the-tainted-forest)!
 Extract the zip and run _"The Tainted Forest.exe"_.
+
 
 ## Instructions
 The game uses Unity's Input System and supports both keyboard and controller input.
@@ -57,6 +59,7 @@ KB:
   - select: mouse1 / enter
 
 Controller:
+
 
 ## Authors and acknowledgment
 Programmers
