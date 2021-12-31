@@ -1,11 +1,11 @@
 <br />
 <p align="center">
-  <a href="https://github.com/jerejoensuu/bloom-or-gloom">
+  <a href="https://github.com/jerejoensuu/the-tainted-forest">
     <img src="./images/banner.gif" alt="Banner">
   </a>
 
-  <h1 align="center">Pang: The Tainted Forest</h3>
-  <h4 align="center">A mirror for portfolio purposes</h3>
+  <h1 align="center">Pang: The Tainted Forest</h1>
+  <h4 align="center">A mirror for portfolio purposes</h4>
 
 </p>
 <br />
@@ -33,12 +33,12 @@
 The Tainted Forest is a recreation of the old arcade game, [Pang](https://en.wikipedia.org/wiki/Buster_Bros.). It's a simple 2D game in which the goal is to pop all the taint bubbles to advance to the next level. The game features 18 unique levels, power-ups, beautiful hand-drawn graphics and custom music.
 
 ## Screenshots
-<p>
+<p align="center">
   <img src="./images/ss1.png" alt="Screenshot" width="49%" >
   <img src="./images/ss2.png" alt="Screenshot" width="49%" >
 <p/>
 
-<p>
+<p align="center">
   <img src="./images/ss3.png" alt="Screenshot" width="49%" >
   <img src="./images/ss4.png" alt="Screenshot" width="49%" >
 <p/>
