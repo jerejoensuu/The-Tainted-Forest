@@ -49,6 +49,8 @@ The Tainted Forest is a recreation of the old arcade game, [Pang](https://en.wik
 Download the latest release from [itch.io](https://gamma-rats.itch.io/pang-the-tainted-forest)!
 Extract the zip and run _"The Tainted Forest.exe"_.
 
+Alternatively you can play the OpenGL version on my website [jerejoensuu.fi](https://jerejoensuu.fi/), although it's only there for demonstration purposes and might not work as intended.
+
 
 ## Instructions
 The game uses Unity's Input System and supports both keyboard and controller input.
@@ -58,7 +60,11 @@ KB:
   - pause: esc
   - select: mouse1 / enter
 
-Controller:
+Controller: (_Controls may vary depending on the controller used_)
+  - move: joystick / d-pad
+  - shoot X / A
+  - pause: start
+  - select: X / A
 
 
 ## Authors and acknowledgment
