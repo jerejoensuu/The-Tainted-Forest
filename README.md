@@ -32,8 +32,8 @@
   
   - School project
   - Acted as the unofficial lead programmer and made sure the code portion of the project met deadlines
-  - Responsible for:
-    <ul>- The character and it's various functionalities
+  - Responsible for:<ul>
+    - The character and it's various functionalities
     - Easier level making tools (suchs as dynamic sprite loading depending on level type)
     - Level elements</ul>
     
