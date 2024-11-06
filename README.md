@@ -21,7 +21,7 @@
   - Bubbles and their various mechanics
   - Power-ups and other item drops
   - Created animations for UI elements and implemented animations for character and power-ups
-  - Handles controls/inputs
+  - Handled controls/inputs
   - Other smaller things
 
 <br />
@@ -35,7 +35,11 @@
   - Responsible for:<ul>
     - The character and it's various functionalities
     - Easier level making tools (suchs as dynamic sprite loading depending on level type)
-    - Level elements</ul>
+    - Level elements
+    - Bubbles and their various mechanics
+    - Power-ups and other item drops
+    - Animations for UI elements
+    - Handled controls/inputs</ul>
     
 </details>
 
