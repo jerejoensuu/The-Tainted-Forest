@@ -27,22 +27,6 @@
 <br />
 <br />
 
-<details>
-<summary> Summary for portfolio </summary>
-  
-  - School project
-  - Acted as the unofficial lead programmer and made sure the code portion of the project met deadlines
-  - Responsible for:<ul>
-    - The character and it's various functionalities
-    - Easier level making tools (suchs as dynamic sprite loading depending on level type)
-    - Level elements
-    - Bubbles and their various mechanics
-    - Power-ups and other item drops
-    - Animations for UI elements
-    - Handled controls/inputs</ul>
-    
-</details>
-
 # Original README:
 
 ## Description
